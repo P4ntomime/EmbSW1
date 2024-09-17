@@ -16,7 +16,7 @@
 % ========================================= DOCUMENT INFO =========================================
 \def\title{Embedded Software Engineering 1}           % title
 \def\shorttitle{EmbSW1}     % short title (displayed as PDF title)
-\def\dozent{Reto Bonderer}  % lecturer
+\def\dozent{Prof. Reto Bonderer}  % lecturer
 \def\semester{HS 2024}      % semester
 \def\author{Laurin Heitzer, Simone Stitz}        % author(s)
 \def\repo{https://github.com/P4ntomime/EmbSW1}   % repository link
@@ -32,6 +32,18 @@
 % =========================================== DOCUMENT ============================================
 \begin{document}
     \begin{layout}
-        
+        % Echtzeit- (real-time)Systeme, Multitasking, Scheduling, Rate Monotonic Scheduling
+        \input{sections/01_embsys.tex}
+        % Modellierung von Embedded (real-time) Systems (Model Driven Development, MDD)
+        \input{sections/02_rtsys.tex}
+        % Hardware/Software Codesign
+        % Finite State Machines (Anwendung, Implementationen in C und C++)
+        % Gleichzeitigkeit (Concurrency)
+        % POSIX-Programmierung
+        % Event-based Systems
+        % Embedded Software Patterns
+        % Multicore Systems mit Multistage-Caches, Interprozesskommunikation, Shared Memory
+        % Real-time Operating System (RTOS)
+        % Hardware Abstraction Layer (HAL) in C und C++
     \end{layout}
 \end{document}
