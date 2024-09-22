@@ -1,0 +1,29 @@
+\pgfplotsset{samples=100}   % sample points to make graph smooth
+
+\begin{center}
+    \begin{tikzpicture}
+        [
+            scale = 0.6,
+            >=latex
+        ]
+        \begin{axis}
+            [
+                title=\textbf{Zuverlässigkeit},
+                width=8cm,
+                height=5cm,
+                xmin=-0.2, xmax=8, ymin=-0.1, ymax=1.3, axis lines=middle,
+                x label style={at={(axis description cs:0.5,0)},anchor=north},
+                y label style={at={(axis description cs:-0.1,0.5)},rotate=90,anchor=south},
+                xlabel=Zeit,
+                ylabel=Wahrscheinlichkeit,
+                xtick=\empty,
+                ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2}
+                %grid
+            ]
+        
+            % plot
+            \addplot[color=blue, thick, domain=-0:10]{exp(-0.5*x)};
+        \end{axis}
+        
+    \end{tikzpicture}
+\end{center}
