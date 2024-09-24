@@ -116,7 +116,7 @@ Um die Use-Cases zu identifizieren, sollte folgendes beachtet werden:
 
 \begin{itemize}
     \item Speziell bei Syetemen, deren Grenzen durch \textbf{Nachrichtenflüsse} charakterisiert werden können
-    \item Details zu Sequenzdiagrammen siehe Abschnitt % TODO
+    \item Details zu Sequenzdiagrammen siehe Abschnitt \ref{Sequenzdiagramm}
 \end{itemize}
 
 
@@ -162,4 +162,85 @@ Um die Use-Cases zu identifizieren, sollte folgendes beachtet werden:
 
 
 \subsubsection{Sequenzdiagramm}
+\label{Sequenzdiagramm}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \begin{outline}
+        \1 Gute Darstellung für \textbf{Austausch von Meldungen} zwischen Objekten innerhalb einer \textbf{beschränkten Zeitdauer}
+            \2 Nachrichtenflüsse
+            \2 Kommunikationsprotokolle
+    \end{outline}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \begin{outline}
+        \1 Ideal für...
+            \2 kurze Zeitdauer
+            \2 wenige Objekte
+            \2 wenige Verschachtelungen
+            \2 wenige Verzweigungen
+    \end{outline}
+\end{minipage}
+
+
+\begin{center}
+    \includegraphics[width=0.8\columnwidth]{images/sequenzdiagramm_elemente_1.png}
+
+    \vspace{0.3cm}
+
+    \includegraphics[width=0.8\columnwidth]{images/sequenzdiagramm_elemente_2.png}
+\end{center}
+
+
+\begin{minipage}[c]{0.4\columnwidth}
+    \includegraphics[width=\columnwidth]{images/sequenzdiagramm_pfeile.png}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.52\columnwidth}
+    \begin{itemize}
+        \item Beim Zeichnen von Hand unbedingt die \textbf{Pfeilkonventionen} beachten!
+        \item Diagramme generell nicht 'überladen'
+    \end{itemize}
+\end{minipage}
+
+
+\subsubsection{Kommunikationsdiagramm (Kollaborationsdiagramm)}
+
+\begin{outline}
+    \1 Kommunikationsdiagramm zeigt \textbf{dieselbe Information} wie Sequenzdiagramm
+    \1 \textbf{Schwerpunkt: Informationsfluss} zwischen den Objekten \\
+    \textrightarrow\ Beim Sequenzdiagramm liegt der Schwerpunkt auf dem zeitlichen Ablauf
+\end{outline}
+
+\begin{center}
+    \includegraphics[width=0.7\columnwidth]{images/kommunikationsdiagramm.png}
+\end{center}
+
+
+\subsubsection{Aktivitätsdigramm}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \begin{outline}
+        \1 Gut geeignet für ...
+            \2 \textbf{workflow modelling}
+            \2 Sequenzielle Abläufe
+            \2 Prozess- und Steuerfluss
+            \2 Gleichzeitige Prozesse (fork, join)
+    \end{outline}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \begin{outline}
+        \1 Weniger geeignet für ...
+            \2 komplexe logische Bedingungen
+    \end{outline}
+\end{minipage}
+
+
+\begin{center}
+    \includegraphics[width=0.8\columnwidth]{images/aktivitaetsdiagramm_elemente.png}
+    \includegraphics[width=0.8\columnwidth]{images/aktivitaetsdiagramm_parallelitaet.png}
+\end{center}
+
+
 
