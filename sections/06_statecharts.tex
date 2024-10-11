@@ -1,4 +1,4 @@
-\section{Statecharts}
+\section{Statecharts (nach Marwedel)}
 
 \subsection{Nachteile von State-Event-Diagrammen}
 
@@ -18,7 +18,8 @@
     \item[OR-super-states:] Super-states $S$ werden OR-super-states genannt, wenn \textbf{genau einer} der sub-states von $S$ aktiv ist,
         wenn $S$ aktiv ist \textrightarrow\ Hierarchie
     \item[AND-super-states:] Super-states $S$ werden AND-super-states genannt, wenn \textbf{mehrere} der sub-states von $S$ \textbf{gleichzeitig} 
-    aktiv sind, wenn $S$ aktiv ist \textrightarrow\ Parallelität
+        aktiv sind, wenn $S$ aktiv ist \textrightarrow\ Parallelität \\
+        \textrightarrow\ Werden auch \textbf{Teilautomaten} genannt
 \end{description}
 
 \begin{center}
@@ -29,8 +30,21 @@
 \subsubsection{Elemente der Statecharts}
 
 \begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/statechart_elements.jpeg}
+    % \includegraphics[width=0.7\columnwidth]{images/statechart_elements.jpeg}
+    \includegraphics[width=0.7\columnwidth]{images/statechart_overview.png}
+    \includegraphics[width=0.6\columnwidth]{images/statechart_overview_submachine.png}
 \end{center}
+
+
+\subsubsection{Allgemeine Syntax für Transitions-Pfeile}
+
+$$ \underrightarrow{\text{event [guard] / reaction}} $$
+
+\begin{description}
+    \item[event] auftretendes Event
+    \item[guard] Bedingung, welche zutreffen \textbf{muss}, damit Zustand überhaupt gewechselt wird 
+    \item[reaction] Zuweisung einer Variablen / Erzeugung eines Events beim Zustandswechsel 
+\end{description}
 
 
 \subsection{Hierarchie (OR-super-states)}
@@ -94,6 +108,7 @@
 
 \begin{itemize}
     \item Der Histroy-Mechanismus merkt sich den entsprechenden sub-state
+    \item Kennzeichnung: $H$
 \end{itemize}
 
 
@@ -115,10 +130,11 @@
 
 \begin{itemize}
     \item Der Histroy-Mechanismus merkt sich frühere Zustände \textbf{bis in die unterste Hierarchie}
+    \item Kennezeichnung: $H^*$
 \end{itemize}
 
 
-\example{Shallow-History}
+\example{Deep-History}
 
 \begin{minipage}[c]{0.48\columnwidth}
     \includegraphics[width=\columnwidth]{images/statechart_deep_history.png}
@@ -132,7 +148,6 @@
     \end{outline}
 \end{minipage}
 
-\columnbreak
 
 \subsection{Kombination: History- und Default-Mechanismus}
 
@@ -155,7 +170,7 @@ Folgende statecharts bilden genau das Gleiche ab
 \end{minipage}
 
 
-\subsection{Parallelität (AND-super-state)}
+\subsection{Parallelität (AND-super-state, Teilautomaten)}
 
 \begin{itemize}
     \item Die FSM befindet sich in \textbf{allen} sub-states von einem super-state $S$, wenn $S$ aktiv ist.\\
@@ -182,6 +197,7 @@ Folgende statecharts bilden genau das Gleiche ab
 \subsection{Beispiel -- Armbanduhr als Statechart}  %CHECK: vielleicht gibt es im Praktikum ein besseres Beispiel...?
 
 \begin{center}
-    \includegraphics[width=0.8\columnwidth]{images/statechart_example.png}
+    % \includegraphics[width=0.8\columnwidth]{images/statechart_example.png}
+    \includegraphics[width=0.8\columnwidth]{images/statechart_example_coffeemachine.png}    %TODO: insert as pdf
 \end{center}
 
