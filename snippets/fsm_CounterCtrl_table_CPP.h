@@ -1,10 +1,5 @@
-//
 // CounterCtrl.h
-//
-// implements the Finite State Machine (FSM) of an up/down-Counter as a table
-//
-// (C) R. Bonderer, HSR Hochschule Rapperswil, Okt. 2017
-//
+// implements the Finite State Machine (FSM) of an up/down-Counter as a simple table
 
 #ifndef COUNTERCTRL_H__
 #define COUNTERCTRL_H__
@@ -12,13 +7,16 @@
 
 class CounterCtrl
 {
+  /* ------------------------------ NO CHANGES ------------------------------*/
   public:
     enum Event{evUp,       // count upwards
                evDown,     // count downwards
                evCount,    // count (up or down)
                evStop};    // stop counting
-    CounterCtrl(int initValue = 0);
-    void process(Event e);
+
+    CounterCtrl(int initValue = 0);   // C-tor
+
+    void process(Event e);  // execution engine
     // changes the state of the FSM based on the event 'e'
     // starts the actions
 
@@ -28,33 +26,28 @@ class CounterCtrl
                countDownState};   // counting down at each count event
 
     State currentState;           // holds the current state of the FSM
-    Counter myCounter;
+    Counter myCounter;            // holds the counter for calculation
     
-    typedef bool (CounterCtrl::*Checker)(Event); // function ptr for checker function
+    /* -------------------------------- CHANGES -------------------------------*/
+
     typedef void (CounterCtrl::*Action)(void);   // function ptr for action function
-    // check functions
-    bool checkIdleUp(Event e);
-    bool checkIdleDown(Event e);
-    bool checkUpIdle(Event e);
-    bool checkDownIdle(Event e);
-    bool checkUpUp(Event e);
-    bool checkDownDown(Event e);
-    
-    // action functions
+  
+    // action functions (must match with  function pointer!)
     void actionIdleUp(void);
     void actionIdleDown(void);
-    void actionUpIdle(void);
-    void actionDownIdle(void);
+    void actionDoNothing(void);   // ensure that there is always a valid fkt-ptr
     void actionUpUp(void);
     void actionDownDown(void);
     
     struct Transition
     {
       State currentState;   // current state
-      Checker pChecker;     // pointer to checker function
+      Event ev;             // event triggering the transition
       Action pAction;       // pointer to action function
       State nextState;      // next state
     };
+
+    // static open array for transision structs
     static const Transition fsm[];
 };
 #endif

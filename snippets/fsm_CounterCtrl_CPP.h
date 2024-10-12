@@ -13,7 +13,7 @@ class CounterCtrl
                evCount,    // count (up or down)
                evStop};    // stop counting
 
-    CounterCtrl(int initValue = 0); //C-tor
+    CounterCtrl(int initValue = 0); // C-tor
 
     void process(Event e);
     // changes the state of the FSM based on the event 'e'

@@ -1,10 +1,5 @@
-//
 // CounterCtrl.cpp
-//
-// implements the Finite State Machine (FSM) of an up/down-Counter as a table
-//
-// (C) R. Bonderer, HSR Hochschule Rapperswil, Okt. 2017
-//
+// implements the Finite State Machine (FSM) of an up/down-Counter as a simple table
 
 #include <iostream>
 #include "CounterCtrl.h"
@@ -12,64 +7,32 @@
 using namespace std;
 
 const CounterCtrl::Transition CounterCtrl::fsm[] =  // this table defines the fsm
-{//currentState     checker function              action function               next state
-  {idleState,       &CounterCtrl::checkIdleUp,    &CounterCtrl::actionIdleUp,   countUpState},
-  {idleState,       &CounterCtrl::checkIdleDown,  &CounterCtrl::actionIdleDown, countDownState},
-  {countUpState,    &CounterCtrl::checkUpUp,      &CounterCtrl::actionUpUp,     countUpState},
-  {countUpState,    &CounterCtrl::checkUpIdle,    &CounterCtrl::actionUpIdle,   idleState},
-  {countDownState,  &CounterCtrl::checkDownDown,  &CounterCtrl::actionDownDown, countDownState},
-  {countDownState,  &CounterCtrl::checkDownIdle,  &CounterCtrl::actionDownIdle, idleState}
+{//currentState     triggering event  action function                 next state
+  {idleState,       evUp,             &CounterCtrl::actionIdleUp,     countUpState},
+  {idleState,       evDown,           &CounterCtrl::actionIdleDown,   countDownState},
+  {countUpState,    evCount,          &CounterCtrl::actionUpUp,       countUpState},
+  {countUpState,    evStop,           &CounterCtrl::actionDoNothing,  idleState},
+  {countDownState,  evCount,          &CounterCtrl::actionDownDown,   countDownState},
+  {countDownState,  evStop,           &CounterCtrl::actionDoNothing,  idleState}
 };
 
-CounterCtrl::CounterCtrl(int initValue) : 
+CounterCtrl::CounterCtrl(int initValue) :   // initializations with initialization list
   currentState(idleState),
   myCounter(initValue)
 {
 }
 
-void CounterCtrl::process(Event e)    // this function never changes
+void CounterCtrl::process(Event e)    // execution engine, this function never changes!
 {
-  for (size_t i = 0; i < sizeof(fsm) / sizeof(Transition); ++i) // let compiler determine number of transitions
+  for (size_t i = 0; i < sizeof(fsm) / sizeof(Transition); ++i) // determine number of transitions automatically
   {
-    if (fsm[i].currentState == currentState &&  // is there an entry in the table?
-        (this->*fsm[i].pChecker)(e))
+    if (fsm[i].currentState == currentState &&  fsm[i].ev == e) // is there an entry in the table?
     {
       (this->*fsm[i].pAction)();
       currentState = fsm[i].nextState;
       break;
     }
   }
-}
-
-// check functions
-bool CounterCtrl::checkIdleUp(Event e)
-{
-  return evUp == e;
-}
-
-bool CounterCtrl::checkIdleDown(Event e)
-{
-  return evDown == e;
-}
-
-bool CounterCtrl::checkUpIdle(Event e)
-{
-  return evStop == e;
-}
-
-bool CounterCtrl::checkDownIdle(Event e)
-{
-  return evStop == e;
-}
-
-bool CounterCtrl::checkUpUp(Event e)
-{
-  return evCount == e;
-}
-
-bool CounterCtrl::checkDownDown(Event e)
-{
-  return evCount == e;
 }
 
 // action functions
@@ -83,11 +46,7 @@ void CounterCtrl::actionIdleDown(void)
   cout << "State: idleState, counter = " << myCounter.getCounter() << endl;
 }
 
-void CounterCtrl::actionUpIdle(void)
-{
-}
-
-void CounterCtrl::actionDownIdle(void)
+void CounterCtrl::actionDoNothing(void)
 {
 }
 
