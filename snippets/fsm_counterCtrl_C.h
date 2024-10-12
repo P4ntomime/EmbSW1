@@ -1,10 +1,5 @@
-//
 // counterCtrl.h
-//
 // implements the Finite State Machine (FSM) of an up/down-Counter
-//
-// (C) R. Bonderer, HSR Hochschule Rapperswil, Oct. 2019
-//
 
 #ifndef COUNTERCTRL_H__
 #define COUNTERCTRL_H__

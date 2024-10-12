@@ -1,10 +1,5 @@
-//
 // counterCtrl.c
-//
 // implements the Finite State Machine (FSM) of an up/down-Counter
-//
-// (C) R. Bonderer, HSR Hochschule Rapperswil, Okt. 2019
-//
 
 #include <stdio.h>
 #include "counterCtrl.h"
@@ -19,10 +14,9 @@ static State currentState = idleState; // holds the current state of the FSM
 
 void cnt_ctrlInit(int initValue)
 {
-  currentState = idleState;
-  cnt_init(initValue);
+  currentState = idleState;   // set init-state
+  cnt_init(initValue);        // set initValue
 }
-
 
 void cnt_ctrlProcess(cnt_Event e)
 {
@@ -32,17 +26,17 @@ void cnt_ctrlProcess(cnt_Event e)
       printf("State: idleState\n");
       if (cnt_evUp == e)
       {
-        // actions
+        // actions (and exit-actions von idleState)
         printf("State: idleState, counter = %d\n", cnt_getCounter());
-        // state transition
+        // state transition (andentry-actions von countUpState)
         printf("Changing to State: countUpState\n");
         currentState = countUpState;
       }
       else if (cnt_evDown == e)
       {
-        // actions
+        // actions (and exit-actions von idleState)
         printf("State: idleState, counter = %d\n", cnt_getCounter());
-        // state transition
+        // state transition (and entry-actions von countDownState)
         printf("Changing to State: countDownState\n");
         currentState = countDownState;
       }
@@ -65,27 +59,12 @@ void cnt_ctrlProcess(cnt_Event e)
         currentState = idleState;
       }
       break;
-      
-    case countDownState:
-      printf("State: countDownState\n");
-      if (cnt_evCount == e)
-      {
-        // actions
-        cnt_count(-1);
-        printf("State: countDownState, counter = %d\n", cnt_getCounter());
-        // state transition
-      }
-      else if (cnt_evStop == e)
-      {
-        // actions
-        // state transition
-        printf("Changing to State: idleState\n");
-        currentState = idleState;
-      }
+    
+    case countUpState:
+      // ...
       break;
       
     default:
       break;
   }
 }
-

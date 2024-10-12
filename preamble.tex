@@ -171,6 +171,9 @@
 
 % ====================================== SETUP AND COMMANDS =======================================
 
+% custom font size for paragraph titles
+\newcommand{\semilarge}{\fontsize{9}{8}\selectfont} % new font size \semilarge (9pt)
+
 \ExplSyntaxOn
 % custom underline command for exclusions on lowercase letters such as g, j, p, q, y
 \newrobustcmd{\myul}[1]{%
@@ -821,7 +824,19 @@
 
 \lstset{
     style=mystyle,
-    morekeywords={final, override, enum, var, List, Set, Map, String, Object, uint16_t, uint8_t},
+    morekeywords=
+    {final,%
+    override,%
+    enum,%
+    var,%
+    List,%
+    Set,%
+    Map,%
+    String,%
+    Object,%
+    uint16_t,%
+    uint8_t%
+    },
     moredelim=[il][\textcolor{orange}]{¦¦},
     moredelim=[is][\textcolor{orange}]{&&}{&&},
     moredelim=[is][\textcolor{violet}]{@}{@},
