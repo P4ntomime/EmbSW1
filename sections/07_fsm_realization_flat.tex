@@ -48,7 +48,7 @@
 \end{outline}
 
 
-\subsubsection{Implementation der Prozeduralen Realisierung in C}
+\subsubsection{Eigenschaften der Prozeduralen Realisierung in C}
 
 \begin{outline}
     \1 Da aktueller Zustand eine statische Variable ist, kann es nur \textbf{eine einzige Instanz} der FSM geben
@@ -62,29 +62,117 @@
 \end{outline}
 
 
-\example{UpD/Down-Counter (prozedural in C)}
+\example{Up/Down-Counter (prozedural in C)}
 
 % TODO: \para environment not showing...?
-% TODO: add keywords an stuff to listings setup
+% TODO: add keywords and stuff to listings setup
 
-\para{Schnittstelle FSM} 
+\begin{minipage}[t]{0.48\columnwidth}
+    \para{Schnittstelle Counter in C} 
+    \lstinputlisting{snippets/fsm_counter_C.h}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \para{Implementation Counter in C} 
+    \lstinputlisting{snippets/fsm_counter_C.c}
+\end{minipage}
+
+
+\para{Schnittstelle FSM in C} 
 \lstinputlisting{snippets/fsm_counterCtrl_C.h} 
 
-
-\para{Implementation FSM} 
+\para{Implementation FSM in C} 
 \lstinputlisting{snippets/fsm_counterCtrl_C.c}
 
-\para{Anstossen der FSM} 
-\lstinputlisting{snippets/fsm_main_counterTest.c}
+\para{Anstossen der FSM in C} 
+\lstinputlisting{snippets/fsm_main_counterTest_C.c}
 
-\columnbreak
 
 
 \subsection{Realisieurng mit Steuerkonstrukt (objektorientiert in C++)}
 
-% \begin{center}
-%     \includegraphics[width=0.7\columnwidth]{images/fsm_up-down-counter_diagramm_CPP.png}
-% \end{center}
+\subsubsection{State-Event-Diagram -- Up/Down-Counter}
+
+\begin{center}
+    \includegraphics[width=0.7\columnwidth]{images/fsm_up-down-counter_diagramm_CPP.png}
+\end{center}
+
+
+\subsubsection{Zusammenhang der Klassen Counter und CounterCtrl}
+
+\begin{center}
+    \includegraphics[width=0.7\columnwidth]{images/fsm_CPP_klassendiagramm.png}
+\end{center}
+
+\begin{outline}
+    \1 Klasse \mylstbox{Counter} führt eigentliche Rechenaufgaben durch
+        \2 ist bei \textbf{allen} (objektorientierten) Realiseurngsarten \textbf{identisch}
+    \1 Klasse \mylstbox{CounterCtrl} ist FSM, welche Zugriff auf den Counter steuert 
+\end{outline}
+
+\textbf{ \textrightarrow\ Generell sollten Steuerung und Element, das gesteuert wird, getrennt werden!}
+
+
+\subsubsection{Implementation der Prozeduralen Realisierung in C++}
+
+\begin{outline}
+    \1 \textbf{Ereignisse (events)}
+        \2 Schnittstelle nach aussen \textrightarrow\ ändern Zustand der FSM
+        \2 Im \textbf{public} Teil der Klasse als enum definiert
+        \2 Keine Unitkürzel nötig
+    \1 \textbf{Zustände (states)}
+        \2 Im \textbf{private} Teil der Klasse als enum definiert \textrightarrow\ header-file
+    \1 \textbf{Aktueller Zustand} \mylstbox{currentState} wird in \textbf{privatem Attribut} von \mylstbox{CounterCtrl} gehalten
+    \1 Die FSM wird in \textbf{zwei Funktionen} implementiert
+        \2 Kontruktor (hier: \mylstbox{CounterCtrl::CounterCtrl(int initValue=0)})
+        \2 Prozess-Funktion (hier: \mylstbox{void CounterCtrl::process(CounterCtrl::Event e)}) \\
+            \textrightarrow\ Zustände prüfen, Zustandsübergänge veranlassen
+    % \1 Anstossen einer FSM
+    %     \2 Initialisierung in \lstinline|main|-Funktion
+    %     \2 Überprüfung, welches Event aufgetreten ist meist in \mylstbox{do-while}-Schleife
+\end{outline}
+
+
+% \subsubsection{Eigenschaften der Prozeduralen Realisierung in C++}
+
+% \begin{outline}
+%     \1 Da aktueller Zustand eine statische Variable ist, kann es nur \textbf{eine einzige Instanz} der FSM geben
+%     \1 Bei mehreren Instanzen in C...
+%         \2 darf \mylstbox{currentState} nicht \mylstbox{static} sein und muss als Parameter mitgegenen werden,
+%             bzw. ein Pointer auf die jeweilige Variable
+%         \2 Zustands-enum muss in die Schnittstelle (header-file) oder es muss z.B. mit \mylstbox{void*} gearbeitet werden
+%     \1 In C ist \textbf{keine schöne Kapselung} der Attribute möglich (\mylstbox{currentState})
+%     \1 Funktion \mylstbox{cnt_ctrlProcess()} kann beliebig aufgerufen werden (periodischer Task, laufend, etc.)
+%     \1 Bei exponierten Funktionen / Definitionen muss in C ein Unitkürzel vorangestellt werden (hier: \mylstbox{cnt_})
+% \end{outline}
+
+
+\example{Up/Down-Counter (prozedural in C++)}
+
+% TODO: \para environment not showing...?
+% TODO: add keywords and stuff to listings setup
+
+\begin{minipage}[t]{0.44\columnwidth}
+    \para{Schnitstelle Counter in C++} 
+    \lstinputlisting{snippets/fsm_Counter_CPP.h}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.52\columnwidth}
+    \para{Implementation Counter in C++} 
+    \lstinputlisting{snippets/fsm_Counter_CPP.cpp}
+\end{minipage}
+
+
+\para{Schnittstelle FSM in C++} 
+\lstinputlisting{snippets/fsm_CounterCtrl_CPP.h} 
+
+\para{Implementation FSM in C++} 
+\lstinputlisting{snippets/fsm_CounterCtrl_CPP.cpp}
+
+\para{Anstossen der FSM} 
+\lstinputlisting{snippets/fsm_main_counterTest_CPP.cpp}
+
+
 
 
 \subsection{Realisierung mit Tabelle}

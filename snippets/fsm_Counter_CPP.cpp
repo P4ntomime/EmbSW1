@@ -1,10 +1,5 @@
-//
 // Counter.cpp
-//
 // implements an up/down-Counter
-//
-// (C) R. Bonderer, HSR Hochschule Rapperswil, Okt. 2017
-//
 
 #include "Counter.h"
 

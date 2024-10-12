@@ -26,17 +26,17 @@ void cnt_ctrlProcess(cnt_Event e)
       printf("State: idleState\n");
       if (cnt_evUp == e)
       {
-        // actions (and exit-actions von idleState)
+        // actions (and exit-actions from idleState)
         printf("State: idleState, counter = %d\n", cnt_getCounter());
-        // state transition (andentry-actions von countUpState)
+        // state transition (and entry-actions from countUpState)
         printf("Changing to State: countUpState\n");
         currentState = countUpState;
       }
       else if (cnt_evDown == e)
       {
-        // actions (and exit-actions von idleState)
+        // actions (and exit-actions from idleState)
         printf("State: idleState, counter = %d\n", cnt_getCounter());
-        // state transition (and entry-actions von countDownState)
+        // state transition (and entry-actions from countDownState)
         printf("Changing to State: countDownState\n");
         currentState = countDownState;
       }
