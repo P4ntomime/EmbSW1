@@ -69,27 +69,28 @@
 
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Schnittstelle Counter in C} 
-    \lstinputlisting{snippets/fsm_counter_C.h}
+    \lstinputlisting{snippets/fsm_procedural_C/fsm_counter_C.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Implementation Counter in C} 
-    \lstinputlisting{snippets/fsm_counter_C.c}
+    \lstinputlisting{snippets/fsm_procedural_C/fsm_counter_C.c}
 \end{minipage}
 
 
 \para{Schnittstelle FSM in C} 
-\lstinputlisting{snippets/fsm_counterCtrl_C.h} 
+\lstinputlisting{snippets/fsm_procedural_C/fsm_counterCtrl_C.h} 
 
 \para{Implementation FSM in C} 
-\lstinputlisting{snippets/fsm_counterCtrl_C.c}
+\lstinputlisting{snippets/fsm_procedural_C/fsm_counterCtrl_C.c}
 
 \para{Anstossen der FSM in C} 
-\lstinputlisting{snippets/fsm_main_counterTest_C.c}
+\lstinputlisting{snippets/fsm_procedural_C/fsm_main_counterTest_C.c}
 
 
 
 \subsection{Realisieurng mit Steuerkonstrukt (objektorientiert in C++)}
+\label{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
 
 \subsubsection{State-Event-Diagram -- Up/Down-Counter}
 \label{State-Event-Diagram -- Up/Down-Counter in CPP}
@@ -142,23 +143,23 @@
 
 \begin{minipage}[t]{0.44\columnwidth}
     \para{Schnitstelle Counter in C++} 
-    \lstinputlisting{snippets/fsm_Counter_CPP.h}
+    \lstinputlisting{snippets/fsm_procedural_CPP/fsm_Counter_CPP.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.52\columnwidth}
     \para{Implementation Counter in C++} 
-    \lstinputlisting{snippets/fsm_Counter_CPP.cpp}
+    \lstinputlisting{snippets/fsm_procedural_CPP/fsm_Counter_CPP.cpp}
 \end{minipage}
 
 
 \para{Schnittstelle FSM in C++} 
-\lstinputlisting{snippets/fsm_CounterCtrl_CPP.h} 
+\lstinputlisting{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.h} 
 
 \para{Implementation FSM in C++} 
-\lstinputlisting{snippets/fsm_CounterCtrl_CPP.cpp}
+\lstinputlisting{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.cpp}
 
 \para{Anstossen der FSM} 
-\lstinputlisting{snippets/fsm_main_counterTest_CPP.cpp}
+\lstinputlisting{snippets/fsm_procedural_CPP/fsm_main_counterTest_CPP.cpp}
 
 
 
@@ -232,10 +233,10 @@ State-Event-Diagramm}
 \example{Up/Down-Counter (mit Tabelle in C++)}
 
 \para{Schnittstelle FSM in C++} 
-\lstinputlisting{snippets/fsm_CounterCtrl_table_CPP.h} 
+\lstinputlisting{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
 
 \para{Implementation FSM in C++} 
-\lstinputlisting{snippets/fsm_CounterCtrl_table_CPP.cpp}
+\lstinputlisting{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
 
 
 \subsection{Erweiterung der Realisierung mittels Tabellen}
@@ -257,5 +258,70 @@ State-Event-Diagramm}
         \2 In Tabelle steht statt Event die Adresse der checker-Funktion (analog zu action-Funktionen)
 \end{outline}
 
-\lstinputlisting{snippets/fsm_CounterCtrl_table_pChecker_CPP.h}
+\lstinputlisting{snippets/fsm_table_CPP/fsm_CounterCtrl_table_pChecker_CPP.h}
 
+
+
+\subsection{Realisieurng mit StatePattern (ohne actions)}
+
+\subsubsection{Grundidee von StatePatterns}
+\label{Grundidee StatePatterns}
+
+\begin{center}
+    \includegraphics[width=0.7\columnwidth]{images/fsm_state_pattern_struktur.png}
+\end{center}
+
+%TODO: slides 4 + 6
+
+
+
+\subsubsection{State-Event-Diagram -- Up/Down-Counter}
+\label{State-Event-Diagram -- Up/Down-Counter - StatePattern}
+
+\begin{center}
+    \includegraphics[width=0.7\columnwidth]{images/fsm_up-down-counter_diagramm_state_pattern.png}
+\end{center}
+
+
+
+\subsubsection{Implementation der Realisierung mittels StatePattern}
+
+%TODO: describe stuff with StatePattern...
+% \begin{outline}
+%     \1 \textbf{Ereignisse (events)}
+%         \2 Schnittstelle nach aussen \textrightarrow\ ändern Zustand der FSM
+%         \2 Im \textbf{public} Teil der Klasse als enum definiert
+%         \2 Keine Unitkürzel nötig
+%     \1 \textbf{Zustände (states)}
+%         \2 Im \textbf{private} Teil der Klasse als enum definiert \textrightarrow\ header-file
+%     \1 \textbf{Aktueller Zustand} \mylstbox{currentState} wird in \textbf{privatem Attribut} von \mylstbox{CounterCtrl} gehalten
+%     \1 Die FSM wird in \textbf{zwei Funktionen} implementiert
+%         \2 Kontruktor (hier: \mylstbox{CounterCtrl::CounterCtrl(int initValue=0)})
+%         \2 Prozess-Funktion (hier: \mylstbox{void CounterCtrl::process(CounterCtrl::Event e)}) \\
+%             \textrightarrow\ Zustände prüfen, Zustandsübergänge veranlassen
+%     \1 Anstossen einer FSM
+%         \2 Initialisierung in \lstinline|main|-Funktion
+%         \2 Überprüfung, welches Event aufgetreten ist meist in \mylstbox{do-while}-Schleife
+% \end{outline}
+
+
+\example{Up/Down-Counter (StatePattern, ohne actions)}
+
+\para{Schnittstelle und Implementation von Counter}
+Die Schnittstelle \mylstbox{counter.h} und die Implementation \mylstbox{counter.cpp} ändern sich nicht! \\
+\textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
+
+
+\para{Schnittstelle zur FSM} 
+\lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h} 
+
+\para{Implementation der FSM} 
+\lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp} 
+
+
+% \para{Schnittstelle abstrakte \lstinline|State|-Basisklasse}
+% \lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h} 
+
+
+% \para{Implementation abstrakte \lstinline|State|-Basisklasse}
+% \lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp} 
