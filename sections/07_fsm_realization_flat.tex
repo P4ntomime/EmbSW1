@@ -249,6 +249,10 @@ Die Schnittstelle \mylstbox{counter.h} und die Implementation \mylstbox{counter.
 \para{Implementation FSM} 
 \lstinputlisting[aboveskip=0mm]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
 
+\para{Anstossen der FSM}
+Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nicht! \\
+\textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
+
 
 \subsection{Erweiterung der Realisierung mittels Tabellen}
 
@@ -336,11 +340,17 @@ StatePattern definiert nicht, wo die Transitions umgesetzt werden sollen. Es gib
     \1 \textbf{Zustände (states)}
         \2 Jeder Zustand als eigene (Sub-)Klasse definert
     \1 \textbf{Aktueller Zustand} \mylstbox{pState} wird in \textbf{privatem Attribut (Pointer!)} der Schnittstelle gehalten
-        \2 Es braucht daher in der \mytclstbox{Context}-Klasse eine \textbf{forward declaration} der \mytclstbox{State}-Klasse
+        \2 Es braucht daher in der \mylstbox{Context}-Klasse eine \textbf{forward declaration} der \mytclstbox{State}-Klasse
     \1 Die FSM wird in \textbf{zwei Funktionen} implementiert
         \2 Kontruktor (hier: \mylstbox{CounterCtrl::CounterCtrl(int initValue=0)})
         \2 Prozess-Funktion (hier: \mylstbox{void CounterCtrl::process(CounterCtrl::Event e)}) \\
             \textrightarrow\ Zustände prüfen, Zustandsübergänge veranlassen
+    \1 \textbf{Entry- und Exit-Actions}
+        \2 Können in Basisklassen-Methode \mylstbox{changeState()} isoliert vorgenommen werden
+        \2 Zwischen Exit- und Entry-Action müssen allfällige Transition-Actions ausgeführt werden. Diese wird in der Methode 
+            \mylstbox{changeState()} als \textbf{Funktionspointer} übergeben
+        \2 In Basisklasse werden zwei \textbf{virtuelle Methoden} \mylstbox{entryAction()} und \mylstbox{exitAction()} deklariert \\
+            \textrightarrow\ Default-Implementation sinnvoll!
 \end{outline}
 
 
@@ -351,36 +361,46 @@ StatePattern definiert nicht, wo die Transitions umgesetzt werden sollen. Es gib
 Die Schnittstelle \mylstbox{counter.h} und die Implementation \mylstbox{counter.cpp} ändern sich nicht! \\
 \textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
 
-
+%TODO: check includes for every file...
 \para{Schnittstelle zur FSM} 
-\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h}  % OK
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h}
 
 \para{Implementation der FSM} 
-\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp} %OK
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp}
 
 \columnbreak
 
 
 \para{Schnittstelle abstrakte State-Basisklasse}   
-\lstinputlisting[%
-    firstnumber=1, 
-    firstline=1, 
-    lastline=15, 
-    aboveskip=0mm]
-{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h}   %OK
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h}
 
 \para{Implementation abstrakte State-Basisklasse}
-\lstinputlisting[%
-    firstnumber=1, 
-    firstline=1, 
-    lastline=12, 
-    aboveskip=0mm]
-{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp}  % OK
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp}
 
 
-\para{Schnittstelle ConcreteStateX-Klassen (IdleState)}
+\para{Schnittstelle ConcreteStateX-Klassen (CountUpState)}
 \lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.h} 
 
-\para{Implementation abstrakte ConcreteStateX-Basisklassen (IdleState)}
-\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.cpp} 
+\para{Implementation ConcreteStateX-Klassen (CountUpState -- no actions)}
+\lstinputlisting[%
+firstnumber=1, 
+firstline=1, 
+lastline=25, 
+aboveskip=0mm]
+{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.cpp} 
 
+\columnbreak
+
+\lstinputlisting[%
+firstnumber=26, 
+firstline=26, 
+lastline=30, 
+aboveskip=0mm]
+{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.cpp} 
+
+\para{Implementation ConcreteStateX-Klassen (CountUpState -- with actions)}
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState_with_actions.cpp} 
+
+\para{Anstossen der FSM}
+Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nicht! \\
+\textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}

@@ -5,90 +5,23 @@
 #include "CounterState.h"
 using namespace std;
 
-// class CounterState
-CounterState* CounterState::changeState(Counter& entity, CounterState* pnewState)
+// only if actions are used:
+CounterState* CounterState::init(Counter& entity)  // it's static
 {
-  return pnewState;
+  CounterState* initState = IdleState::getInstance();
+  initState->entryAction(entity);      // executes entry action into init state
+  return initState;
 }
 
-// class IdleState
-IdleState* IdleState::getInstance()
+CounterState* CounterState::changeState(Counter& entity,
+                                        Action ptransAction, // only with actions
+                                        CounterState* pnewState)
 {
-  static IdleState instance; // local definition guarantees execution order
-  return &instance;
+  exitAction(entity);               // polymorphic call of exit action
+  (this->*ptransAction)(entity);    // call of transition action
+  pnewState->entryAction(entity);   // polymorphic call of entry action
+  return pnewState;                 
 }
 
-CounterState* IdleState::handle(Counter& entity, CounterCtrl::Event e)
-{
-  cout << "State: idleState" << endl;
-  if (CounterCtrl::evUp == e)
-  {
-    // transition actions
-    cout << "counter = " << entity.getCounter() << endl;
-    // state transition
-    return changeState(entity, CountUpState::getInstance());
-  }
-  else if (CounterCtrl::evDown == e)
-  {
-    // transition actions
-    cout << "counter = " << entity.getCounter() << endl;
-    // state transition
-    return changeState(entity, CountDownState::getInstance());
-  }
-  return this;
-}
-
-// class CountUpState
-CountUpState* CountUpState::getInstance()
-{
-  static CountUpState instance;
-  return &instance;
-}
-
-CounterState* CountUpState::handle(Counter& entity, CounterCtrl::Event e)
-{
-  cout << "State: countUpState" << endl;
-  if (CounterCtrl::evCount == e)
-  {
-    // transition actions
-    entity.count(1);
-    cout << "counter = " << entity.getCounter() << endl;
-    // state transition
-    return changeState(entity, CountUpState::getInstance());
-  }
-  else if (CounterCtrl::evStop == e)
-  {
-    // transition actions
-    // state transition
-    return changeState(entity, IdleState::getInstance());
-  }
-  return this;
-}
-
-
-// class CountDownState
-CountDownState* CountDownState::getInstance()
-{
-  static CountDownState instance;
-  return &instance;
-}
-
-CounterState* CountDownState::handle(Counter& entity, CounterCtrl::Event e)
-{
-  cout << "State: countDownState" << endl;
-  if (CounterCtrl::evCount == e)
-  {
-    // transition actions
-    entity.count(-1);
-    cout << "counter = " << entity.getCounter() << endl;
-    // state transition
-    return changeState(entity, CountDownState::getInstance());
-  }
-  else if (CounterCtrl::evStop == e)
-  {
-    // transition actions
-    // state transition
-    return changeState(entity, IdleState::getInstance());
-  }
-  return this;
-}
+// default implementations of entryActions() and exitAction() 
+// ...

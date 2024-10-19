@@ -1,16 +1,22 @@
-// IdleState.h
-// implements the IdleStatde of an up/down-Counter
+// CountUpState.h
+// interface of the CountUpState of an up/down-Counter
 
-#ifndef IDLESTATE_H__
-#define IDLESTATE_H__
+#ifndef COUNTUPSTATE_H__
+#define COUNTUPSTATE_H__
 #include "CounterCtrl.h"  // Events are defined here
 
-class IdleState : public CounterState // it's a singleton
+class CountUpState : public CounterState // it's a singleton
 {
   public:
-    static IdleState* getInstance();
+    static CountUpState* getInstance();
     CounterState*  handle(Counter& entity, CounterCtrl::Event e) override;
+
+  /* -------------------- if actions are used ------------------------------------ */
+  protected:
+    void entryAction(Counter& entitiy) override;  // only if  default is not enough
+    void exitAction(Counter& entitiy) override;   // only if  default is not enough
+  /* ----------------------------------------------------------------------------- */
   private:
-    IdleState() {};
+    CountUpState() {};
 };
 #endif
