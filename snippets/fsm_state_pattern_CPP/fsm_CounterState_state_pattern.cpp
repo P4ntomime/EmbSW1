@@ -1,7 +1,5 @@
 // CounterState.cpp
 // implements all states of an up/down-Counter
-// this file contains all classes of the state machine.
-
 
 #include <iostream>
 #include "CounterState.h"

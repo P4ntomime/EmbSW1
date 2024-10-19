@@ -50,14 +50,4 @@ void CounterCtrl::actionDoNothing(void)
 {
 }
 
-void CounterCtrl::actionUpUp(void)
-{
-  myCounter.count(1);
-  cout << "State: countUpState, counter = " << myCounter.getCounter() << endl;
-}
-
-void CounterCtrl::actionDownDown(void)
-{
-  myCounter.count(-1);
-  cout << "State: countDownState, counter = " << myCounter.getCounter() << endl;
-}
+// ...

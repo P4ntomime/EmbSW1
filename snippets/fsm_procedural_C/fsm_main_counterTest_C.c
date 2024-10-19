@@ -18,6 +18,7 @@ int main(void)
     printf("    s   Stop counting\n");
     printf("    q   Quit\n");
 
+
     printf("\nPlease press key: ");
     scanf("%c", &answer);
     getchar();  // nach scanf() ist noch ein '\n' im Inputbuffer: auslesen und wegwerfen

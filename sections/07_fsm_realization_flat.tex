@@ -67,28 +67,29 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
 
 \example{Up/Down-Counter (prozedural in C)}
 
-% TODO: \para environment not showing...?
 % TODO: add keywords and stuff to listings setup
 
 \begin{minipage}[t]{0.48\columnwidth}
-    \para{Schnittstelle Counter in C} 
-    \lstinputlisting{snippets/fsm_procedural_C/fsm_counter_C.h}
+    \para{Schnittstelle Counter} 
+    \lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_C/fsm_counter_C.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
-    \para{Implementation Counter in C} 
-    \lstinputlisting{snippets/fsm_procedural_C/fsm_counter_C.c}
+    \para{Implementation Counter} 
+    \lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_C/fsm_counter_C.c}
 \end{minipage}
 
 
-\para{Schnittstelle FSM in C} 
-\lstinputlisting{snippets/fsm_procedural_C/fsm_counterCtrl_C.h} 
+\columnbreak
 
-\para{Implementation FSM in C} 
-\lstinputlisting{snippets/fsm_procedural_C/fsm_counterCtrl_C.c}
+\para{Schnittstelle FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_C/fsm_counterCtrl_C.h} 
 
-\para{Anstossen der FSM in C} 
-\lstinputlisting{snippets/fsm_procedural_C/fsm_main_counterTest_C.c}
+\para{Implementation FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_C/fsm_counterCtrl_C.c}
+
+\para{Anstossen der FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_C/fsm_main_counterTest_C.c}
 
 
 
@@ -141,28 +142,29 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
 
 \example{Up/Down-Counter (prozedural in C++)}
 
-% TODO: \para environment not showing...?
 % TODO: add keywords and stuff to listings setup
 
 \begin{minipage}[t]{0.44\columnwidth}
-    \para{Schnitstelle Counter in C++} 
-    \lstinputlisting{snippets/fsm_procedural_CPP/fsm_Counter_CPP.h}
+    \para{Schnittstelle Counter} 
+    \lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_CPP/fsm_Counter_CPP.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.52\columnwidth}
-    \para{Implementation Counter in C++} 
-    \lstinputlisting{snippets/fsm_procedural_CPP/fsm_Counter_CPP.cpp}
+    \para{Implementation Counter} 
+    \lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_CPP/fsm_Counter_CPP.cpp}
 \end{minipage}
 
 
-\para{Schnittstelle FSM in C++} 
-\lstinputlisting{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.h} 
+\para{Schnittstelle FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.h} 
 
-\para{Implementation FSM in C++} 
-\lstinputlisting{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.cpp}
+\para{Implementation FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.cpp}
+
+\columnbreak
 
 \para{Anstossen der FSM} 
-\lstinputlisting{snippets/fsm_procedural_CPP/fsm_main_counterTest_CPP.cpp}
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_procedural_CPP/fsm_main_counterTest_CPP.cpp}
 
 
 
@@ -235,11 +237,17 @@ State-Event-Diagramm}
 
 \example{Up/Down-Counter (mit Tabelle in C++)}
 
-\para{Schnittstelle FSM in C++} 
-\lstinputlisting{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
+\para{Schnittstelle und Implementation von Counter}
 
-\para{Implementation FSM in C++} 
-\lstinputlisting{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
+Die Schnittstelle \mylstbox{counter.h} und die Implementation \mylstbox{counter.cpp} ändern sich nicht! \\
+\textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
+
+
+\para{Schnittstelle FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
+
+\para{Implementation FSM} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
 
 
 \subsection{Erweiterung der Realisierung mittels Tabellen}
@@ -318,8 +326,6 @@ StatePattern definiert nicht, wo die Transitions umgesetzt werden sollen. Es gib
     \includegraphics[width=0.95\columnwidth]{images/fsm_up-down-counter_klassendiagramm_state_pattern.png}
 \end{center}
 
-\textbf{Hinweis:} Im file \mylstbox{CounterCtrl.h} braucht es eine \textbf{forward declaration} für die Klasse \mylstbox{CounterState}
-
 
 \subsubsection{Implementation der Realisierung mittels StatePattern}
 
@@ -338,23 +344,43 @@ StatePattern definiert nicht, wo die Transitions umgesetzt werden sollen. Es gib
 \end{outline}
 
 
-\example{Up/Down-Counter (StatePattern, ohne actions)}
+\example{Up/Down-Counter mit StatePattern}
 
 \para{Schnittstelle und Implementation von Counter}
+
 Die Schnittstelle \mylstbox{counter.h} und die Implementation \mylstbox{counter.cpp} ändern sich nicht! \\
 \textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
 
 
 \para{Schnittstelle zur FSM} 
-\lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h}  % OK
 
 \para{Implementation der FSM} 
-\lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp} 
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp} %OK
+
+\columnbreak
 
 
-% \para{Schnittstelle abstrakte \lstinline|State|-Basisklasse}
-% \lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h} 
+\para{Schnittstelle abstrakte State-Basisklasse}   
+\lstinputlisting[%
+    firstnumber=1, 
+    firstline=1, 
+    lastline=15, 
+    aboveskip=0mm]
+{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h}   %OK
+
+\para{Implementation abstrakte State-Basisklasse}
+\lstinputlisting[%
+    firstnumber=1, 
+    firstline=1, 
+    lastline=12, 
+    aboveskip=0mm]
+{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp}  % OK
 
 
-% \para{Implementation abstrakte \lstinline|State|-Basisklasse}
-% \lstinputlisting{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp} 
+\para{Schnittstelle ConcreteStateX-Klassen (IdleState)}
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.h} 
+
+\para{Implementation abstrakte ConcreteStateX-Basisklassen (IdleState)}
+\lstinputlisting[aboveskip=0mm]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.cpp} 
+

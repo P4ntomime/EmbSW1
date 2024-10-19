@@ -7,8 +7,7 @@
 
 class CounterState;  // forward declaration
 
-class CounterCtrl
-// this is the 'Context' class of the State pattern
+class CounterCtrl    // this is the 'Context' class of the State pattern
 {
   public:
     enum Event{evUp,       // count upwards

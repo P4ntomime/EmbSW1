@@ -1,6 +1,5 @@
 // CounterState.h
 // implements an up/down-Counter
-// this file contains all classes of the state machine
 
 #ifndef COUNTERSTATE_H__
 #define COUNTERSTATE_H__
