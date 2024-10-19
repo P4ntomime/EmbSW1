@@ -15,6 +15,9 @@
 
 \vspace{0.2cm}
 
+Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
+\vspace{0.1cm}
+
 \textrightarrow\ Alle Varianten haben wie immer sowohl Vor- als auch Nachteile \\
 \textrightarrow\ Bei allen Varianten sind auch Variationen vorhanden
 
@@ -125,7 +128,7 @@
         \2 Keine Unitkürzel nötig
     \1 \textbf{Zustände (states)}
         \2 Im \textbf{private} Teil der Klasse als enum definiert \textrightarrow\ header-file
-    \1 \textbf{Aktueller Zustand} \mylstbox{currentState} wird in \textbf{privatem Attribut} von \mylstbox{CounterCtrl} gehalten
+    \1 \textbf{Aktueller Zustand} \mylstbox{currentState} wird in \textbf{privatem Attribut} der Schnittstelle gehalten
     \1 Die FSM wird in \textbf{zwei Funktionen} implementiert
         \2 Kontruktor (hier: \mylstbox{CounterCtrl::CounterCtrl(int initValue=0)})
         \2 Prozess-Funktion (hier: \mylstbox{void CounterCtrl::process(CounterCtrl::Event e)}) \\
@@ -262,17 +265,42 @@ State-Event-Diagramm}
 
 
 
-\subsection{Realisieurng mit StatePattern (ohne actions)}
+\subsection{Realisieurng mit StatePattern}
 
 \subsubsection{Grundidee von StatePatterns}
 \label{Grundidee StatePatterns}
+
+Das Grundkonzept von StatePatterns ist \textbf{Polymorphismus} (Vererbung)
 
 \begin{center}
     \includegraphics[width=0.7\columnwidth]{images/fsm_state_pattern_struktur.png}
 \end{center}
 
-%TODO: slides 4 + 6
+\begin{outline}
+    \1 \textbf{Context}-Klasse
+        \2 definiert \textbf{Schnittstelle} für Clients
+        \2 unterhält eine \textbf{Instanz} einer konkreten Unterklasse von \mylstbox{State}, die den aktuellen Zustand repräsentiert
+    \1 \textbf{State}-Klasse
+        \2 definiert die Schnittstelle zur FSM in Form einer \textbf{abstrakten Klasse}
+    \1 \textbf{ConreteStateX} Unterklassen
+        \2 Jede Unterklasse (Singleton) implementiert genau \textbf{einen Zustand}
+\end{outline}
 
+
+\subsubsection{Transitions in StatePatterns}
+
+StatePattern definiert nicht, wo die Transitions umgesetzt werden sollen. Es gibt daher die zwei folgenden Varianten. \\
+\textbf{ \textrightarrow\ Variante 2 ist klar zu bevorzugen!}
+
+\vspace{0.2cm}
+
+\begin{enumerate}
+    \item Transitionen könnten in der \mylstbox{Context}-Klasse definiert werden. \\
+        Nachteil: dort müsste zentral sehr viel Intelligenz vorhanden sein \\
+        Da diese Klasse auch den Zugriff von der Aussenwelt darstellt, sollte sie möglichst schlank sein.
+    \item \mylstbox{State}-Klassen \textbf{realisieren ihre Transitionen selbst.} \\
+        \textrightarrow\ wir oft mittels \mylstbox{friend}-Deklaration realisiert, was jedoch nicht nötig ist
+\end{enumerate}
 
 
 \subsubsection{State-Event-Diagram -- Up/Down-Counter}
@@ -283,26 +311,31 @@ State-Event-Diagramm}
 \end{center}
 
 
+\subsubsection{Klassendiagramm -- Up/Down-Counter}
+\label{Klassendiagramm -- Up/Down-Counter - StatePattern}
+
+\begin{center}
+    \includegraphics[width=0.95\columnwidth]{images/fsm_up-down-counter_klassendiagramm_state_pattern.png}
+\end{center}
+
+\textbf{Hinweis:} Im file \mylstbox{CounterCtrl.h} braucht es eine \textbf{forward declaration} für die Klasse \mylstbox{CounterState}
+
 
 \subsubsection{Implementation der Realisierung mittels StatePattern}
 
-%TODO: describe stuff with StatePattern...
-% \begin{outline}
-%     \1 \textbf{Ereignisse (events)}
-%         \2 Schnittstelle nach aussen \textrightarrow\ ändern Zustand der FSM
-%         \2 Im \textbf{public} Teil der Klasse als enum definiert
-%         \2 Keine Unitkürzel nötig
-%     \1 \textbf{Zustände (states)}
-%         \2 Im \textbf{private} Teil der Klasse als enum definiert \textrightarrow\ header-file
-%     \1 \textbf{Aktueller Zustand} \mylstbox{currentState} wird in \textbf{privatem Attribut} von \mylstbox{CounterCtrl} gehalten
-%     \1 Die FSM wird in \textbf{zwei Funktionen} implementiert
-%         \2 Kontruktor (hier: \mylstbox{CounterCtrl::CounterCtrl(int initValue=0)})
-%         \2 Prozess-Funktion (hier: \mylstbox{void CounterCtrl::process(CounterCtrl::Event e)}) \\
-%             \textrightarrow\ Zustände prüfen, Zustandsübergänge veranlassen
-%     \1 Anstossen einer FSM
-%         \2 Initialisierung in \lstinline|main|-Funktion
-%         \2 Überprüfung, welches Event aufgetreten ist meist in \mylstbox{do-while}-Schleife
-% \end{outline}
+\begin{outline}
+    \1 \textbf{Ereignisse (events)}
+        \2 Schnittstelle nach aussen \textrightarrow\ ändern Zustand der FSM
+        \2 Im \textbf{public} Teil der Klasse als enum definiert
+    \1 \textbf{Zustände (states)}
+        \2 Jeder Zustand als eigene (Sub-)Klasse definert
+    \1 \textbf{Aktueller Zustand} \mylstbox{pState} wird in \textbf{privatem Attribut (Pointer!)} der Schnittstelle gehalten
+        \2 Es braucht daher in der \mytclstbox{Context}-Klasse eine \textbf{forward declaration} der \mytclstbox{State}-Klasse
+    \1 Die FSM wird in \textbf{zwei Funktionen} implementiert
+        \2 Kontruktor (hier: \mylstbox{CounterCtrl::CounterCtrl(int initValue=0)})
+        \2 Prozess-Funktion (hier: \mylstbox{void CounterCtrl::process(CounterCtrl::Event e)}) \\
+            \textrightarrow\ Zustände prüfen, Zustandsübergänge veranlassen
+\end{outline}
 
 
 \example{Up/Down-Counter (StatePattern, ohne actions)}

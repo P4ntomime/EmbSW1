@@ -26,10 +26,10 @@ void CounterCtrl::process(Event e)    // execution engine, this function never c
 {
   for (size_t i = 0; i < sizeof(fsm) / sizeof(Transition); ++i) // determine number of transitions automatically
   {
-    if (fsm[i].currentState == currentState &&  fsm[i].ev == e) // is there an entry in the table?
+    if (fsm[i].currentState == currentState && fsm[i].ev == e) // is there an entry in the table?
     {
       (this->*fsm[i].pAction)();
-      currentState = fsm[i].nextState;
+      currentState = fsm[i].nextState
       break;
     }
   }
