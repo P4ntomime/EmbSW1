@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}            % font encoding: T1
 \usepackage{textcomp}               % additional symbols
 \usepackage{times}                  % times new roman font
+\usepackage{inconsolata}            % use consolas font for ttfamily
 \usepackage[main=ngerman]{babel}    % set main language to german
 
 
@@ -100,8 +101,8 @@
 
 
 % --------------------------------------- COLOR DEFINITIONS ---------------------------------------
-\definecolor{sectioncolor}{HTML}{b4b3b2}
-\definecolor{subsectioncolor}{HTML}{dcdbdb}
+\definecolor{sectioncolor}{HTML}{1ef943}
+\definecolor{subsectioncolor}{HTML}{a4fdb4}
 \definecolor{sectextcol}{HTML}{000000}
 \definecolor{subsectextcol}{HTML}{000000}
 
@@ -124,6 +125,12 @@
 % \definecolor{keywordcolour}{HTML}{225A28}
 % \definecolor{stringcolour}{HTML}{9e22bd}
 % \definecolor{numbercolour}{HTML}{808080}
+% colors for listings (code) according to ProgCPP
+\definecolor{codeblue}{RGB}{2, 90, 200}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 
 % ----------------------------------- LIST AND TABULAR SETTINGS -----------------------------------
@@ -173,7 +180,6 @@
 
 
 % ====================================== SETUP AND COMMANDS =======================================
-
 
 % custom font size for paragraph titles
 \newcommand{\semilarge}{\fontsize{9}{8}\selectfont} % new font size \semilarge (9pt)
@@ -301,7 +307,7 @@
 
 
 % paragraph formatting
-\titleformat{\paragraph}[runin]
+\titleformat{\paragraph}[hang]
             {\semilarge\bfseries}
             {}
             {0mm}
@@ -309,7 +315,7 @@
 
 \titlespacing{\paragraph}
              {0mm}
-             {0ex}
+             {1.5ex}
              {0.1ex}
 
 
@@ -726,24 +732,48 @@
 }
 
 
-custom inline listings with box around them
-\newcommand{\mylstbox}[2][columns=fullflexible]{
-    \mybox{
+% custom inline listings with box around them
+\newcommand{\mylstbox}[2][columns=fullflexible]{%
+    \mybox{%
         \lstinline[#1]{#2}}}
-\newcommand{\mytclstbox}[2][columns=fullflexible]{
-    \mybox{
+\newcommand{\mytclstbox}[2][black]{%
+    \mybox{%
         \lstinline[basicstyle=\sffamily\footnotesize\color{#1}, columns=fullflexible]{#2}}}
 
 
-% renew command for lstinputlisting with less vertical spacing
-\renewcommand{\lstinputlisting}[2][]{
-    \begingroup
-    \vspace{-0.6\abovedisplayskip}
-    \lst@setcatcodes%
-    \lst@inputlisting[#1]{#2}
-    \vspace{-0.6\abovedisplayskip}
-}
+% % renew command for lstinputlisting with less vertical spacing
+% \renewcommand{\lstinputlisting}[2][]{
+%     \begingroup
+%     \vspace{-0.6\abovedisplayskip}
+%     \lst@setcatcodes%
+%     \lst@inputlisting[#1]{#2}
+%     \vspace{-0.6\abovedisplayskip}
+% }
 
+% listings style (code)
+% \lstdefinestyle{mystyle}{
+%     backgroundcolor=\color{backcolour},   
+%     commentstyle=\color{codegreen},
+%     keywordstyle=\color{codeblue},
+%     numberstyle=\tiny\color{codegray},
+%     stringstyle=\color{codepurple},
+%     basicstyle=\ttfamily\footnotesize,
+%     % basicstyle=\sffamily\footnotesize,
+%     breakatwhitespace=false,         
+%     breaklines=true,                 
+%     captionpos=b,                    
+%     keepspaces=true,    
+%     linewidth=\columnwidth,             
+%     numbers=left,                    
+%     numbersep=2pt,                  
+%     showspaces=false,                
+%     showstringspaces=false,
+%     showtabs=false,                  
+%     tabsize=4,
+% 	xleftmargin=1.2em,
+% 	language=[11]C++,
+% 	columns=[l]fullflexible	% see: https://tex.stackexchange.com/questions/99416/latex-source-code-listing-with-less-space-between-characters or manual
+% }
 
 % listings style (code)
 \lstdefinestyle{mystyle}{
@@ -809,8 +839,20 @@ custom inline listings with box around them
 
 \lstset{
     style=mystyle,
-    morekeywords={final, override, enum, var, List, Set, Map, String, Object},
-    moredelim=[il][\textcolor{orange}]{¦¦},
-    moredelim=[is][\textcolor{orange}]{&&}{&&},
+    morekeywords={%
+        final,%
+        override,%
+        enum,%
+        var,%
+        List,%
+        Set,%
+        Map,%
+        String,%
+        Object,%
+        uint16_t,%
+        uint8_t%
+    },
+    moredelim=[is][\color{black}]{¦}{¦}, % add '¦' as delimiter to remove formatting
+    % moredelim=[is][\textcolor{orange}]{&&}{&&},
     moredelim=[is][\textcolor{violet}]{@}{@},
 }
