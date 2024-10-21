@@ -31,3 +31,11 @@
 - Mediator: In 'System A' wäre das das main.c File
 - Bsp. Drucker -> bei mehreren Druckaufträgen von mehereren Personen würde der Monitor die Aufträge
     jeweils korrekt aufteilen, sodass nicht plötzlich Zeile 1 von Person 1 und Zeile 3 von Person 5 gedruckt wird.
+
+== Event-Based Systems
+- Interruptvektortabelle ist im Grunde nichts anderes als Array von Funktionspointern
+- Observer Pattern
+    - "man schreibt sich ein für gewisse events und wird dann automatisch informiert"
+        -> Modell hat liste von Funktionen, Views tragen sich dort ein
+- Notiz am Rande: Bei for loops für Zählvariable immer size_t nehmen, nichts anderes!
+--Bis Folie 14 gekommen--
