@@ -23,3 +23,11 @@
 
 - S. 19: Muss man nicht auswendig wissen
 - S. 22: Einträge ohne grünen Haken -> in Code noch nicht angepasst
+
+
+== Patterns
+- Notiz: Observer Pattern -> sehr wichtig, nicht nur bei Embedded Systemen
+- Facade <-> Adapter -> Facade: Bsp. bei riesen Library dem User nur eine kleine Schnittstelle zur verfügung stellen für etwas spezifisches
+- Mediator: In 'System A' wäre das das main.c File
+- Bsp. Drucker -> bei mehreren Druckaufträgen von mehereren Personen würde der Monitor die Aufträge
+    jeweils korrekt aufteilen, sodass nicht plötzlich Zeile 1 von Person 1 und Zeile 3 von Person 5 gedruckt wird.
