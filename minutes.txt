@@ -1,0 +1,25 @@
+= 2024-10-21 
+== Hierarchische State Machines
+ - Tools erwähnt
+
+== Modularisierung
+=== Beispielprojekt System A
+- Bei den .h files beginnen -> jedes .h-file ist "Schnittstelle" zum Modul
+- Funktionen in .h file kommentieren!!! Am besten noch Doxygen verwenden
+- Schlaue Variablen-Benamsung
+- "Interne" (private) Funktionen werden im .c file deklariert und definiert
+- "Kübel" vermeiden. 
+    -> Mit Kübel sind Dateien wie z.B. "defines.h" gemeint, in welchem alles zusammengeschmissen wird
+- Funktionen in passende Files tun (Bsp. USB_send_ADC_Start Funktion)
+- Zeitliche Kohäsionen vermeiden 
+    -> nicht alle Inits an einen Ort sondern zu ihren eigenen Modulen 
+        (Bsp. uart init in uart library, usb init in usb library etc.)
+- Bei Lokalen Funktionen (z.B. im main.c) diese bei funktionsdeklaration kommentieren
+
+== Lösung zum Problem
+- Pro library sollte jeweils alles dabei sein -> Bsp. Wenn Uart.h included wird, sollte nichts anderes zusätzlich included werden
+- Schnittstellen sehr sauber definieren, um unabhängiges Arbeiten zu erleichtern
+- Nur schauen, dass starke Kohäsion besteht, schwache Kopplung kommt dann "von alleine"
+
+- S. 19: Muss man nicht auswendig wissen
+- S. 22: Einträge ohne grünen Haken -> in Code noch nicht angepasst
