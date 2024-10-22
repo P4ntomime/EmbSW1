@@ -4,16 +4,16 @@ LaTeX  Formelsammlungs-template
 
 # Documentation
 ## Sectioning
-Section commands (`\section{}`{:.TeX} , `\subsection{}`{:.TeX} , `\subsubsection{}`{:.TeX}) have been expanded to take an additional (optional) argument to reference pages in a script. It can be used as follows:
+Section commands (`\section{}`, `\subsection{}`, `\subsubsection{}`) have been expanded to take an additional (optional) argument to reference pages in a script. It can be used as follows:
 
 ```TeX
 \section{<section-title>}{<script-page>}
 ```
 However the default commands stay available as well! (without the second argument)
 
-An additional sectioning command has been added: `\example{}`{:.TeX}
+An additional sectioning command has been added: `\example{}`
 
-In simple terms: it's the same as `\subsubsection{}`{:.TeX} with the addition of removing the section number and adding _Beispiel:_ in front of the text.
+In simple terms: it's the same as `\subsubsection{}` with the addition of removing the section number and adding _Beispiel:_ in front of the text.
 
 
 ## Layout
@@ -22,6 +22,30 @@ There is a custom `layout` environment define, which automatically adjusts layou
  - **Portrait:** titlepage with title and table of contents, 2 columns for rest
  - **Both:** Title, QR-Code to repository, Authors, etc.; Page number in footer
 
+## $\color{red}\Rightarrow$ Listings usage $\color{red}\Leftarrow$
+There are some predefined language formattings in the preamble. Currently `C++ 11` and `VHDL` are set up, but more could be added. See the `listings` documentation for more information.
+
+Variable names are not automatically identified by the `listings` package, thus they each need to be added manually as keywords. The simplest way to do this for a code block, is as follows:
+```LaTeX
+\begin{lstlisting}[morekeywords={[3], mySpecialVariable}]
+// This is a C++ listing
+int main()
+{
+    int mySpecialVariable = 0;
+
+    return mySpecialVariable;
+}
+\end{lstlisting}
+
+% Alternative:
+\lstinputlisting[morekeywords={[3], mySpecialVariable}]{myListing.h}
+```
+Within the optional arguments for the `lstlisting` environment or the `\lstinputlisting[]{}` command, more keywords can be defined with the parameter `morekeywords` and a following list of keywords.
+
+> [!IMPORTANT]\
+> The keyword list needs to be within curly brackets and the first element needs to be `[3]`: \
+> `{[3], this, is, a, keyword, list}`\
+> The `[3]` corresponds to the keyword class. If you want to learn more about this, consult the `listings` documentation.
 
 ## Custom Commands
 Some custom commands have been defined to aid with certain things. More commands can and will be added in the forseeable future.
