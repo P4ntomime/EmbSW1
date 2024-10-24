@@ -1,0 +1,223 @@
+\section{Patterns (Lösungsmuster)}
+
+\textbf{Ein Software Pattern ist eine bekannte Lösung für eine Klasse von Problemen.}
+
+\vspace{0.1cm}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+
+    \begin{itemize}
+        \item[+] Rad muss nicht immer neu erfunden werden 
+        \item[+] Getestete / funktionierende Lösungen 
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+
+    \begin{itemize}
+        \item[-] Wichtige Patterns müssen bekannt sein
+        \item[-] Problemstellungen müssen als solche erkannt werden 
+    \end{itemize}
+\end{minipage}
+
+
+\subsection{Arten von Patterns}
+
+\begin{outline}
+    \1 \textbf{Architekturmuster (Architectural Pattern)}
+        \2 Legt die grundlegende Organisation einer Anwendung und die Interaktion zwischen den Komponenten fest
+    \1 \textbf{Entwurfsmuster (Design Pattern)}
+        \2 Die ursprüngliche Form des Pattern‐Ansatzes
+    \1 \textbf{Implementationsmuster (Implementation Pattern)}
+        \2 Behandelt grundsätzliche Implementationen immer wiederkehrender Codefragmente
+\end{outline}
+
+
+\subsection{Wichtige Patterns für Embedded Systems}
+
+\subsubsection{Bereits bekannte Patterns}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+
+    \begin{outline}
+        \1 \textbf{FSM Implementationen}
+            \2 State Pattern
+            \2 Singleton Pattern
+            \2 (Steuerkonstrukt mit switch-case)
+            \2 (Tabellenvariante)
+    \end{outline}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.5\columnwidth}
+    \raggedright
+    
+    \begin{outline}
+        \1 \textbf{'Mini-Patterns'}
+            \2 Setzen / Löschen einzelner Bits
+            \2 Behandlung asynchroner Ereignisse
+                \3 Interrupts
+                \3 Polling
+    \end{outline}
+\end{minipage}
+
+
+\subsubsection{Creational Patterns}
+
+Creational Patterns behandeln die \textbf{Erzeugung (und Vernichtung) von Objekten.}
+
+\vspace{0.1cm}
+
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \raggedright
+
+%     \begin{outline}
+%         \1 \textbf{Factory (Dependency injection)}
+%             \2 Definition einer Schnittstelle zur Erzeugung eines Objekts, statt der direkten Erzeugung auf der Client-Seite
+%         \1 \textbf{Singleton}
+%             \2 stellt sicher, dass eine Klasse nur \textbf{ein einziges Objekt} besitzt
+%     \end{outline}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[t]{0.5\columnwidth}
+%     \raggedright
+    
+%     \begin{outline}
+%         \1 \textbf{RAII (Resource Acquisition Is Initialization)}
+%             \2 Die Belegung und Freigabe einer Ressource wird an die Lebensdauer eines Objektes gebunden. Dadurch wird eine
+%                 Ressource z.B. 'automatisch' freigegeben.
+%     \end{outline}
+% \end{minipage}
+
+\begin{outline}
+    \1 \textbf{Factory (Dependency injection)}
+        \2 Definition einer Schnittstelle zur Erzeugung eines Objekts, statt der direkten Erzeugung auf der Client-Seite
+    \1 \textbf{Singleton}
+        \2 stellt sicher, dass eine Klasse nur \textbf{ein einziges Objekt} besitzt
+    \1 \textbf{RAII (Resource Acquisition Is Initialization)}
+        \2 Die Belegung und Freigabe einer Ressource wird an die Lebensdauer eines Objektes gebunden. Dadurch wird eine Ressource 
+            z.B. 'automatisch' freigegeben.
+\end{outline}
+
+
+\subsubsection{Structural Patterns}
+
+Structural Patterns \textbf{vereinfachen Beziehungen} zu anderen Teilen.
+
+\vspace{0.1cm}
+
+% \begin{minipage}[t]{0.55\columnwidth}
+%     \raggedright
+
+%     \begin{outline}
+%         \1 \textbf{Adapter (Wrapper, Translator, glue code)}
+%             \2 Wandelt (adaptiert) eine Schnittstelle in eine für einen Client passendere Schnittstelle um
+%         \1 \textbf{Facade}
+%             \2 Bietet eine \textbf{einfache Schnittstelle} für die Nutzung einer meist viel \textbf{grösseren Library}
+%     \end{outline}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[t]{0.43\columnwidth}
+%     \raggedright
+    
+%     \begin{outline}
+%         \1 \textbf{Proxy}
+%             \2 'A proxy, in its most general form, is a class functioning as an interface to something else.'
+%             \2 Oft ist es eine SW-Repräsentation eines HW-Teils, z.B. die Repräsentation einer Netzwerkverbindung
+%     \end{outline}
+% \end{minipage}
+
+\begin{outline}
+    \1 \textbf{Adapter (Wrapper, Translator, glue code)}
+        \2 Wandelt (adaptiert) eine Schnittstelle in eine für einen Client passendere Schnittstelle um
+    \1 \textbf{Facade}
+        \2 Bietet eine \textbf{einfache Schnittstelle} für die Nutzung einer meist viel \textbf{grösseren Library}
+    \1 \textbf{Proxy}
+        \2 'A proxy, in its most general form, is a class functioning as an interface to something else.'
+        \2 Oft ist es eine SW-Repräsentation eines HW-Teils, z.B. die Repräsentation einer Netzwerkverbindung
+\end{outline}
+
+
+\subsubsection{Behavioral Patterns}
+
+Behavioral Patterns identifizieren \textbf{gemeinsame Kommunikationspatterns} zwischen Objekten und implementieren diese.
+
+\vspace{0.1cm}
+
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \raggedright
+
+%     \begin{outline}
+%         \1 \textbf{Mediator}
+%             \2 definiert ein Objekt, welches das Zusammenspiel einer Menge von Objekten regelt
+%             \2 ein Embedded System, das aus \textbf{mehreren Teilen} wie Sensoren und Aktoren besteht, wird \textbf{im Mediator
+%                 softwaremässig zusammengebaut}
+%     \end{outline}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \raggedright
+    
+%     \begin{outline}
+%         \1 \textbf{Observer (MVC)}
+%             \2 Nicht nur bei Embedded Systems wichtig
+%             \2 Wird als objektorientierte Variante präsentiert
+%             \2 MVC-Prinzip kann auch prozedural mit Callbackfunktionen implementiert werden
+%     \end{outline}
+% \end{minipage}
+
+\begin{outline}
+    \1 \textbf{Mediator}
+        \2 definiert ein Objekt, welches das Zusammenspiel einer Menge von Objekten regelt
+        \2 ein Embedded System, das aus \textbf{mehreren Teilen} wie Sensoren und Aktoren besteht, wird \textbf{im Mediator
+            softwaremässig zusammengebaut}
+    \1 \textbf{Observer (MVC)}
+        \2 Nicht nur bei Embedded Systems wichtig
+        \2 Wird als objektorientierte Variante präsentiert
+        \2 MVC-Prinzip kann auch prozedural mit Callbackfunktionen implementiert werden
+\end{outline}
+
+\vspace{0.1cm}
+
+\textbf{Beispiel Mediator:} Bei einem Drucker mit mehreren Druckaufträgen von mehreren Personen teilt der Mediator die Aufträge jeweils korrekt
+
+
+\subsubsection{Concurrency Patterns}
+
+Concurrency Patterns kümmern sich um die \textbf{Ausführung in multi-threaded Umgebungen.}
+
+\vspace{0.1cm}
+
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \raggedright
+
+%     \begin{outline}
+%         \1 \textbf{Active Object}
+%             \2 entkoppelt den Methodenaufruf von der Methodenausführung \\
+%                 Methode soll sich nicht kümmern, in welchem Kontext sie aufgerufen wird
+%     \end{outline}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \raggedright
+    
+%     \begin{outline}
+%         \1 \textbf{Lock}
+%             \2 Synchronisationsprimitive, welche den unteilbaren Zugriff read-modify-write implementiert
+%         \1 \textbf{Monitor}
+%             \2 Monitor versteckt Synchronisationsanforderungen vor Client
+%     \end{outline}
+% \end{minipage}
+
+\begin{outline}
+    \1 \textbf{Active Object}
+        \2 entkoppelt den Methodenaufruf von der Methodenausführung \\
+            Methode soll sich nicht kümmern, in welchem Kontext sie aufgerufen wird
+    \1 \textbf{Lock}
+        \2 Synchronisationsprimitive, welche den unteilbaren Zugriff read-modify-write implementiert
+    \1 \textbf{Monitor}
+        \2 Monitor versteckt Synchronisationsanforderungen vor Client
+\end{outline}
+
