@@ -21,5 +21,4 @@ class Counter
   private:
     int countValue;
 };
-
 #endif
