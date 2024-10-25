@@ -24,9 +24,11 @@ CounterCtrl::CounterCtrl(int initValue) :   // initializations with initializati
 
 void CounterCtrl::process(Event e)    // execution engine, this function never changes!
 {
-  for (size_t i = 0; i < sizeof(fsm) / sizeof(Transition); ++i) // determine number of transitions automatically
+  // determine number of transitions automatically
+  for (size_t i = 0; i < sizeof(fsm) / sizeof(Transition); ++i) 
   {
-    if (fsm[i].currentState == currentState && fsm[i].ev == e) // is there an entry in the table?
+    // is there an entry in the table?
+    if (fsm[i].currentState == currentState && fsm[i].ev == e) 
     {
       (this->*fsm[i].pAction)();
       currentState = fsm[i].nextState

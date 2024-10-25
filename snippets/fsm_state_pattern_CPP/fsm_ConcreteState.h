@@ -13,8 +13,8 @@ class CountUpState : public CounterState // it's a singleton
 
   /* -------------------- if actions are used ------------------------------------ */
   protected:
-    void entryAction(Counter& entitiy) override;  // only if  default is not enough
-    void exitAction(Counter& entitiy) override;   // only if  default is not enough
+    void entryAction(Counter& entity) override;  // only if  default is not enough
+    void exitAction(Counter& entity) override;   // only if  default is not enough
   /* ----------------------------------------------------------------------------- */
   private:
     CountUpState() {};
