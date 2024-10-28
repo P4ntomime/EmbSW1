@@ -1,0 +1,41 @@
+= 2024-10-21 
+== Hierarchische State Machines
+ - Tools erwähnt
+
+== Modularisierung
+=== Beispielprojekt System A
+- Bei den .h files beginnen -> jedes .h-file ist "Schnittstelle" zum Modul
+- Funktionen in .h file kommentieren!!! Am besten noch Doxygen verwenden
+- Schlaue Variablen-Benamsung
+- "Interne" (private) Funktionen werden im .c file deklariert und definiert
+- "Kübel" vermeiden. 
+    -> Mit Kübel sind Dateien wie z.B. "defines.h" gemeint, in welchem alles zusammengeschmissen wird
+- Funktionen in passende Files tun (Bsp. USB_send_ADC_Start Funktion)
+- Zeitliche Kohäsionen vermeiden 
+    -> nicht alle Inits an einen Ort sondern zu ihren eigenen Modulen 
+        (Bsp. uart init in uart library, usb init in usb library etc.)
+- Bei Lokalen Funktionen (z.B. im main.c) diese bei funktionsdeklaration kommentieren
+
+== Lösung zum Problem
+- Pro library sollte jeweils alles dabei sein -> Bsp. Wenn Uart.h included wird, sollte nichts anderes zusätzlich included werden
+- Schnittstellen sehr sauber definieren, um unabhängiges Arbeiten zu erleichtern
+- Nur schauen, dass starke Kohäsion besteht, schwache Kopplung kommt dann "von alleine"
+
+- S. 19: Muss man nicht auswendig wissen
+- S. 22: Einträge ohne grünen Haken -> in Code noch nicht angepasst
+
+
+== Patterns
+- Notiz: Observer Pattern -> sehr wichtig, nicht nur bei Embedded Systemen
+- Facade <-> Adapter -> Facade: Bsp. bei riesen Library dem User nur eine kleine Schnittstelle zur verfügung stellen für etwas spezifisches
+- Mediator: In 'System A' wäre das das main.c File
+- Bsp. Drucker -> bei mehreren Druckaufträgen von mehereren Personen würde der Monitor die Aufträge
+    jeweils korrekt aufteilen, sodass nicht plötzlich Zeile 1 von Person 1 und Zeile 3 von Person 5 gedruckt wird.
+
+== Event-Based Systems
+- Interruptvektortabelle ist im Grunde nichts anderes als Array von Funktionspointern
+- Observer Pattern
+    - "man schreibt sich ein für gewisse events und wird dann automatisch informiert"
+        -> Modell hat liste von Funktionen, Views tragen sich dort ein
+- Notiz am Rande: Bei for loops für Zählvariable immer size_t nehmen, nichts anderes!
+--Bis Folie 14 gekommen--

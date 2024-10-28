@@ -14,18 +14,21 @@ class CounterState  // abstract base class
     virtual CounterState* handle(Counter& entity, CounterCtrl::Event e) = 0;
     // returns new state
   protected:    // only inherited classes may use these member functions
-    CounterState* changeState(Counter& entity, 
-                              Action ptransAction,  // only if actions are used
-                              CounterState* pnewState);
 
-    // if actions are used, the following must be added:
+    // if actions are used:
     virtual void entryAction(Counter& entity) {};
     virtual void exitAction(Counter& entity) {};
     typedef void (CounterState::*Action)(Counter& entity);   // ptr to action function
 
-    // transition actions
+    // if actions are used: transition actions
     void emptyAction(Counter& entity) {};
     void showCounter(Counter& entity);
     void countUp(Counter& entity);
     void countDown(Counter& entity);
+
+    // always (see extra comment)
+    CounterState* changeState(Counter& entity, 
+                              Action ptransAction,  // only if actions are used
+                              CounterState* pnewState);
+
 };

@@ -14,15 +14,15 @@
 
 
 % ========================================= DOCUMENT INFO =========================================
-\def\title{Embedded Software Engineering 1}           % title
-\def\shorttitle{EmbSW1}     % short title (displayed as PDF title)
-\def\dozent{Prof. Reto Bonderer}  % lecturer
-\def\semester{HS 2024}      % semester
-\def\author{Laurin Heitzer, Simone Stitz}        % author(s)
-\def\repo{https://github.com/P4ntomime/EmbSW1}   % repository link
-\def\version{1.0.\today}    % version
-\def\pagelimit{20}          % page limit -> causes pages after limit to be red
-\def\titleoption{normal}    % options: compact, normal
+\def\title{Embedded Software Engineering 1}             % title
+\def\shorttitle{EmbSW1}                                 % short title (displayed as PDF title)
+\def\dozent{Prof. Reto Bonderer}                        % lecturer
+\def\semester{HS 2024}                                  % semester
+\def\author{Laurin Heitzer, Simone Stitz}               % author(s)
+\def\repo{https://github.com/P4ntomime/EmbSW1}          % repository link
+\def\version{1.0.\today}                                % version
+\def\pagelimit{100}                                     % page limit -> causes pages after limit to be red
+\def\titleoption{compact}                               % options: ultra compact, compact, normal
 \def\enableToC{true}
 
 % ================================= PACKAGES, SETUP AND COMMANDS ==================================
@@ -43,9 +43,13 @@
         \input{sections/05_fsm.tex}
         \input{sections/06_statecharts.tex}
         \input{sections/07_fsm_realization_flat.tex}
+
+        \input{sections/08_modularization.tex}
+        \input{sections/09_patterns.tex}
         % Gleichzeitigkeit (Concurrency)
         % POSIX-Programmierung
         % Event-based Systems
+        \input{sections/10_event_based_systems.tex}
         % Embedded Software Patterns
         % Multicore Systems mit Multistage-Caches, Interprozesskommunikation, Shared Memory
         % Real-time Operating System (RTOS)
