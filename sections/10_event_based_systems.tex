@@ -91,20 +91,38 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 
 \subsubsection{Callback-Funktionen in C}
+% TODO: Reformatting / adjustments according to new slides 
+% better sectioning with paragraphs -> 1 paragraph per slide
 
+Beim MVC gilt:
+
+\vspace{0.1cm}
+
+\begin{itemize}
+    \item model wirkt als server
+    \item views sind clients
+\end{itemize}
+
+
+\para{Event registieren}
+
+%TODO: slide 12
 \begin{outline}
-    \1 Beim MVC gilt:
-        \2 model wirkt als server
-        \2 views sind clients
     \1 Jeder client meldet beim server an, welche Ereignisse ihn interessieren
         \2 Anmeldung erfolgt über eine Funktion, welche der service anbietet
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth,morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=3]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth,morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=4]{snippets/ebs_callback.c}
     \1 Der server trägt diesen \textbf{Funktionspointer} \mylstbox{f} in eine Tabelle ein und ruft \textbf{beim Eintreten des Ereignisses alle
         registrierten Funktionen} der Reihe nach je über den eingetragenen Funktionspointer auf
 \end{outline}
 
 
-\subsection{Code-Beispiele zu Callback-Funktionen} %TODO: besserer name???
+\para{Event austragen}
+
+% TODO: slide 13
+
+
+\subsection{Code-Beispiele zu Callback-Funktionen} 
+%TODO: reorganize with new slides
 
 \begin{outline}
     \1 Funktionspointer \mylstbox{foo_cbFunction} zu Callback-Funktionen definieren

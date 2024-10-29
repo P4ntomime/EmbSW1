@@ -1,7 +1,7 @@
 int foo_registerCb(foo_Event e, foo_cbFunction f);
 // registers function 'f' on event 'e'
+// 'id' is returned
 // sometimes called attach()
-
 
 typedef void (*foo_cbFunction)(int);
 // Schnittstelle: void f(int)
