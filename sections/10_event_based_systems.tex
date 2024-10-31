@@ -71,7 +71,7 @@ Für jeden Vektor muss eingetragen werden, welches die \textbf{Anfangsadresse} d
 \subsection{Model View Controller (MVC) aka Observer Pattern}
 
 Ausgangslage: Daten (model) und verschiedene Darstellungsformen (views) der Daten (z.B. Balkendiagramm, Kuchendiagramm, Tabelle, etc.) \\
-\textbf{\textrightarrow\ Die views sollen unbedingt vom model getrennt werden!}
+\textbf{\textrightarrow\ Die views (clients) sollen unbedingt vom model (server) getrennt werden!}
 
 \vspace{0.2cm}
 
@@ -88,17 +88,7 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 \end{itemize}
 
 
-\subsubsection{Callback-Funktionen in C}
-
-Beim MVC gilt:
-
-\vspace{0.1cm}
-
-\begin{itemize}
-    \item model wirkt als server
-    \item views sind clients
-\end{itemize}
-
+\subsection{Umsetzung der Callback-Funktionen in C (clientseitig)} 
 
 \para{Event registieren (attach)}
 
