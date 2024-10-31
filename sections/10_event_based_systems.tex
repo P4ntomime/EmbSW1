@@ -70,8 +70,6 @@ Für jeden Vektor muss eingetragen werden, welches die \textbf{Anfangsadresse} d
 
 \subsection{Model View Controller (MVC) aka Observer Pattern}
 
-%TODO: Bilder Observer Pattern? Wohin damit? S15 / S16
-
 Ausgangslage: Daten (model) und verschiedene Darstellungsformen (views) der Daten (z.B. Balkendiagramm, Kuchendiagramm, Tabelle, etc.) \\
 \textbf{\textrightarrow\ Die views sollen unbedingt vom model getrennt werden!}
 
@@ -91,8 +89,6 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 
 \subsubsection{Callback-Funktionen in C}
-% TODO: Reformatting / adjustments according to new slides 
-% better sectioning with paragraphs -> 1 paragraph per slide
 
 Beim MVC gilt:
 
@@ -104,31 +100,86 @@ Beim MVC gilt:
 \end{itemize}
 
 
-\para{Event registieren}
+\para{Event registieren (attach)}
 
-%TODO: slide 12
 \begin{outline}
     \1 Jeder client meldet beim server an, welche Ereignisse ihn interessieren
         \2 Anmeldung erfolgt über eine Funktion, welche der service anbietet
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth,morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=4]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=3]{snippets/ebs_callback.c}
     \1 Der server trägt diesen \textbf{Funktionspointer} \mylstbox{f} in eine Tabelle ein und ruft \textbf{beim Eintreten des Ereignisses alle
         registrierten Funktionen} der Reihe nach je über den eingetragenen Funktionspointer auf
 \end{outline}
 
 
-\para{Event austragen}
+\para{Event austragen (detach)}
 
-% TODO: slide 13
+\begin{outline}
+    \1 Ein client kann sein Interesse an einem Ereignis beim Server auch wieder austragen
+        \2 Der Server löscht dann den entsprechenden Eintrag (\textbf{Funktionspointer} \mylstbox{f}) wieder aus der Tabelle
+        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=5, lastline=7]{snippets/ebs_callback.c}
+\end{outline}
 
 
-\subsection{Code-Beispiele zu Callback-Funktionen} 
-%TODO: reorganize with new slides
+\subsection{Umsetzung der Callback-Funktionen in C (serverseitig)} 
 
 \begin{outline}
     \1 Funktionspointer \mylstbox{foo_cbFunction} zu Callback-Funktionen definieren
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, firstnumber=1, firstline=6, lastline=7]{snippets/ebs_callback.c}
-    \1 Tabelle von Funktionspointern für jeden Event definieren
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth,morekeywords={[3], evNum, evClient}, firstnumber=1, firstline=9, lastline=9]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, firstnumber=1, firstline=9, lastline=10]{snippets/ebs_callback.c}
+    \1 Tabelle von Funktionspointern für jeden Event definieren und mit \textbf{Nullpointern initialisieren}
+        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], evNum, evClient}, firstnumber=1, firstline=12, lastline=13]{snippets/ebs_callback.c}
     \1 Aufruf der registrierten Clientfunktionen beim Eintreten des Events
-    \lstinputlisting[aboveskip=1mm, linewidth=\linewidth,morekeywords={[3], evNum, i, evClient}, firstnumber=1, firstline=12, lastline=18]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], evNum, i, evClient, client, arg}, firstnumber=1, firstline=15, lastline=24]{snippets/ebs_callback.c}
 \end{outline}
+
+
+\para{Mitteilung eines Events}
+
+\vspace{0.1cm}
+
+\begin{minipage}[t]{0.4\columnwidth}
+    \raggedright
+    Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mit der Funktion
+    \mylstbox[morekeywords={[3], e}]{void  foo_signalEvent(foo_Event e);} mitgeteilt werden.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.56\columnwidth}
+    % CHECK: If there will be a full code example of callback functions, outcomment the following snippet
+    \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, ev1Num, ev2Num, ev1Client, ev2Vlient}, firstnumber=1, firstline=26, lastline=42]{snippets/ebs_callback.c}
+\end{minipage}
+
+
+% Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mit der Funktion
+% \mylstbox[morekeywords={[3], e}]{void  foo_signalEvent(foo_Event e);} mitgeteilt werden.
+
+% % CHECK: If there will be a full code example of callback functions, outcomment the following snippet
+% \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, ev1Num, ev2Num, ev1Client, ev2Vlient}, firstnumber=1, firstline=26, lastline=42]{snippets/ebs_callback.c}
+
+
+\subsection{Observer Pattern}
+
+\subsubsection{Klassendiagramm (abstrakte Observer Basisklasse)}
+
+\begin{center}
+    \includegraphics[width=0.8\columnwidth]{images/ebs_observer_pattern_klassendiagramm.png}
+\end{center}
+
+
+\subsubsection{Implementation in C++}
+
+%TODO: write some stuff about how to implmenent that stuff
+% slide 20 + eigene Erkenntnisse / Gedanken
+
+\begin{outline}
+    \1 \textbf{Observer-Klasse (abstrakte Basisklasse)}
+
+    \1 \textbf{Observer-Subklassen}
+
+    \1 \textbf{Subjekt Klasse}
+
+    \1 \textbf{Subjekt1 Subklasse}
+\end{outline}
+
+
+\example{Observer Pattern in C++}
+
+%TODO: code snippets
