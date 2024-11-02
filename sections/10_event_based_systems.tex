@@ -94,7 +94,7 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 \begin{outline}
     \1 Jeder client meldet beim server an, welche Ereignisse ihn interessieren
-        \2 Anmeldung erfolgt über eine Funktion, welche der service anbietet
+        \2 Anmeldung erfolgt über eine Funktion, welche der server anbietet
         \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=3]{snippets/ebs_callback.c}
     \1 Der server trägt diesen \textbf{Funktionspointer} \mylstbox{f} in eine Tabelle ein und ruft \textbf{beim Eintreten des Ereignisses alle
         registrierten Funktionen} der Reihe nach je über den eingetragenen Funktionspointer auf
@@ -105,6 +105,7 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 \begin{outline}
     \1 Ein client kann sein Interesse an einem Ereignis beim Server auch wieder austragen
+        \2 Abmeldung erfolgt über eine Funktion, welche ebenfalls der server anbietet
         \2 Der Server löscht dann den entsprechenden Eintrag (\textbf{Funktionspointer} \mylstbox{f}) wieder aus der Tabelle
         \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=5, lastline=7]{snippets/ebs_callback.c}
 \end{outline}
@@ -124,25 +125,46 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 \para{Mitteilung eines Events}
 
-\vspace{0.1cm}
+Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mit der Funktion 
+\mylstbox[morekeywords={[3], e}]{void  foo_signalEvent(foo_Event e);} mitgeteilt werden.
 
-\begin{minipage}[t]{0.4\columnwidth}
-    \raggedright
-    Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mit der Funktion
-    \mylstbox[morekeywords={[3], e}]{void  foo_signalEvent(foo_Event e);} mitgeteilt werden.
+
+
+\example{Callback-Funktionen in C}
+
+\para{Test-Applikation -- Client} 
+\lstinputlisting[aboveskip=1mm, morekeywords={[3], a, maxId, i}]{snippets/ebs_callback/testApp.c}
+
+
+\para{Server -- Header-File}
+\lstinputlisting[aboveskip=1mm, morekeywords={[2], foo_Event, foo_cbFunction}, morekeywords={[3], e, f, id}]{snippets/ebs_callback/fooServer.h}
+
+\para{Server -- Implementation}
+\lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=75,
+                 morekeywords={[2], foo_Event, foo_cbFunction}, 
+                 morekeywords={[3], e, f, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
+                {snippets/ebs_callback/fooServer.c}
+
+\columnbreak
+
+\lstinputlisting[aboveskip=1mm, firstnumber=77, firstline=77, lastline=113,
+                 morekeywords={[2], foo_Event, foo_cbFunction}, 
+                 morekeywords={[3], e, f, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
+                {snippets/ebs_callback/fooServer.c}
+
+
+\para{Signal Generator -- Header-File} 
+\lstinputlisting[aboveskip=1mm]{snippets/ebs_callback/fooSigGen.h}
+
+\para{Signal Generator -- Implementation}
+\begin{minipage}[t]{0.57\columnwidth}
+    \lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=22, morekeywords={[3], answer}]{snippets/ebs_callback/fooSigGen.c}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.56\columnwidth}
-    % CHECK: If there will be a full code example of callback functions, outcomment the following snippet
-    \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, ev1Num, ev2Num, ev1Client, ev2Vlient}, firstnumber=1, firstline=26, lastline=42]{snippets/ebs_callback.c}
+\begin{minipage}[t]{0.4\columnwidth}
+    \lstinputlisting[aboveskip=1mm, firstnumber=23, firstline=23, lastline=38, morekeywords={[3], answer}]{snippets/ebs_callback/fooSigGen.c}
 \end{minipage}
 
-
-% Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mit der Funktion
-% \mylstbox[morekeywords={[3], e}]{void  foo_signalEvent(foo_Event e);} mitgeteilt werden.
-
-% % CHECK: If there will be a full code example of callback functions, outcomment the following snippet
-% \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, ev1Num, ev2Num, ev1Client, ev2Vlient}, firstnumber=1, firstline=26, lastline=42]{snippets/ebs_callback.c}
 
 
 \subsection{Observer Pattern}

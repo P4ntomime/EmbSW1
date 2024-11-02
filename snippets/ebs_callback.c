@@ -3,7 +3,7 @@ int foo_registerCb(foo_Event e, foo_cbFunction f);
 // sometimes called attach()
 
 int foo_unregisterCb(foo_Event e, int id);
-// unregisters functionId 'id' on event 'e'
+// unregisters functionId 'id' on event 'e' -> 'id' is returned
 // sometimes called detach()
 
 typedef void (*foo_cbFunction)(int);
