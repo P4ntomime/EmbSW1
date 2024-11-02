@@ -138,8 +138,7 @@ Es gibt zwei Arten von Preemptive Multitasking Algorithmen:
 
 \subsection{Rate Monotonic Scheduling (RMS)}
 
-
-RMS beschreibt eine Regel, bei deren Einhaltung eine Konfiguration \textbf{immer scheduable} ist.
+RMS beschreibt Regel, bei deren Einhaltung eine Konfiguration \textbf{immer scheduable} ist.
 
 
 \subsection{Rate Monotonic Scheduling Theorem}
@@ -169,6 +168,7 @@ Die Prioritäten mussen den Tasks zwingend folgendermassen zugewiesen werden:
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
+    \vspace{-0.2cm}
     $$ U = \sum\limits_{i} \frac{e_i}{p_i} $$
 \end{minipage}
 
@@ -191,13 +191,13 @@ Die Prioritäten mussen den Tasks zwingend folgendermassen zugewiesen werden:
 
 \example{Rate Monotonic Scheduling}
 
-\begin{minipage}[t]{0.48\columnwidth}
+\begin{minipage}[t]{0.55\columnwidth}
     Gemäss gegebener Tabelle sind die Tasks folgendermassen priorisiert:
     $$ T_1 > T_3 > T_2 $$
     In dieser Reihenfolge werden die Tasks aufgezeichnet!
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.4\columnwidth}
+\begin{minipage}[t]{0.38\columnwidth}
     \includegraphics[width=\columnwidth, align=t]{images/scheduling_RMS_example_tabelle.png}
 \end{minipage}
 
