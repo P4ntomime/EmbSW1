@@ -62,8 +62,6 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 
 \example{Compiling / Linking file printer.c}
 
-
-%TODO: formatting broken?!
 \begin{description}
     \item[Compiling:] \lstinline|clang -c -Wall -pthread printer.c|
     \item[Linking:]   \lstinline|clang -o printer printer.o -Wall -lpthread|
@@ -100,16 +98,67 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 % \begin{center}
 %     \includegraphics[width=0.8\columnwidth]{images/posix_thread_fork_join.png}
 % \end{center}
-
 \begin{minipage}[t]{0.48\columnwidth}
-    \lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=20, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
+    \lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=23, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
-    \lstinputlisting[aboveskip=1mm, firstnumber=21, firstline=21, lastline=42, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
+    \lstinputlisting[aboveskip=1mm, firstnumber=24, firstline=24, lastline=48, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
 \end{minipage}
 
 
-
-
 \subsection{Thread-safeness}
+Thread-safeness bezieht sich auf die Fähigkeit einer Anwendung, mehrere Threads gleichzeitig auszuführen,
+\textbf{ohne 'clubbering' und 'race conditions'} zu verursachen. Damit Thread-safeness gewährleistet werden kann, ist \textbf{Synchronisation}
+erforderlich.
+
+\begin{description}
+    \item[clubbering:] Speicher durcheinander bringen, wenn mehrere Threads den gleichen Speicher benötigen und 'falsch' darauf zugreifen
+    \item[race conditions:] Programmablauf und Endergebnis hängen davon ab, in welcher Reihenfolge 'gleichzeitig' ablaufende Threads auf z.B. eine
+        globale Variable im Speicher zufreifen und das Verhalten somit unvorhersehbar wird
+\end{description}
+
+
+\subsubsection{Empfehlung: Thread-Safeness}
+
+Wenn Thread-safeness nicht explizit garantiert ist (z.B. von einer Library, welche verwendet wird), muss  angenommen werden, dass sie 
+\textbf{nicht thread-safe} ist! \\
+Um in einem solchen Fall Thread-safeness zu gewährleisten, können die Aufrufe einer 'unsicheren' Funktion \textbf{serialisiert} werden.
+
+
+\subsection{Quasi-Parallelität / 'Prozess'-Zustände}
+
+\subsubsection{Prozess-Zustände}
+
+\begin{minipage}[t]{0.45\columnwidth}
+    \includegraphics[width=\columnwidth, align=t]{images/posix_process_states.png}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.5\columnwidth}
+    \begin{enumerate}
+        \item I/O Operation, Warten auf Bedingung
+        \item Scheduler entzieht CPU
+        \item Scheduler weist CPU zu
+        \item I/O beendet, Bedigung erfüllt
+    \end{enumerate}
+\end{minipage}
+
+\vspace{0.2cm}
+
+\begin{minipage}[t]{0.4\columnwidth}
+    \includegraphics[width=\columnwidth, align=t]{images/concurrency_quasi_parallelitaet.png}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.58\columnwidth}
+    \raggedright
+    \begin{outline}
+        \1 Prozesse / Threads warten die 'meiste Zeit' \\
+            \textrightarrow\ blocked
+        \1 Scheduler ordnet CPU denjenigen Prozess / Thread zu, die im Zustand 'ready' sind und 'etwas zu tun haben'
+        \1 Die Zuordnung hängt vom verwendeten Scheduling-Algorithmus ab:
+            \2 First come First serve Scheduling: Eine Queue mit allen Prozessen, wobei nächster Prozess jeweils hinten angehängt wird und erster 
+                Eintrag der Queue aktuell ausgeführt wird
+            \2 Priority Scheduling: Pro Priorität gibt es eine Queue. Abarbeitung je nach Algorithmus anders
+    \end{outline}
+\end{minipage}
+

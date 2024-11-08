@@ -8,9 +8,12 @@ void* printDashes(void* arg);
 int main(void)
 {
   int ret;
-  pthread_t dasher;
+  pthread_t dasher; // pthread_t instance
 
   printf("start");
+
+  // starts thread -> immediately returns
+  // (thread maybe not fully started yet)
   ret = pthread_create(&dasher, 0,
                        printDashes, 0);
   if (ret)
@@ -18,6 +21,8 @@ int main(void)
     printf("ERROR CODE: %d\n", ret);
     return -1;
   }
+  // main thread shall wait until 
+  // dasher is finished
   ret = pthread_join(dasher, 0);
   if (ret) 
   {
@@ -35,7 +40,8 @@ void* printDashes(void* arg)
   {
     usleep(40000);
     putchar('-');
-    fflush(stdout); // write character-wise
+    fflush(stdout); // write character-
+                    // wise and
                     // don't buffer
   }
   return 0;
