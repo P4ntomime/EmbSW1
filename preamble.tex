@@ -345,6 +345,7 @@
 
 
 % custom inline tcolorbox
+% FIXME: weird behavior within description environment. Offsets first line if it's the first element of said line... why???
 \newtcbox{\mybox}
             [1]
             [backcolour]
@@ -781,7 +782,7 @@
 % custom inline listings with box around them
 \newcommand{\mylstbox}[2][columns=fullflexible]{%
     \mybox{%
-        \lstinline[#1]{#2}}}
+        \lstinline[#1]|#2|}}
 \newcommand{\mytclstbox}[2][black]{%
     \mybox{%
         \lstinline[basicstyle=\sffamily\footnotesize\color{#1}, columns=fullflexible]{#2}}}

@@ -1,0 +1,47 @@
+\section{Concurrency (Gleichzeitigkeit)}
+
+Programme von praktischem Nutzen führen meist mehrere Arbeiten 'gleichzeitig' durch. Beispielsweise soll bei einem Embedded System ein Roboterarm 
+bewegt werden, während 'gleichzeitig' mit einem übergeordneten System kommuniziert wird.
+
+
+\subsection{Parallel Computing vs. Concurrent Computing}
+
+
+\begin{outline}
+    \1 \textbf{Parallel Computing}
+        \2 Ausführung verschiedener Tasks \textbf{tatsächlich gleichzeitig}
+        \2 Nicht möglich auf single-core System
+    \1 \textbf{Concurrent Computing}
+        \2 Ausführung verschiedener Tasks \textbf{wirkt nur gleichzeitig}
+        \2 Verschiedene Tasks erhalten verschiedene 'time slices' \textrightarrow\ Ein Task pro time slice
+        \2 Auf single- und multi-core Systemen möglich
+\end{outline}
+
+
+\subsection{Warum man Concurrency nicht verwenden sollte}
+
+\begin{outline}
+    \1 \textbf{Concurrency (mit Prozessen, Tasks, Threads) kostet immer}
+        \2 Stack
+        \2 Braucht context switch (Umschalten von einen zum anderen Prozess, Task, Thread) \\
+            \textrightarrow\ Alter context (Registerwerte, Steck, etc.) muss gespeichert, neuer geladen werden 
+        \2 Zugriff auf gemeinsame Ressourcen muss synchronisiert werden \\
+            \textrightarrow\ fehleranfällig (wird vergessen / falsch gemacht)
+    \1 \textbf{Komplexität steigt}
+        \2 Sequenzielle Programme sind einfacher zu verstehen als parallele Programme
+\end{outline}
+
+\vspace{0.1cm}
+
+\textbf{ \textrightarrow\ Concurrency nur dann einsetzen, wenn wirklich ein Nutzen vorhanden ist!}
+
+
+\subsection{Synchronisation}
+
+Wenn parallele Einheiten \textbf{gemeinsame Ressourcen} benützen, muss der Zugriff auf die Ressourcen geregelt (synchronisiert) werden.
+Wenn dies nicht gemacht wird kann es sein, dass zwei Tasks dieselbe Ressource 'falsch' verwenden. \textrightarrow\ 'Deadlock'
+
+\vspace{0.1cm}
+
+\textbf{Achtung: } 'Ein Bisschen warten' ist \textbf{keine} Synchronisation!
+
