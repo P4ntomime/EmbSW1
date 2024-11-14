@@ -1,0 +1,26 @@
+\begin{center}
+    \begin{tikzpicture}
+        [
+            %transform canvas={scale=1.0},
+            scale = 0.7,
+            >=latex,
+            bluebox/.style={rectangle, draw=black, fill=blue!40, thick, minimum width=1.5cm, minimum height=0.6cm, align=center},
+            redbox/.style={rectangle, draw=black, fill=redcontrast!70, text=white, thick, minimum width=1.5cm, minimum height=0.6cm, align=center},
+        ]
+        % define styles
+        
+        % nodes
+        \node[bluebox]      (Zugriff)                                               {Zugriff\\erlaubt?};
+        \node[bluebox]      (Sperren)           [below= 0.4cm of Zugriff]           {Sperren};   
+        \node[redbox]       (CS)                [below= 0.3cm of Sperren]           {kritischer\\Abschnitt};
+        \node[bluebox]      (Freigeben)         [below= 0.3cm of CS]                {Freigeben};
+        
+        \node               (wait)              [right= 0.2cm of Sperren]           {\lstinline|waitFor(signal)|};
+        \node               (send)              [right= 0.2cm of Freigeben]         {\lstinline|send(signal)|};
+        
+        % arrows between nodes
+        \draw[->, thick] (Zugriff.south)    to (Sperren.north);
+        \draw[->, thick] (Sperren.south)    to (CS.north);
+        \draw[->, thick] (CS.south)         to (Freigeben.north);
+    \end{tikzpicture}
+\end{center}
