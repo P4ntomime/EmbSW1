@@ -52,7 +52,7 @@ void* threadRoutine(void* arg)
     {
       /* end of critical section */
       pthread_mutex_unlock(&valMtx);  // unlock mutex
-      break;
+      break;                          // exit while(1)
     }
     /* end of critical section */
     pthread_mutex_unlock(&valMtx);    // unlock mutex
