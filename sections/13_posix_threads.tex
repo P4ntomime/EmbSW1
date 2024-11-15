@@ -345,3 +345,64 @@ Dabei muss sich der \textbf{Aufrufer nicht mehr um die Synchronisation der Threa
 \textbf{Deadlock kann vermieden werden, indem alle Prozesse die gemeinsamen Ressourcen immer in
 \myul{derselben Reihenfolge} anfordern (z.B. zuerst A, dann B)}
 
+
+
+\subsection{Informationen zwischen Threads austauschen}
+
+Der Austauschen von Daten zwischen verschiedenen Threads (z.B. anderen Thread benachrichtigen, wenn in eigenem Thread etwas passiert ist / warten,
+bis in anderem Thread etwas passiert ist ) ist mittels \textbf{shared resources} möglich. \\
+Der \textbf{Nachteil} davon ist aber, dass diese shared resource mit \textbf{polling} abgefragt werden muss \textrightarrow\ nicht effizient!
+
+\vspace{0.1cm}
+
+Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{condition variables.}
+
+
+\subsubsection{Condition Variables}
+
+\begin{outline}
+    \1 Mit Hilfe von condition variables können Threads auf der Grundlage des aktuellen Datenwerts synchronisiert werden
+        \2 \textbf{Kein polling nötig!}
+    \1 Condition Variables werden immer \textbf{zusammen mit einem 'Mutex lock'} verwendet
+\end{outline}
+
+
+\example{Anwendungsbeispiel für Condition Variables}
+
+\begin{center}
+    \includegraphics[width=0.9\columnwidth]{images/cond_var_beispiel.png}
+\end{center}
+
+
+\subsection{Condition Variables mit pthreads}
+
+\subsubsection{Erstellen / inizialisieren von Conditon Variables}
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=5,
+                 morekeywords={[3], condVar, attr}, morekeywords={[2], pthread_cond_t, pthread_condattr_t}]
+                {snippets/posix_condition_variables_interface.c}
+
+
+\subsubsection{Zerstören von Condition Variables}
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=8, lastline=9,
+                 morekeywords={[3], condVar}, morekeywords={[2], pthread_cond_t}]
+                {snippets/posix_condition_variables_interface.c}
+
+
+\subsubsection{Auf Conditon Variables warten}
+
+% TODO S 10
+
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=12, lastline=14,
+                 morekeywords={[3], condVar, mutex}, morekeywords={[2], pthread_cond_t, pthread_mutex_t}]
+                {snippets/posix_condition_variables_interface.c}
+
+
+\subsubsection{Signalisierung mit Conditon Variables}
+
+% TODO: 11 
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=17, lastline=18,
+                 morekeywords={[3], condVar}, morekeywords={[2], pthread_cond_t}]
+                {snippets/posix_condition_variables_interface.c}
