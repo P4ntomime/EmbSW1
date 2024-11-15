@@ -392,17 +392,27 @@ Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{c
 
 \subsubsection{Auf Conditon Variables warten}
 
-% TODO S 10
+\begin{outline}
+    \1 Blockiert aufrufenden Thread bis Bedingung signlaisiert wird
+    \1 Muss aufgerufen werden, wenn Mutex bockiert ist
+        \2 Gibt Mutex automatisch frei, während gewartet wird
+    \1 \textbf{Programmierer ist verantwortlich für Freigabe der Mutex Variable, wenn Thread fertig}
+\end{outline}
 
-
-\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=12, lastline=14,
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=12, lastline=14,
                  morekeywords={[3], condVar, mutex}, morekeywords={[2], pthread_cond_t, pthread_mutex_t}]
                 {snippets/posix_condition_variables_interface.c}
 
 
 \subsubsection{Signalisierung mit Conditon Variables}
 
-% TODO: 11 
-\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=17, lastline=18,
+\begin{outline}
+    \1 Gibt Thread frei, welcher von Condition Variable blockiert wird
+    \1 Signalisierung für anderen Thread, welcher auf Condition Variable wartet
+    \1 Sollte aufgerufen werden, nachdem Mutex blockiert ist
+\end{outline}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=17, lastline=18,
                  morekeywords={[3], condVar}, morekeywords={[2], pthread_cond_t}]
                 {snippets/posix_condition_variables_interface.c}
+
