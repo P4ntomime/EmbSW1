@@ -269,3 +269,79 @@ Die Lösung für Busy Waiting ist, die wartenden Prozesse in eine \textbf{Wartes
 % CHECK New section?
 \subsection{Thread Synchronisierung in C mit pthreads API}
 
+Code Synchronisation wird mittels Mutex (\textbf{lock pattern}) sichergestellt. 
+Das Konzept von Mutex ist, dass eine Mutex Variable \textbf{nur einem Thread gleichzeitig gehören kann.}
+
+
+\subsubsection{Ablaub einer Mutex-Sequenz in C}
+
+\begingroup
+\renewcommand{\outlinei}{enumerate}
+\renewcommand{\outlineii}{itemize}
+\begin{outline}
+    \1 Mutex Variable erstellen / instanzieren
+        \2 'Schloss', welches Zugang zu CS schützt
+    \1 Mehrere Threads versuchen, die Mutex Variable zu blockieren \\
+        \textrightarrow\ \textbf{Nur ein Thread} ist erfolgreich \textrightarrow\ diesem Thread ('owner') gehört die Mutex Variable 
+    \1 Dieser 'owner thread' führt Aktionen in der Critial Section (CS) aus
+        \2 Häufig Update einer globalen (shared) Variable
+    \1 'owner' entblockt (unlock) die Mutex Variable
+    \1 Dem nächsten Thread gehört die Mutex Variable \textrightarrow\ zurück zu Schritt 2
+    \1 Wenn alle Threads abgearbeitet sind, wird die Mutex Variable zerstört
+\end{outline}
+\endgroup
+
+\vspace{0.1cm}
+
+\textrightarrow\ Dies ist ein sicherer Weg, um sicherzustellen, dass, wenn \textbf{mehrere Threads} dieselbe Variable aktualisieren, 
+der \textbf{Endwert derselbe} ist, wie wenn nur \textbf{ein Thread} die \textbf{Aktualisierung durchführen} würde.
+
+
+\example{Mutex in C}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 morekeywords={[3], val , valMtx, arg, t1, t2, rState}, morekeywords={[2], pthread_mutex_t, pthread_t}]
+                {snippets/posix_mutex.c}
+
+
+
+\subsection{Monitorprinzip (Monitor Pattern)}
+
+% CHECK: ob diese Aussage korrekt ist...
+Das Monitorprinzpt beschreibt eine Art Abstraktion des Mutex / Lock Patterns. \\
+Dabei muss sich der \textbf{Aufrufer nicht mehr um die Synchronisation der Threads kümmern}. Das Problem wird einmal im Monitor gelöst.
+
+\begin{outline}
+    \1 Es wird ein Abstrakter Datentyp (ADT) definiert, der genau die Funktionen in der Schnittstelle anbietet, die notwendig sind
+    \1 Der Aufrufer ruft diese Funktion auf, muss sich aber \textbf{nicht um Synchronisation kümmern}
+        \2 Synchronisation (z.B. mit Semaphoren) ist Implementation des Monitors lokal gelöst
+\end{outline}
+
+
+\subsection{'Stolperfallen' bei Synchronisation}
+% TODO: Besserer Name...
+
+\subsubsection{Starvation (Verhungern)}
+
+\begin{outline}
+    \1 Zustand, bei dem ein Prozess nie dran kommt \textrightarrow\ er verhungert
+    \1 Kann auftreten bei:
+        \2 prioritätsgetriebenen Systemen bei Prozessen mit niederer Priorität passieren
+        \2 SJF (shortest job first) Systeme \textrightarrow\ kurze Jobs bremsen längere Jobs aus
+    \1 Fairness condition besagt, dass Starvation verhindert werden muss
+\end{outline}
+
+
+\subsubsection{Deadlock}
+
+\begin{outline}
+    \1 Situation, bei der sich \textbf{zwei Prozesse gegenseitig blockieren}
+        \2 Zwei Prozesse benötigen gemeinsame Ressourcen A und B. Wenn Prozess 1 die Ressource A bereits besitzt und Prozess 2 die Ressource B,
+            dann warten beide unendlich lange auf die jeweils andere Ressource
+\end{outline}
+
+\vspace{0.1cm}
+
+\textbf{Deadlock kann vermieden werden, indem alle Prozesse die gemeinsamen Ressourcen immer in
+\myul{derselben Reihenfolge} anfordern (z.B. zuerst A, dann B)}
+
