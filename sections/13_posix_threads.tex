@@ -153,7 +153,7 @@ Um in einem solchen Fall Thread-safeness zu gewährleisten, können die Aufrufe 
     \raggedright
     \begin{outline}
         \1 Prozesse / Threads warten die 'meiste Zeit' \\
-            \textrightarrow\ blocked
+            \textrightarrow\ blocked (z.B. \mylstbox{join} blockiert andere Threads)
         \1 Scheduler ordnet CPU denjenigen Prozess / Thread zu, die im Zustand 'ready' sind und 'etwas zu tun haben'
         \1 Die Zuordnung hängt vom verwendeten Scheduling-Algorithmus ab:
             \2 First come First serve Scheduling: Eine Queue mit allen Prozessen, wobei nächster Prozess jeweils hinten angehängt wird und erster 
@@ -161,4 +161,258 @@ Um in einem solchen Fall Thread-safeness zu gewährleisten, können die Aufrufe 
             \2 Priority Scheduling: Pro Priorität gibt es eine Queue. Abarbeitung je nach Algorithmus anders
     \end{outline}
 \end{minipage}
+
+
+% -------------------------------------------------------------------------------------------------------------------------------------------------
+% CHECK: new section?
+\subsection{Synchronisation}
+
+Synchronisation wird benötigt, um den \textbf{Zugriff auf gemeinsame Ressourcen} in Critical Sections (CS) zu 'kontrollieren'.
+
+
+\subsubsection{Defintition: Critical Section (CS)}
+
+\begin{outline}
+    \1 Codebereich, in dem nebenläufige oder parallele Prozesse auf gemeinsame Ressourcen zugreifen
+        \2 Zu jeder Zeit darf sich \textbf{höchstenns ein Prozess} im kritischen Abschnitt befinden
+    \1 Der Exklusive Zugriff durch höchstens einen Prozess wird mittels \textbf{gegenseitigem Ausschluss (Mutex)} sichergestellt
+        \textrightarrow\ Siehe Abschnitt \ref{Mutex (mutual exclusion)}
+\end{outline}
+
+
+\subsubsection{Forderungen an die Synchronisation}
+
+\begin{enumerate}
+    \item Maximal ein Prozess in einem kritischen Abschnitt (CS)
+    \item Über Abarbeitungsgeschwindigkeit, bzw. Anzahl Prozesse dürfen keine Annahmen getroffen werden
+    \item Kein Prozess darf \textbf{ausserhalb} eines kritischen Abschnitts einen anderen blockieren
+    \item Jeder Prozess, der am Eingang eines kritischen Abshcnitts wartet, muss irgendwann den Abschnitt betreten dürfen 
+        (\textbf{fairness condition}) \textrightarrow\ Verhinderung von 'starvation'
+\end{enumerate}
+
+
+% CHECK: new section?
+\subsection{Mutex (mutual exclusion)}
+\label{Mutex (mutual exclusion)}
+
+Die Lösungsstruktur 'Mutex' (gegenseitiger Ausschluss) stellt sicher, dass höchstens ein Prozess auf eine Critical Section (CS) zugreift. 
+
+
+\subsubsection{Mutex -- Ablauf}
+
+\begin{minipage}[c]{0.62\columnwidth}
+    \raggedright
+
+    \begin{description}
+        \setlength\itemsep{2em}
+        \item[Zugriffsprüfung:] Warten bis der Zugang frei wird
+        \item[Sperren:] Signal wird für andere auf Rot gesetzt, damit nur ein Prozess im kritischen Abschnitt sein kann
+        \item[Freigeben:] Rotes Signal wird wieder gelöscht
+    \end{description}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.37\columnwidth}
+    \input{tikz/mutex_loesungsstruktur.tex}
+\end{minipage}
+
+
+\subsubsection{Verwendung von Signalen und Semaphoren}
+
+\begin{outline}
+    \1 Jeder Prozess wartet vor dem Betreten der CS auf ein gemeinsames Signal
+        \2 Wenn das Signal gesetzt ist, ist CS frei
+        \2 Mehrere Prozesse können gleichzeitig warten \textrightarrow\ Schedulingalgorithmus bestimmt 'nächsten' Thread 
+    \1 \mylstbox{waitFor(signal)} blockiert \textbf{aufrufenden} Prozess, falls Signal nicht gesetzt
+    \1 Jeder Prozess, der fertig ist, setzt das Signal mit \mylstbox{send(signal)}
+\end{outline}
+
+
+\para{Semaphoren}
+
+\begin{outline}
+    \1 'Semaphor' ist ein spezieller Name für ein Signal für den \textbf{Zutritt zu einer CS}
+    \1 Es gibt zwei atomare (nicht unterbrachbare) Operationen auf einer Semaphoren \lstinline|s|
+        \2 Passieren P(s): Beim Eintritt in CS \textrightarrow\ \mylstbox{waitFor(s)}
+        \2 Verlassen V(s): Beim Austritt aus CS \textrightarrow\ \mylstbox{send(s)}
+\end{outline}
+
+\vspace{0.2cm}
+
+Bei der Verwendung von Semaphoren treten folgende Probleme auf
+
+\vspace{0.1cm}
+
+\begin{outline}
+    \1 Ressourcen können besetzt bleiben, wenn V(s) vergessen wird
+        \2 \textbf{Für jedes P(s) braucht es auch ein V(s)}
+    \1 Grössere Programme: Es können subtile Probleme entstehen, falls z.B. das V(s) in einer \textbf{if-Bedingung} gemacht wird
+    \1 Beim Auftreten von Exceptions kann das Freigeben schwierig werden
+\end{outline}
+
+\vspace{0.1cm}
+
+\textrightarrow\ Lösung für das Freigabe-Problem: RAII (siehe Abschnitt )   % TODO Ref to section when available
+
+
+\subsubsection{Busy Waiting}
+
+\begin{outline}
+    \1 Prozesse warten \textbf{aktiv} in einer Schleife (\textbf{spin lock})
+        \2 Wartende Prozesse \textbf{belasten} unnötigerweise den Prozessor
+\end{outline}
+
+\vspace{0.1cm}
+
+Die Lösung für Busy Waiting ist, die wartenden Prozesse in eine \textbf{Warteschlange} einzutragen (\textbf{sleep and wakeup})
+
+
+% CHECK New section?
+\subsection{Thread Synchronisierung in C mit pthreads API}
+
+Code Synchronisation wird mittels Mutex (\textbf{lock pattern}) sichergestellt. 
+Das Konzept von Mutex ist, dass eine Mutex Variable \textbf{nur einem Thread gleichzeitig gehören kann.}
+
+
+\subsubsection{Ablaub einer Mutex-Sequenz in C}
+
+\begingroup
+\renewcommand{\outlinei}{enumerate}
+\renewcommand{\outlineii}{itemize}
+\begin{outline}
+    \1 Mutex Variable erstellen / instanzieren
+        \2 'Schloss', welches Zugang zu CS schützt
+    \1 Mehrere Threads versuchen, die Mutex Variable zu blockieren \\
+        \textrightarrow\ \textbf{Nur ein Thread} ist erfolgreich \textrightarrow\ diesem Thread ('owner') gehört die Mutex Variable 
+    \1 Dieser 'owner thread' führt Aktionen in der Critial Section (CS) aus
+        \2 Häufig Update einer globalen (shared) Variable
+    \1 'owner' entblockt (unlock) die Mutex Variable
+    \1 Dem nächsten Thread gehört die Mutex Variable \textrightarrow\ zurück zu Schritt 2
+    \1 Wenn alle Threads abgearbeitet sind, wird die Mutex Variable zerstört
+\end{outline}
+\endgroup
+
+\vspace{0.1cm}
+
+\textrightarrow\ Dies ist ein sicherer Weg, um sicherzustellen, dass, wenn \textbf{mehrere Threads} dieselbe Variable aktualisieren, 
+der \textbf{Endwert derselbe} ist, wie wenn nur \textbf{ein Thread} die \textbf{Aktualisierung durchführen} würde.
+
+
+\example{Mutex in C}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 morekeywords={[3], val , valMtx, arg, t1, t2, rState}, morekeywords={[2], pthread_mutex_t, pthread_t}]
+                {snippets/posix_mutex.c}
+
+
+
+\subsection{Monitorprinzip (Monitor Pattern)}
+
+% CHECK: ob diese Aussage korrekt ist...
+Das Monitorprinzpt beschreibt eine Art Abstraktion des Mutex / Lock Patterns. \\
+Dabei muss sich der \textbf{Aufrufer nicht mehr um die Synchronisation der Threads kümmern}. Das Problem wird einmal im Monitor gelöst.
+
+\begin{outline}
+    \1 Es wird ein Abstrakter Datentyp (ADT) definiert, der genau die Funktionen in der Schnittstelle anbietet, die notwendig sind
+    \1 Der Aufrufer ruft diese Funktion auf, muss sich aber \textbf{nicht um Synchronisation kümmern}
+        \2 Synchronisation (z.B. mit Semaphoren) ist Implementation des Monitors lokal gelöst
+\end{outline}
+
+
+\subsection{'Stolperfallen' bei Synchronisation}
+% TODO: Besserer Name...
+
+\subsubsection{Starvation (Verhungern)}
+
+\begin{outline}
+    \1 Zustand, bei dem ein Prozess nie dran kommt \textrightarrow\ er verhungert
+    \1 Kann auftreten bei:
+        \2 prioritätsgetriebenen Systemen bei Prozessen mit niederer Priorität passieren
+        \2 SJF (shortest job first) Systeme \textrightarrow\ kurze Jobs bremsen längere Jobs aus
+    \1 Fairness condition besagt, dass Starvation verhindert werden muss
+\end{outline}
+
+
+\subsubsection{Deadlock}
+
+\begin{outline}
+    \1 Situation, bei der sich \textbf{zwei Prozesse gegenseitig blockieren}
+        \2 Zwei Prozesse benötigen gemeinsame Ressourcen A und B. Wenn Prozess 1 die Ressource A bereits besitzt und Prozess 2 die Ressource B,
+            dann warten beide unendlich lange auf die jeweils andere Ressource
+\end{outline}
+
+\vspace{0.1cm}
+
+\textbf{Deadlock kann vermieden werden, indem alle Prozesse die gemeinsamen Ressourcen immer in
+\myul{derselben Reihenfolge} anfordern (z.B. zuerst A, dann B)}
+
+
+
+\subsection{Informationen zwischen Threads austauschen}
+
+Der Austauschen von Daten zwischen verschiedenen Threads (z.B. anderen Thread benachrichtigen, wenn in eigenem Thread etwas passiert ist / warten,
+bis in anderem Thread etwas passiert ist ) ist mittels \textbf{shared resources} möglich. \\
+Der \textbf{Nachteil} davon ist aber, dass diese shared resource mit \textbf{polling} abgefragt werden muss \textrightarrow\ nicht effizient!
+
+\vspace{0.1cm}
+
+Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{condition variables.}
+
+\columnbreak
+
+
+\subsubsection{Condition Variables}
+
+\begin{outline}
+    \1 Mit Hilfe von condition variables können Threads auf der Grundlage des aktuellen Datenwerts synchronisiert werden
+        \2 \textbf{Kein polling nötig!}
+    \1 Condition Variables werden immer \textbf{zusammen mit einem 'Mutex lock'} verwendet
+\end{outline}
+
+
+\example{Anwendungsbeispiel für Condition Variables}
+
+\includegraphics[width=0.9\columnwidth]{images/cond_var_beispiel.png}
+
+
+\subsection{Condition Variables mit pthreads}
+
+\subsubsection{Erstellen / inizialisieren von Conditon Variables}
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=5,
+                 morekeywords={[3], condVar, attr}, morekeywords={[2], pthread_cond_t, pthread_condattr_t}]
+                {snippets/posix_condition_variables_interface.c}
+
+
+\subsubsection{Zerstören von Condition Variables}
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=1, firstline=8, lastline=9,
+                 morekeywords={[3], condVar}, morekeywords={[2], pthread_cond_t}]
+                {snippets/posix_condition_variables_interface.c}
+
+
+\subsubsection{Auf Conditon Variables warten}
+
+\begin{outline}
+    \1 Blockiert aufrufenden Thread bis Bedingung signlaisiert wird
+    \1 Muss aufgerufen werden, wenn Mutex bockiert ist
+        \2 Gibt Mutex automatisch frei, während gewartet wird
+    \1 \textbf{Programmierer ist verantwortlich für Freigabe der Mutex Variable, wenn Thread fertig}
+\end{outline}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=12, lastline=14,
+                 morekeywords={[3], condVar, mutex}, morekeywords={[2], pthread_cond_t, pthread_mutex_t}]
+                {snippets/posix_condition_variables_interface.c}
+
+
+\subsubsection{Signalisierung mit Conditon Variables}
+
+\begin{outline}
+    \1 Gibt Thread frei, welcher von Condition Variable blockiert wird
+    \1 Signalisierung für anderen Thread, welcher auf Condition Variable wartet
+    \1 Sollte aufgerufen werden, nachdem Mutex blockiert ist
+\end{outline}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=17, lastline=18,
+                 morekeywords={[3], condVar}, morekeywords={[2], pthread_cond_t}]
+                {snippets/posix_condition_variables_interface.c}
 

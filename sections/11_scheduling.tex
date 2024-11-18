@@ -156,7 +156,7 @@ RMS beschreibt Regel, bei deren Einhaltung eine Konfiguration \textbf{immer sche
 \subsubsection{Regeln für optimales Scheduling}
 
 Für jeden Task $T_i$ wird die Periode $p_i$ und die (worst case) execution time $e_i$ ermittelt, bzw. geschätzt. \\
-Die Prioritäten mussen den Tasks zwingend folgendermassen zugewiesen werden:
+Die Prioritäten müssen den Tasks zwingend folgendermassen zugewiesen werden:
 
 \vspace{0.1cm}
 
@@ -173,6 +173,12 @@ Die Prioritäten mussen den Tasks zwingend folgendermassen zugewiesen werden:
     \vspace{-0.2cm}
     $$ U = \sum\limits_{i} \frac{e_i}{p_i} $$
 \end{minipage}
+
+\subsubsection{Auslastung einer Ressource}
+
+\begin{center}
+    \includegraphics[width=0.9\columnwidth]{images/tabelle_auslastung_system.png}
+\end{center}
 
 
 \subsection{Vorgehen -- Rate Monotonic Scheduling}
@@ -233,7 +239,7 @@ $$ \text{RMA-Bound} \qquad U(n) = n \cdot \big( 2^{\frac{1}{n}} - 1 \big)  $$
 \begin{itemize}
     \item Prioritäten immer gemäss RMS zuweisen. (manuelle Zuweisung gibt keine bessere Lösung)
     \item Falls Auslastung nicht grösser als RMA Grenze, so ist Konfiguration RM schedulable
-    \item Falls Auslastung \textbf{grösser} ist, muss \textbf{manuell analysiert} werden, on Konfiguration schedulable ist
+    \item Falls Auslastung \textbf{grösser} ist, muss \textbf{manuell analysiert} werden, ob Konfiguration schedulable ist
     \item 100 \% Auslastung könnte erreicht werden, wenn alle Perioden harmonisch sind, d.h. jede längere Periode ist ein exaktes
         Vielfaches aller Perioden kürzerer Dauer, \\
         z.B. (10, 20, 40, 80)
