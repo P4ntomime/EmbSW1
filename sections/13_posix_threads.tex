@@ -108,6 +108,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 
 
 \subsection{Thread-safeness}
+
 Thread-safeness bezieht sich auf die Fähigkeit einer Anwendung, mehrere Threads gleichzeitig auszuführen,
 \textbf{ohne 'clubbering' und 'race conditions'} zu verursachen. Damit Thread-safeness gewährleistet werden kann, ist \textbf{Synchronisation}
 erforderlich.
@@ -346,7 +347,6 @@ Dabei muss sich der \textbf{Aufrufer nicht mehr um die Synchronisation der Threa
 \myul{derselben Reihenfolge} anfordern (z.B. zuerst A, dann B)}
 
 
-
 \subsection{Informationen zwischen Threads austauschen}
 
 Der Austauschen von Daten zwischen verschiedenen Threads (z.B. anderen Thread benachrichtigen, wenn in eigenem Thread etwas passiert ist / warten,
@@ -356,8 +356,6 @@ Der \textbf{Nachteil} davon ist aber, dass diese shared resource mit \textbf{pol
 \vspace{0.1cm}
 
 Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{condition variables.}
-
-\columnbreak
 
 
 \subsubsection{Condition Variables}
@@ -371,7 +369,7 @@ Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{c
 
 \example{Anwendungsbeispiel für Condition Variables}
 
-\includegraphics[width=0.9\columnwidth]{images/cond_var_beispiel.png}
+\includegraphics[width=\columnwidth]{images/cond_var_beispiel.png}
 
 
 \subsection{Condition Variables mit pthreads}
@@ -415,4 +413,71 @@ Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{c
 \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=17, lastline=18,
                  morekeywords={[3], condVar}, morekeywords={[2], pthread_cond_t}]
                 {snippets/posix_condition_variables_interface.c}
+
+
+
+\example{Condition Variables}
+
+Der zählende Thread, welcher den spezifizierten Wert der Variable \mylstbox{count} erreicht, signalisiert dem überwachenden Thread, dass die 
+condition eingetreten ist.
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 morekeywords={[3], count, countMutex, countThresholdCv, t, myId, threads}]
+                {snippets/posix_condvar.c}
+                
+
+\subsection{Bounded Buffer Problem / Producer-consumer problem}
+
+Das Bounded Buffer Problem ist ein klassisches \textbf{multi-process Synchronisations-Problem.} Die Lösung für das Problem ist eine Anwendung 
+von \textbf{Mutex-lock}. \\
+Das Problmen beschreibt folgende Situation:
+
+\vspace{0.1cm}
+
+\begin{outline}
+    \1 (mindestens) zwei Prozesse (producer, consumer) teilen sich einen gemeinsamen Buffer fixer Grösse (als queue benutzt)
+        \2 producer: Daten generieren und in buffer schreiben
+        \2 consumer: Daten aus Buffer lesen
+    \1 \textbf{Problem:} Es muss sichergestellt werden, dass
+        \2 producer nur in Buffer schreibt, wenn dieser \myul{nicht voll} ist
+        \2 comsumer nur Daten aus Buffer liest, wenn dieser \myul{nicht leer} ist
+\end{outline}
+
+
+\subsubsection{Lösung für Bounded Buffer Problem: Mutex}
+
+\begin{outline}
+    \1 \textbf{Producer:} 'go to sleep' (oder Daten verwerfen), wenn Buffer voll
+        \2 Erhält notification, wenn consumer Daten aus Buffer entfernt
+    \1 \textbf{Consumer:} 'go to sleep', wenn Buffer leer
+        \2 Erhält notification, wenn producer Daten in Buffer speichert
+\end{outline}
+
+\vspace{0.1cm}
+
+Die \textbf{Umsetzung} erfolt mittels 'inter-thread communication' \textrightarrow\ \textbf{Mutex} (Semaphoren) \\
+\textrightarrow\ Schlechte Umsetzung resultiert in \textbf{deadlock} (beide Threads warten auf wake-up)
+
+
+\subsection{POSIX Interprocess Communication (IPC)}
+
+POSIX bietet folgende IPC Mechanismen in der \mylstbox{POSIX:XSI} extension.
+Diese Mechanismen erlauben unabhängigen Prozessen, Informationen effizient auszutauschen.
+
+\vspace{0.1cm}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+    \begin{itemize}
+        \item Message Queues in \mylstbox{sys/msg.h}
+        \item Semahores in \mylstbox{sys/sem.h}
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+    \begin{itemize}
+        \item Shared Memory in \mylstbox{sys/shm.h}
+    \end{itemize}
+\end{minipage}
 
