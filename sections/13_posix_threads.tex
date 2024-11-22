@@ -72,7 +72,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 
 \begin{outline}
     \1 Jede Funktion mit der folgenden interface kann eine Thread-Methode werden
-        \2 Als Parameter / Return-Wert sind alle Pointer-Datentypen möglich \\ %CHECK if this is correct...
+        \2 Als Parameter / Return-Wert sind alle Pointer-Datentypen möglich \\
         \mylstbox[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], arg}]{void* threadRoutine(void* arg);}
     \1 Ein Thread wird mit der folgenden Funktion gestartet:
         \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], thread, attr, arg}, morekeywords={[2], pthread_t, pthread_attr_t}]{snippets/posix_start_thread.c}

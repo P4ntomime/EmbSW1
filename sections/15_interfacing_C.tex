@@ -1,0 +1,83 @@
+\section{Interfacig in C}
+
+\subsection{Plain Old Data Types (POD Types)}
+
+
+
+\begin{minipage}[t]{0.58\columnwidth}
+    \raggedright  
+    POD Types sind Datentypen, welche bereits in C vorhanden sind. Sie funktionieren in C++ identisch wie in C.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\columnwidth}
+    \raggedright  
+
+    \begin{itemize}
+        \item \mylstbox{char}, \mylstbox{short}, \mylstbox{int}, \mylstbox{long} \\
+            \textrightarrow\ jeweils \mylstbox{signed} und \mylstbox{unsigned}
+        \item \mylstbox{float}, \mylstbox{double}
+    \end{itemize}
+\end{minipage}
+
+
+\subsection{Language Linkage}
+
+\begin{itemize}
+    \item \textbf{Linker benötigt einen einduetigen Namen für jede Funktion}
+    \item In Assembler muss ein eindeutiger Label entstehen, der mit BSR (Branch to subroutine) angesprungen wird
+    \item \textbf{In C: einfach}, da Funktionsname projektweit eindeutig sein muss
+    \item \textbf{In C++: komplizierter}, da Funktionen in einem Namespace liegen, zu einer Klasse gehören und auch noch überladen werden können
+\end{itemize}
+
+
+\subsubsection{C Language Linkage}
+
+\begin{outline}
+    \1 C Linker hängt für Interne Darstellung häufig ein \textbf{Underscore vorne an Funktionsnamen}, um ein Label in Assembler zu erhalten
+        \2 \mylstbox{foo()} wird zu \mylstbox{_foo}
+\end{outline}
+
+
+\subsubsection{C++ Language Linkage}
+
+\begin{outline}
+    \1 C++ Linker hängt für Interne Darstellung \textbf{Name Mangling} \\
+        \textrightarrow\ \mylstbox{_<namespace>_<functionName>_<parameterTypesShortened>}
+        \2 \mylstbox{foo(int)} wird zu \mylstbox{_foo_i}
+        \2 \mylstbox{myClass::foo(double, int)} wird zu \mylstbox{_MyClass_foo_d_i}
+\end{outline}
+
+
+\subsection{Festlegen der Language Linkage}
+
+\subsubsection{Motivation}
+
+\textbf{Aus C++} wird eine Funktion \mylstbox{foo(int)} aufgerufen, die in einer \textbf{kompilierten C-Bibliothek} vorliegt.
+
+\vspace{0.1cm}
+
+\begin{itemize}
+    \item Der verwendete C++-Linker sucht nach einer Name Mangling Darstellung der Funktion: \mylstbox{_foo_i}
+    \item Da es sich aber um eine C-Bibliothek handelt, heisst die Funktion aber \mylstbox{_foo}
+\end{itemize}
+
+\vspace{0.1cm}
+
+\textrightarrow\ \textbf{Dem C++-Linker muss mitgeteilt werden, dass diese Funktion C Linkage hat!}
+
+
+\subsection{Festlegen der Language Linkage -- Umsetungen C++ seitig}
+
+Im \textbf{Funktionsprototypen} (C++-seitig) kann die Language Linkage festgelegt werden.
+
+\lstinputlisting[aboveskip=1mm, belowskip=1.5mm]{snippets/interfacing_linkage_prototypes.cpp}
+
+
+Optimalerweise wird die Language Linkage im \textbf{Header-File} vorgenommen. \\
+\textbf{Auf folgende Weise versehene Header-Files können sowohl in C- als auch in C++-Dateien included werden.
+Beide Compiler können diese Header übersetzen.}
+
+\lstinputlisting[aboveskip=1mm, belowskip=1mm]{snippets/interfacing_linkage_header.h}
+
+\textrightarrow\ \lstinline|__cplusplus| is dann definiert, wenn mit einem C++ Compiler kompiliert wird!
+
