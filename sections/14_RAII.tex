@@ -1,0 +1,70 @@
+\section{Resource Acquisition Is Initialisation (RAII)}
+
+RAII fordert sauber Speicher an und gibt diesen auch zuverlässig wieder frei. \\
+\textrightarrow\ \textbf{Geht nur in C++}, nicht in Java
+\textrightarrow\ Java hat einen garbage collector, der 'aufräumt', wann er will und nicht zwingend am Ende des scopes
+
+
+\subsection{Grundkonzept von RAII}
+\label{Grundkonzept von RAII}
+
+\begin{outline}
+    \1 Anforderung / Freigabe einer Ressource wird mit Hilfe einer \textbf{Klasse} implementiert
+        \2 Konstruktor: Fordert Ressource an
+        \2 Destruktor: Gibt Ressource wieder frei
+    \1 Ressource kann wie ein \textbf{Objekt} behandelt werden
+        \2 Sobald Objekt seine Gültigkeit verliert (z.B. out-of-scope), gibt Destruktor die Ressource 'automatisch' frei
+\end{outline}
+
+
+\subsection{RAII bei Heapobjekten}
+
+\begin{minipage}[t]{0.45\columnwidth}
+    \para{Problem}
+
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstline=1, firstnumber=1, lastline=7,
+                     morekeywords={[3], p}]
+                    {snippets/RAII_heap.cpp}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.53\columnwidth}
+    \para{Lösung}
+
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstline=11, firstnumber=1, lastline=20,
+                     morekeywords={[3], p}]
+                    {snippets/RAII_heap.cpp}
+\end{minipage}
+
+
+\subsection{RAII bei Mutex}
+
+\begin{minipage}[t]{0.56\columnwidth}
+    \raggedright
+    \para{Problem}
+    
+    Es muss sichergestellt werden,, dass Mutex in jedem Fall wieder freigegeben wird
+
+    \vspace{0.1cm}
+
+    \begin{itemize}
+        \item Exceptions können dazwischenkommen
+        \item Freigabe muss auch bei vorzeitigem Verlassen mit \mylstbox{return} erfolgen
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.42\columnwidth}
+    \lstinputlisting[aboveskip=0mm, belowskip=0mm, firstline=1, firstnumber=1, lastline=9,
+                     morekeywords={[3], m}, morekeywords={[2], pthread_mutex_t}]
+                    {snippets/RAII_mutex.cpp}
+\end{minipage}
+
+
+\para{Lösung}
+
+\lstinputlisting[aboveskip=1mm, belowskip=1mm, firstline=12, firstnumber=1, lastline=29,
+                 morekeywords={[3], mx, mutex, myMutex}, morekeywords={[2], pthread_mutex_t}]
+                {snippets/RAII_mutex.cpp}
+
+\textbf{Hinweis:} Die Klasse \mylstbox{ResourceLock} ist '0 Byte gross, da die Funktionen 'inline' implementiert sind und eine Referenz
+verwendet wurde
+

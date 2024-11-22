@@ -20,10 +20,9 @@ class ResourceLock
 
 void f()
 {
-  { 
+  { // place critical section inside a block
     ResourceLock lock(myMutex); // calls Ctor
-    // do sth in crit. section
-    // no problem if exception occurs
-  } // Dtor called -> mutex always unlocked
+    // do sth in critical section -> no problem if exception occurs
+  } // Dtor called when block is left (out of scope) -> mutex always unlocked
   //...
 }
