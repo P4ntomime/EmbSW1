@@ -1,0 +1,55 @@
+\section{Programming Style Guide}
+
+Programme werden für \textbf{Programmierer} geschrieben, nicht für Compiler. Daher erleichtern Programmierkonventionen einen konsistenten Stil,
+der auch von anderen (Programmierern) verstanden wird. \\
+In der Praxis wird jedoch häufig Wert auf Unwichtiges (z.B. Namensgebung von Variablen) gelegt. Wichtiges wird jedoch oft übersehen.
+
+
+\subsection{Grundsätzliche Konventionen}
+
+\begin{outline}
+    \1 Welche Regeln auch definiert werden: \textbf{Regeln \myul{konsistent und konsequent}} anwenden!
+    \1 Mit \textbf{höchstem Warning level} kompilieren (\mylstbox{-Wall})
+\end{outline}
+
+
+\subsubsection{'Small stuff'}
+
+\begin{outline}
+    \1 Eine Anweisung pro Zeile, nur eine Variablendefinition pro Zeile
+        \2 (nicht notwendig aber sehr sinnvoll)
+    \1 Anweisungen in Blöcken einrücken (Empfehlung: 2 Leerzeichen)
+        \2 Wo geschweifte Klammern stehen ist nicht wichig
+\end{outline}
+
+
+\subsection{Namenskonventionen}
+
+\begin{outline}
+    \1 Wenig underscores \mylstbox{_} verwenden
+    \1 Keine Namen mit underscores \mylstbox{_} beginnen
+    \1 Zusammengesetzte Namen mit \mylstbox{camelCase} betonen
+    \1 Selbstdefinierte Typen / Klassen mit Grossbuchstaben beginnen
+    \1 Funktionen, Methoden und Namespaces, Variablen und Objekte mit Kleinbuchstaben beginnen
+    \1 Makros (\mylstbox{#define}) ausschliesslich mit Grossbuchstaben definieren, Trennung mit underscores \mylstbox{_} 
+\end{outline}
+
+
+\subsubsection{Namenskonventionen für Variablen}
+
+\begin{outline}
+    \1 Präfixe sehr zurückhaltend einsetzen (lieber vermeiden)
+    \1 Schleifenvariablen mit Namen \mylstbox{i, j} vom Typ \mylstbox{size_t}
+    \1 \mylstbox{c, ch} für \mylstbox{char} Variablen
+    \1 \mylstbox{s, str} für \mylstbox{string} bzw. \mylstbox{char*} Variablen
+\end{outline}
+
+
+\subsection{Typen mit genauer Breite}
+
+\begin{outline}
+    \1 Ab C99 werden im Headerfile \mylstbox{<stdint.h>} verschiedene Typen mit genauer Breite definiert. 
+        \2 signed: \mylstbox{int8_t}, \mylstbox{int16_t}, \mylstbox{int32_t}
+        \2 unsigned: \mylstbox{uint8_t}, \mylstbox{uint16_t}, \mylstbox{uint32_t}
+\end{outline}
+

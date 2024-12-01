@@ -68,7 +68,7 @@
 
 \subsection{Festlegen der Language Linkage -- Umsetungen C++ seitig}
 
-Im \textbf{Funktionsprototypen} (C++-seitig) kann die Language Linkage festgelegt werden.
+Im \textbf{Funktionsprototypen} (C++-seitig) kann die Language Linkage festgelegt werden. Somit kann \textbf{C-Code aus C++ aufgerufen} werden.
 
 \lstinputlisting[aboveskip=1mm, belowskip=1.5mm]{snippets/interfacing_linkage_prototypes.cpp}
 
@@ -80,4 +80,45 @@ Beide Compiler können diese Header übersetzen.}
 \lstinputlisting[aboveskip=1mm, belowskip=1mm]{snippets/interfacing_linkage_header.h}
 
 \textrightarrow\ \lstinline|__cplusplus| is dann definiert, wenn mit einem C++ Compiler kompiliert wird!
+
+
+\subsection{C++ Code aus C aufrufen}
+
+C++ Elementfunktionen können \textbf{nicht direkt} aus C aufgerufen werden, da C weder Klassen, noch den \mylstbox{this} Pointer kennt.
+Es werden \textbf{C Wrapper-Funktionen} benötigt, um C++ Code aufrufen zu können.
+
+
+\example{Dining Philosopher}
+
+\para{Ausgangssituation}
+
+\begin{outline}
+    \1 3 Personen an einem Tisch; 3 Stäbchen zum essen vorhanden
+    \1 Jede Person braucht 2 Stäbchen zum 
+        \2 Stäbchen sollen mittels Threading weitergereicht werden
+    \1 Ein \textbf{Deadlock} entsteht, wenn alle je ein Stäbchen haben und auf den nächsten warten
+\end{outline}
+
+
+\para{Philosopher Class}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=17,
+                 morekeywords={[3], attr, tid, p}, morekeywords={[2], pthread_t, pthread_attr_t}]
+                {snippets/linkage_philosophers.cpp}
+
+
+Die C Wrapper-Funktion \mylstbox{staticWrapper} muss \textbf{zwingend} \mylstbox{static} sein! 
+Die Funktion muss auch ohne Zusammenhang mit einer Objekt-Instanz aufrufbar sein. \\
+Damit in C der \mylstbox{this} Pointer zur Verfügung steht, muss dieser der Wrapper-Funktion als Parameter übergeben werden. 
+
+
+\para{Philosopher::live() Funktion}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=20, lastline=25,
+                 morekeywords={[3], attr, tid}]
+                {snippets/linkage_philosophers.cpp}
+
+
+Philosopher wird erstellt ('spawned'), indem ein Thread erstellt wird. Als Argument der Thread Funktion \mylstbox{staticWrapper} 
+wird der \mylstbox{this} Pointer übergeben.
 
