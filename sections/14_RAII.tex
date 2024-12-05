@@ -61,9 +61,13 @@ RAII fordert sauber Speicher an und gibt diesen auch zuverlässig wieder frei. \
 
 \para{Lösung}
 
-\lstinputlisting[aboveskip=1mm, belowskip=1mm, firstline=12, firstnumber=1, lastline=29,
+\lstinputlisting[aboveskip=1mm, belowskip=1mm, firstline=12, firstnumber=1, lastline=20,
                  morekeywords={[3], mx, mutex, myMutex}, morekeywords={[2], pthread_mutex_t}]
                 {snippets/RAII_mutex.cpp}
+
+\lstinputlisting[aboveskip=1mm, belowskip=1mm, firstline=23, firstnumber=1, lastline=31,
+                morekeywords={[3], lock, myMutex}, morekeywords={[2], ResourceLock}]
+               {snippets/RAII_mutex.cpp}
 
 \textbf{Hinweis:} Die Klasse \mylstbox{ResourceLock} ist '0 Byte gross, da die Funktionen 'inline' implementiert sind und eine Referenz
 verwendet wurde

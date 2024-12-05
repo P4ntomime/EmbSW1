@@ -9,6 +9,7 @@ void f()
 }
 
 
+// file: Resourcelock.h
 class ResourceLock
 {
   public:
@@ -18,6 +19,8 @@ class ResourceLock
     pthread_mutex_t& mutex; // reference to mutex of shared resource
 };
 
+
+// file: main.cpp (or other .cpp file)
 void f()
 {
   { // place critical section inside a block
