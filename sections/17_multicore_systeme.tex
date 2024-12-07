@@ -222,3 +222,179 @@ und \textbf{limitiert} somit den möglichen Speedup.
 
 \textrightarrow\ Cache ist reine Wahrscheinlichkeit! \textrightarrow\ Hoffen, dass Daten dort sind...
 
+
+\subsection{Cache Ersetzungsstrategien}
+
+Es gibt mehrere Strategien, um zu ermitteln, welche Daten aus dem Cache entfernt werden sollen, um Platz für neue Daten zu schaffen.
+Dabei ist zu beachten, dass bei jeder Eretzung allenfalls Daten in die \textbf{nächste Stufe zurückgeschrieben} werden müssen.
+Dies ist immer dann der Fall, wenn das \textbf{Dirty Bit} (Signal, dass Cache-Daten geändert haben) gesetzt ist.
+
+\vspace{0.1cm}
+
+\begin{outline}
+    \1 \textbf{LRU (Least Recently Used)} \textrightarrow\ häufige Strategie
+        \2 Bei Zugriff muss zusätzlich ein Timestamp gespeichert werden
+    \1 \textbf{LFU (Least Frequently Used)}
+        \2 Bei Zugriff muss Counter gespeichert werden (wie oft Daten gebraucht wurden)
+    \1 \textbf{FIFO (First In First Out)}
+        \2 doof, wenn man Daten oft braucht, diese aber schon lange im Cache liegen
+    \1 \textbf{Random}
+\end{outline}
+
+
+\subsection{Caches in Echtzeitsystemen}
+
+\begin{outline}
+    \1 In (harten) Echtzeitsystemen ist \textbf{Worst Case Execution Time (WCET)} wichtig
+        \2 \textbf{WCET mit Cache} immer \textbf{schlechter} als ohne Cache!\\
+        \textrightarrow\ wegen Bestimmung ob Hit oder Miss
+    \1 Wegen steigender WCET sind Caches in Echtzeitsystemen \textbf{allenfalls ungeeignet}
+\end{outline}
+
+\vspace{0.1cm}
+
+\textrightarrow\ WCET tritt so selten ein, dass Caches trotzdem die schnellste Option sein sollten (wegen gesenkter \textbf{mittlerer Zugriffszeit})
+
+
+\subsection{Cache Coherence}
+
+Bei Multtcore-Systemen können \textbf{Kopie derselben Daten in mehreren Cashes} liegen. \\
+Cache Coherence beschreibt, wie ein Cache eines Cores \textbf{erfährt}, dass ein anderer Core diese \textbf{Daten geändert} hat. 
+Cache Coherence kann mit verschiedenen Protokollen oder auch mit Hardware-Unterstützung umgesetzt werden.
+
+
+\subsubsection{MESI Cache Coherence Protocol}
+
+Jede 'cache line' hat einen der folgenden Zustände:
+
+\vspace{0.1cm}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+    \begin{outline}
+        \1 \textbf{Modified (M)}
+            \2 Lokale Kopie modifiziert, keine Kopien in anderen Caches
+            \2 Memory is 'stale' (dirty)
+        \1 \textbf{Exclusive (E)}
+            \2 Keine Kopien in anderen Caches
+            \2 Memory up to date
+    \end{outline}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \raggedright
+    \begin{outline}
+        \1 \textbf{Shared (S)}
+            \2 Unmodifizierte Kopien in anderen Cashes möglich
+            \2 Memory up to date
+        \1 \textbf{Invalid (I)}
+            \2 Cache line nicht benutzt
+    \end{outline}
+\end{minipage}
+
+
+\subsubsection{Cache Coherence mittels HW-Unterstützung}
+
+\includegraphics[width=\columnwidth]{images/multicore_cache_coherence_HW.png}
+
+
+\subsection{Programmierung von Shared Memory in C und C++}
+
+\begin{minipage}[t]{0.56\columnwidth}
+    \begin{outline}
+        \1 Beide Cores haben \textbf{eigenen} Adressbereich
+        \1 \mylstbox[morekeywords={[3], sharedVariable}]{sharedVariable} liegt auf \textbf{fester Adresse in Shared Memory} und wird von
+            beiden Cores genutzt
+        \1 Zugriff auf \mylstbox[morekeywords={[3], sharedVariable}]{sharedVariable} muss \textbf{synchronisiert} werden
+        \1 Zwischen Cores und \mylstbox[morekeywords={[3], sharedVariable}]{sharedVariable} können mehrere Caches liegen
+        \1 \textbf{Jeder Core muss} \mylstbox[morekeywords={[3], sharedVariable}]{sharedVariable} \textbf{für sich definieren} \textrightarrow\ \mylstbox{volatile}
+    \end{outline}
+
+    \vspace{0.2cm}
+    \mylstbox{volatile} hat Einfluss zur Compile-time und 'verbietet' dem Compiler das Anlegen einer Kopie in einem Arbeitsregister
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.42\columnwidth}
+    \includegraphics[width=\columnwidth, align=t]{images/multicore_shared_memory.png}
+\begin{lstlisting}[belowskip=0mm, morekeywords={[3], sharedVariable}]
+    volatile int sharedVariable;
+\end{lstlisting}
+\end{minipage}
+
+
+\subsubsection{volatile Variablen}
+
+\begin{outline}
+    \1 \textbf{Alle Variablen, die ausserhalb des Programmkontextes des Prozessors/Threads geändert werden können müssen \lstinline|volatile| sein!}
+        \2 Variablen, die (speziell bei Embedded Systems) ein Hardwareregister darstellen
+        \2 Globale Variablen, auf die in mehreren Threads zugegriffen wird (concurrency)
+        \2 Globale Variablen, die in einer ISR geändert werden
+        \2 Shared Variablen, die von einem anderen Prozessor/Core geändert werden können
+\end{outline}
+
+
+\subsection{Speicherzugriff zur Laufzeit}
+
+\begin{outline}
+    \1 Dank \mylstbox{volatile} besteht generierter Maschinencode aus \textbf{explizitem Speicherzugriff}
+        \2 soll so schnell wie möglich sein
+        \2 Hoffnung: Daten sind in prozessornahem Cache
+    \1 Geschwindigkeitsgewinn erst ab zweitem Zugriff (erst dann sind Daten im Cache) \\
+        \textrightarrow\ \textbf{Daten, auf die nur einmal zugegriffen wird, sollen nicht gecached werden!}
+    \1 \mylstbox{volatile} löst Cache Coherence Problem nicht
+        \2 \textbf{\mylstbox{volatile} ist notwendig, aber nicht hinreichend!}
+\end{outline}
+
+
+\subsection{Datenkonsistenz}
+
+Oft tritt folgendes Szenario ein: 
+
+\vspace{0.1cm}
+
+\begin{itemize}
+    \item System empfängt Daten (z.B. ein Bild) und schreibt sie in Buffer
+    \item Daten werden gefiltert (z.B. Image Processing) und wieder ausgegeben
+\end{itemize}
+
+\vspace{0.1cm}
+
+Es stellt sich die Frage: Wie kann \textbf{verhindert werden}, dass der Filterschritt \textbf{inkonsistente Daten im Buffer} hat, weil der
+Empangsteil laufend Daten in den Buffer schreibt?
+
+\vspace{0.2cm}
+
+\begin{minipage}[t]{0.45\columnwidth}
+    \para{Schlechte Lösung}
+
+    \begin{itemize}
+        \item Buffer wird synchronisiert (z.B. mit Semaphoren)
+        \item[-] Overhead, strenge Serialisierung
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.52\columnwidth}
+    \para{Triviale Lösung}
+
+    \begin{itemize}
+        \item Empfangsbuffer wird in zweiten Buffer kopiertk sobald Daten fertig empfangen sind
+        \item[-] Kopieren ist teuer
+    \end{itemize}
+\end{minipage}
+
+
+\para{Vernünftige Lösung für Datenkonsistenz -- Ping Pong Buffer}
+
+\begin{itemize}
+    \item Zwei identische Buffer definieren
+    \item Ein Core (Master) bestimmt, in welchen Buffer die Daten geschrieben werden
+    \item Nach Empfangen der Daten übergibt Master dem Filterschritt einen \textbf{Pointer} auf 'Daten-Buffer'
+    \item Master übergibt Sender der Daten \textbf{Pointer auf zweiten Buffer}, damit Daten nun dort geschrieben werden \\
+        \textrightarrow\ Ping Pong zwischen den zwei Buffern
+\end{itemize}
+
+\vspace{0.1cm}
+
+Noch besser ist es, wenn der Empfang der Daten über DMA (Direct Memory Access) erfolgt. \\
+\textrightarrow\ DMA-Einheit braucht nur Ziel-Pointer und Byte Counter
+
