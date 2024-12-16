@@ -832,6 +832,7 @@
 % C++ style for listings
 \lstdefinestyle{cppstyle}{%
 	language=[11]C++,   % Set language to C++ 11
+    escapeinside={(*@}{@*)},  % inline latex commands
 %   === Additional Default Keywords ===
     morekeywords={% For some odd reason, these keywords are not included in the default C++ 11 keyword list
         final,%

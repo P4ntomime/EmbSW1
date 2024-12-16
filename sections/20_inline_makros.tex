@@ -1,0 +1,79 @@
+\section{Inline-Funktionen in C}
+
+\subsection{Kosten einer Funktion}
+
+\begin{outline}
+    \1 Code einer Funktion ist nur einmal im Speicher vorhanden
+        \2 Vorteil: spart Speicher
+    \1 Aufrug einer Funktion bewirkt zeitliche Einbusse im Vergleich zu direkter Befehlsausführung
+        \2 Nachteil: Zeitverlust, Overhead
+\end{outline}
+
+\vspace{0.1cm}
+
+\textrightarrow\ Bei sehr kleinen Funktionen, z.B. Einzeilern, (welche oft aufgerufen werden), lohnt sich der Overhead für den 
+Funktionsaufruf oft nicht.
+
+
+\subsection{C-Makros}
+
+\begin{outline}
+    \1 \textbf{Reine Textersetzung ohne jegliche Typenprüfung}
+    \1 Bei Nebeneffekten (z.B. \mylstbox[morekeywords={[3], i}]{++i}) verhalten sich Makros oft nicht wie beabsichtigt
+        \2 Nebeneffekte sollten generell vermieden werden
+\end{outline}
+
+\vspace{0.1cm}
+
+\textrightarrow\ Makros sollten \textbf{nicht} eingesetzt werden! \\
+\textrightarrow\ Makros lösen das Overhead-Problem
+
+
+\example{Maximum zweier int-Zahlen mit Makros}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \lstinputlisting[aboveskip=0mm, belowskip=0mm,
+                 firstline=1, lastline=16, 
+                 morekeywords={[3], z1, z2, m, a, b}]{snippets/inline_makros_makro.c}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \para{Erklärung}
+
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 firstline=22, firstnumber=1, lastline=30, 
+                 morekeywords={[3], z1, z2, m}]{snippets/inline_makros_makro.c}
+\end{minipage}
+
+
+\subsection{Inline-Funktionen}
+
+\begin{outline}
+    \1 Lösen Overhead-Problem \textrightarrow\ Code wird direkt eingefügt
+    \1 \textbf{Typenprüfung} findet statt
+    \1 Inline-Funktionen \textbf{müssen in Header-Files definiert sein}, damit der Compiler auch Inlning macht
+        \2 Inlining wird nur gemacht, wenn dem Compiler auch eine \textbf{Optimierungsstufe} mitgegeben wird
+            z.B. \lstinline|clang -c -03 foo.c|
+    \1 Wenn Funktionen \mylstbox{static} deklariert werden, wird garantiert, dass Funktionen nicht auch noch im Objectfile als 
+        Funktion vorhanden sind 
+\end{outline}
+
+\vspace{0.1cm}
+
+\textbf{Achtung:} Rekursive Funktionen und Funktionen, auf die mit einem Funktionspointer gezeigt wird, werden \textbf{nicht} inlined!
+
+
+\example{Maximum zweier int-Zahlen mit inline-Funktion}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \lstinputlisting[aboveskip=0mm, belowskip=0mm,
+                 firstline=1, lastline=5, 
+                 morekeywords={[3], a, b}]{snippets/inline_makros_inline.c}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \lstinputlisting[aboveskip=0mm, belowskip=0mm,
+                 firstline=8, firstnumber=1, lastline=21, 
+                 morekeywords={[3], z1, z2, m}]{snippets/inline_makros_inline.c}
+\end{minipage}
+

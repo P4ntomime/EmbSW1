@@ -1,0 +1,182 @@
+\section{Hardware Abstraction Layer (HAL)}
+
+\subsection{Motivation für einen HAL}
+
+In Programmen für Embedded Systems gibt es sehr häufig \textbf{Zugriffe auf Hardware-Register} (Setzen / Löschen von Bits.)
+Würden diese Zugriffe auf HW-Register direkt bei Bedarf getätigt werden, würde sehr unleserlicher Code entstehen. Ausserdem wären Programme fehleranfällig.
+Zudem muss der ganze Code geändert werden, falls die Zielhardware geändert wird.
+
+\vspace{0.1cm}
+
+Daher werden \textbf{Registerzugriffe im HAL abstrahiert}, was folgende Vorteile bietet:
+
+\vspace{0.1cm}
+
+\begin{outline}
+    \1 Code bleibt leserlich und weniger fehleranfällig
+    \1 Portierbarkeit auf andere Zielhardware sehr einfach
+\end{outline}
+
+\vspace{0.1cm}
+
+\textbf{Hinweis:} Richtig implementiert verursacht die HAL keinen / kaum Overhead! \\
+\textrightarrow\ HAL ist effizient!
+
+
+\subsection{Organisation des HAL}
+
+Der HAL wird in zwei Layer unterteilt:
+
+\vspace{0.1cm}
+
+\begin{description}
+    \item[Board Support Library (BSL):] abstrahiert das PCB und \myul{muss} vom Hersteller des Boards zur Verfügung gestellt werden
+    \item[Chip Support Library (CSL):] abstrahiert den Chip, (den \micro C) und wird \myul{häufig} vom \micro C Hersteller zur Verfügung gestellt  
+\end{description}
+
+
+\subsection{HAL in C}
+
+So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
+
+\vspace{0.1cm}
+
+\begin{outline}
+    \1 \textbf{Inline-Funktionen müssen in \myul{Headerfiles} definiert sein}, damit der Compiler auch Inlining machen kann
+        \2 Inlining wird nur gemacht, wenn dem Compiler auch eine \textbf{Optimierungsstufe} mitgegeben wird
+            z.B. \lstinline|clang -c -01 foo.c|
+    \1 Wenn Funktionen \mylstbox{static} deklariert werden, wird garantiert, dass Funktionen nicht auch noch im Objectfile als 
+        Funktion vorhanden sind 
+    \1 Damit die \textbf{Namen eindeutig} sind, sollen Unitkürzel \mylstbox{csl}, bzw. \mylstbox{bsl} verwendet werden
+        \2 Hinweis: In C++ viel eleganter dank Namespaces!
+    \1 Port / Pin Deklarationen werden als \mylstbox{typedef (volatile) struct} im CSL umgesetzt
+    \1 Im \lstinline|main.c| file braucht es \mylstbox{bls_init()}\textbf{Init-Funktionen}
+        \2 Beispiel: \mylstbox[morekeywords={[3], statusIndicator, bsl_led1}]{bls_ledInit(&statusIndicator, bsl_led1);}
+\end{outline}
+
+
+\example{Ausschnitt aus einem CSL Header-File}
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm,
+                 morekeywords={[3], reg, bits, csl_bit0, csl_bit1, csl_bit2, csl_bit29, csl_bit30, csl_bit31}]
+                {snippets/HAL_C_CSL_registers.h}
+
+
+\para{Port Definitionen in CSL Header-File}
+
+\begin{minipage}[t]{0.48\columnwidth}
+    \lstinputlisting[aboveskip=1mm, belowskip=2mm,
+                     firstline=1, lastline=12,
+                     morekeywords={[3], ctrl, sel, mux, dir, pud, set, clear, toggle},
+                     morekeywords={[2], csl_PortCtrlRegs, csl_PortDataRegs}]
+                    {snippets/HAL_C_CSL.h}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\columnwidth}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                     firstline=14,, firstnumber=14, lastline=24,
+                     morekeywords={[3], dat, ctrl, data, addrPortACtrlRegs, addrPortBCtrlRegs, addrPortADataRegs, addrPortBDataRegs},
+                     morekeywords={[2], csl_PortCtrlRegs, csl_PortDataRegs, csl_Port}]
+                    {snippets/HAL_C_CSL.h}
+\end{minipage}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 firstline=26, , firstnumber=26, lastline=26,
+                 morekeywords={[3], port, id, initSamplePeriod},
+                 morekeywords={[2], csl_Port, csl_PortId}]
+                {snippets/HAL_C_CSL.h}
+
+
+\para{Pin Definitionen in CSL Header-File}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 firstline=31, firstnumber=28, lastline=38,
+                 morekeywords={[3], port, bit, pin, id, mux, data, dat},
+                 morekeywords={[2], csl_Port, csl_Pin, csl_PinId, csl_PinMux}]
+                {snippets/HAL_C_CSL.h}
+
+
+\example{Ausschnitt aus einem BSL Header-File}
+
+In der Board Support Library wird die Verbindung der effektic auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 morekeywords={[3], pin, led}, morekeywords={[2], csl_Pin, bsl_Led}]
+                {snippets/HAL_C_BSL.h}
+
+
+
+\subsection{HAL in C++}
+
+So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
+
+\vspace{0.1cm}
+
+\begin{outline}
+    \1 \textbf{Inline-Funktionen müssen in \myul{Headerfiles} definiert sein}, damit der Compiler auch Inlining machen kann
+        \2 Inlining wird nur gemacht, wenn dem Compiler auch eine \textbf{Optimierungsstufe} mitgegeben wird
+            z.B. \lstinline|clang++ -c -01 foo.cpp|
+    \1 Wenn Funktionen \mylstbox{static} deklariert werden, wird garantiert, dass Funktionen nicht auch noch im Objectfile als 
+        Funktion vorhanden sind 
+    \1 Damit die \textbf{Namen eindeutig} sind, sollen \textbf{Namespaces} \mylstbox{csl}, bzw. \mylstbox{bsl} definiert werden
+    \1 Port / Pin Deklarationen werden als \mylstbox{class} im Namespace \mylstbox{csl} umgesetzt
+    \1 Im \lstinline|main.cpp| file braucht es \textbf{keine bslInit-Funktionen mehr}
+        \2 Die Initialisierung übernimmt der \textbf{Konstruktor}
+\end{outline}
+
+
+\example{Ausschnitt aus einem CSL Header-File}
+
+\lstinputlisting[aboveskip=0mm, belowskip=0mm,
+                 morekeywords={[3], reg, bits, bit0, bit1, bit2, bit29, bit30, bit31}]
+                {snippets/HAL_CPP_CSL_registers.h}
+
+
+\para{Port Definitionen in CSL Header-File}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 firstline=1, , firstnumber=1, lastline=29,
+                 morekeywords={[3], ctrl, sel, mux, dir, pud, set, clear, toggle, dRegs, dRegs, id, initSamplePeriod, addrPortACtrlRegs, addrPortBCtrlRegs, addrPortADataRegs, addrPortBDataRegs,},
+                 morekeywords={[2], DataRegs, CtrlRegs, Id}]
+                {snippets/HAL_CPP_CSL.h}
+
+
+\para{Pin Definitionen in CSL Header-File}
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 firstline=33, , firstnumber=31, lastline=45,
+                 morekeywords={[3], id, dir, mux, port, dat, bit, in, fun1},
+                 morekeywords={[2], Port, Id, Direction, Mux}]
+                {snippets/HAL_CPP_CSL.h}
+
+
+\example{Ausschnitt aus einem BSL Header-File}
+
+In der Board Support Library wird die Verbindung der effektic auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
+
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                 morekeywords={[3], pin, id}, morekeywords={[2], Id, Pin}]
+                {snippets/HAL_CPP_BSL.h}
+
+
+
+\subsection{Client Program in C bzw. C++}
+
+\begin{minipage}[t]{0.52\columnwidth}
+    \para{Client Program in C}
+
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                     morekeywords={[3], statusIndicator, bsl_led1, statusSwitch, bsl_switch1}, morekeywords={[2], bsl_Led, bsl_Switch}]
+                    {snippets/HAL_C_client_program.c}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.46\columnwidth}
+    \para{Client Program in C++}
+
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm,
+                     morekeywords={[3], led1, switch1, statusIndicator,statusSwitch}, morekeywords={[2], Led, Switch}]
+                    {snippets/HAL_CPP_client_program.cpp}
+\end{minipage}
+
+\columnbreak
+
