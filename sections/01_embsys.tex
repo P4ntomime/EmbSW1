@@ -52,10 +52,10 @@ Embedded Systems können \textbf{(müssen aber nicht)} folgende Eigenschaften ha
 \subsubsection{Typischer Aufbau}
 
 \textbf{Ein gutes Design beinhaltet unterschiedliche Abstraktionsschichten \textrightarrow\ Layer} \\
-\textrightarrow\ Siehe Abschnitt \ref{Abstraktionsschichten}
+\textrightarrow\ Siehe Abschnitt \ref{Hardware Abstraction Layer (HAL)}
 
 \begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/embedded_system_aufbau_schichten.png}
+    \includegraphics[width=0.8\columnwidth]{images/embedded_system_aufbau_schichten.png}
 \end{center}
 
 
@@ -149,7 +149,8 @@ Embedded Systems können \textbf{(müssen aber nicht)} folgende Eigenschaften ha
     \1 Es kommen Betriebssysteme wie (Embedded) Linux oder Android zum Einsatz \\
         \textrightarrow\ \textbf{Achtung: Linux und Android sind nicht echtzeitfähig!}
     \1 Wenn Echtzeit verlangt wird: real-time operating systems (RTOS)
-        \2 Beispiele: Zephyr, Free RTOS (Amazon), TI-RTOS (Texas Instuments), etc.
+        \2 Beispiele: Zephyr, Free RTOS (Amazon), TI-RTOS (Texas Instuments), etc. \\
+            \textrightarrow\ RTOS siehe Abschnitt \ref{Real-Time Operating Systems (RTOS)}
 \end{outline}
 
 
@@ -188,24 +189,23 @@ Die Verfügbarkeit A (Availability) ist der Anteil der Betriebsdauer innerhalb d
 $$ \text{Verfügbarkeit} = \frac{\text{Gesamtzeit} - \text{Ausfallzeit}}{\text{Gesamtzeit}} $$
 
 
-\subsection{Abstraktionsschichten}
-\label{Abstraktionsschichten}
+% \subsection{Abstraktionsschichten}
 
-\begin{itemize}
-    \item Bei $\micro$C-Programmierung (Firmware) müssen oft Bitmuster in Register geschrieben werden
-    \item Solche Register-Zugriffe dürfen \textbf{nicht} 'willkürlich' überall im Code erfolgen \\
-        \textrightarrow\ schlecht lesbar, schlecht portiertbar, fehleranfällig
-    \item \textbf{Damit Code lesbarer und besser auf andere Platform portierbar wird, beinhaltet jeder professionelle Code einen
-        Hardware Abstraction Layer (HAL)}
-    \item HAL führt \textbf{nicht} zum Verlust bei Laufzeit, wenn korrekt implementiert
-\end{itemize}
+% \begin{itemize}
+%     \item Bei $\micro$C-Programmierung (Firmware) müssen oft Bitmuster in Register geschrieben werden
+%     \item Solche Register-Zugriffe dürfen \textbf{nicht} 'willkürlich' überall im Code erfolgen \\
+%         \textrightarrow\ schlecht lesbar, schlecht portiertbar, fehleranfällig
+%     \item \textbf{Damit Code lesbarer und besser auf andere Platform portierbar wird, beinhaltet jeder professionelle Code einen
+%         Hardware Abstraction Layer (HAL)}
+%     \item HAL führt \textbf{nicht} zum Verlust bei Laufzeit, wenn korrekt implementiert
+% \end{itemize}
 
 
-\subsubsection{Hardware-abstraction-layer (HAL)}
+% \subsubsection{Hardware-abstraction-layer (HAL)}
 
-\begin{itemize}
-    \item Trennt HW-Implementierung von SW-Logik
-    \item Gleiche SW kann auf verschiedene HW verwendet werden \textrightarrow\ Portabilität
-    \item HW-Komponenten können einfach ausgetauscht werden \textrightarrow\ Flexibilität
-\end{itemize}
+% \begin{itemize}
+%     \item Trennt HW-Implementierung von SW-Logik
+%     \item Gleiche SW kann auf verschiedene HW verwendet werden \textrightarrow\ Portabilität
+%     \item HW-Komponenten können einfach ausgetauscht werden \textrightarrow\ Flexibilität
+% \end{itemize}
 

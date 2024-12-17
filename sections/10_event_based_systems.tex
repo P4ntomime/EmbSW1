@@ -51,6 +51,11 @@ Ereignis eingetreten ist. \textrightarrow\ Interrupts
         \2[-] Information über die Ursache ist beim Eintreten bereits bekannt. Dann
                 verzweigt man in die zentrale Routine, d.h. diese Information ist dann verloren. In der Routine muss diese
                 Information wieder ermittelt werden.
+\end{outline}  
+
+\columnbreak
+
+\begin{outline}
     \1 \textbf{Vectored Interrupt (spezifisch)}
         \2 In einer Tabelle (\textbf{Interruptvektortabelle}, IVT) wird gespeichert, wohin bei welchem Interruptvektor
             verzweigt werden muss. \\
@@ -95,7 +100,7 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 \begin{outline}
     \1 Jeder client meldet beim server an, welche Ereignisse ihn interessieren
         \2 Anmeldung erfolgt über eine Funktion, welche der server anbietet
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=3]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=1, lastline=3]{snippets/ebs_callback.c}
     \1 Der server trägt diesen \textbf{Funktionspointer} \mylstbox{f} in eine Tabelle ein und ruft \textbf{beim Eintreten des Ereignisses alle
         registrierten Funktionen} der Reihe nach je über den eingetragenen Funktionspointer auf
 \end{outline}
@@ -107,7 +112,7 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
     \1 Ein client kann sein Interesse an einem Ereignis beim Server auch wieder austragen
         \2 Abmeldung erfolgt über eine Funktion, welche ebenfalls der server anbietet
         \2 Der Server löscht dann den entsprechenden Eintrag (\textbf{Funktionspointer} \mylstbox{f}) wieder aus der Tabelle
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=5, lastline=7]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=5, lastline=7]{snippets/ebs_callback.c}
 \end{outline}
 
 
@@ -115,11 +120,11 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 \begin{outline}
     \1 Funktionspointer \mylstbox{foo_cbFunction} zu Callback-Funktionen definieren
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, firstnumber=1, firstline=9, lastline=10]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0.5mm, linewidth=\linewidth, firstnumber=1, firstline=9, lastline=10]{snippets/ebs_callback.c}
     \1 Tabelle von Funktionspointern für jeden Event definieren und mit \textbf{Nullpointern initialisieren}
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], evNum, evClient}, firstnumber=1, firstline=12, lastline=13]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0.5mm, linewidth=\linewidth, morekeywords={[3], evNum, evClient}, firstnumber=1, firstline=12, lastline=13]{snippets/ebs_callback.c}
     \1 Aufruf der registrierten Clientfunktionen beim Eintreten des Events
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], evNum, i, evClient, client, arg}, firstnumber=1, firstline=15, lastline=24]{snippets/ebs_callback.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0mm, linewidth=\linewidth, morekeywords={[3], evNum, i, evClient, client, arg}, firstnumber=1, firstline=15, lastline=24]{snippets/ebs_callback.c}
 \end{outline}
 
 
@@ -133,36 +138,35 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mi
 \example{Callback-Funktionen in C}
 
 \para{Test-Applikation -- Client} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], a, maxId, i}]{snippets/ebs_callback/testApp.c}
-
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, lastline=23, morekeywords={[3], a, maxId, i}]{snippets/ebs_callback/testApp.c}
+\columnbreak
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstline=24, firstnumber=24, morekeywords={[3], a, maxId, i}]{snippets/ebs_callback/testApp.c}
 
 \para{Server -- Header-File}
-\lstinputlisting[aboveskip=1mm, morekeywords={[2], foo_Event, foo_cbFunction}, morekeywords={[3], e, f, id}]{snippets/ebs_callback/fooServer.h}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[2], foo_Event, foo_cbFunction}, morekeywords={[3], e, f, id}]{snippets/ebs_callback/fooServer.h}
 
 \para{Server -- Implementation}
-\lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=75,
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=41,
                  morekeywords={[2], foo_Event, foo_cbFunction}, 
                  morekeywords={[3], e, f, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
                 {snippets/ebs_callback/fooServer.c}
-
 \columnbreak
-
-\lstinputlisting[aboveskip=1mm, firstnumber=77, firstline=77, lastline=113,
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=42, firstline=42,
                  morekeywords={[2], foo_Event, foo_cbFunction}, 
                  morekeywords={[3], e, f, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
                 {snippets/ebs_callback/fooServer.c}
 
 
 \para{Signal Generator -- Header-File} 
-\lstinputlisting[aboveskip=1mm]{snippets/ebs_callback/fooSigGen.h}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm]{snippets/ebs_callback/fooSigGen.h}
 
 \para{Signal Generator -- Implementation}
 \begin{minipage}[t]{0.57\columnwidth}
-    \lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=22, morekeywords={[3], answer}]{snippets/ebs_callback/fooSigGen.c}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=22, morekeywords={[3], answer}]{snippets/ebs_callback/fooSigGen.c}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.4\columnwidth}
-    \lstinputlisting[aboveskip=1mm, firstnumber=23, firstline=23, lastline=38, morekeywords={[3], answer}]{snippets/ebs_callback/fooSigGen.c}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=23, firstline=23, lastline=38, morekeywords={[3], answer}]{snippets/ebs_callback/fooSigGen.c}
 \end{minipage}
 
 
@@ -172,7 +176,7 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mi
 \subsubsection{Klassendiagramm (abstrakte Observer Basisklasse)}
 
 \begin{center}
-    \includegraphics[width=0.8\columnwidth]{images/ebs_observer_pattern_klassendiagramm.png}
+    \includegraphics[width=0.9\columnwidth]{images/ebs_observer_pattern_klassendiagramm.png}
 \end{center}
 
 
@@ -199,39 +203,39 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mi
 
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Test-Applikation} 
-    \lstinputlisting[aboveskip=1mm, morekeywords={[2], Subject1, Observer1}, morekeywords={[3], myS, myO}]
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[2], Subject1, Observer1}, morekeywords={[3], myS, myO}]
     {snippets/ebs_observer_pattern/testApp.cpp}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Observer -- Abstrakte Basisklasse}    
-    \lstinputlisting[aboveskip=1mm]{snippets/ebs_observer_pattern/Observer.h}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm,]{snippets/ebs_observer_pattern/Observer.h}
 \end{minipage}
 
 
 \para{Observer1 -- Konkreter Observer (View) -- Header-file}
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], sub, s}]{snippets/ebs_observer_pattern/Observer1.h}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], sub, s}]{snippets/ebs_observer_pattern/Observer1.h}
 
 \para{Observer1 -- Konkreter Observer (View) -- Implementation}
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], sub, s}]{snippets/ebs_observer_pattern/Observer1.cpp}
-
-
-\para{Subject -- Basisklasse (Server, Model) -- Header-file}
-\lstinputlisting[aboveskip=1mm]{snippets/ebs_observer_pattern/Subject.h}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], sub, s}]{snippets/ebs_observer_pattern/Observer1.cpp}
 
 \columnbreak
 
+
+\para{Subject -- Basisklasse (Server, Model) -- Header-file}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,]{snippets/ebs_observer_pattern/Subject.h}
+
 \para{Subject -- Basisklasse (Server, Model) -- Implementation}
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], ob, i, observers}]{snippets/ebs_observer_pattern/Subject.cpp}
+\lstinputlisting[aboveskip=1mm, belowskip=1mm, morekeywords={[3], ob, i, observers}]{snippets/ebs_observer_pattern/Subject.cpp}
 
 
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Subject1 -- Header-file}
-    \lstinputlisting[aboveskip=1mm, morekeywords={[3], state, newState}]{snippets/ebs_observer_pattern/Subject1.h}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], state, newState}]{snippets/ebs_observer_pattern/Subject1.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Subject1 -- Implementation}
-    \lstinputlisting[aboveskip=1mm, morekeywords={[3], state, newState}]{snippets/ebs_observer_pattern/Subject1.cpp}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], state, newState}]{snippets/ebs_observer_pattern/Subject1.cpp}
 \end{minipage}
 
