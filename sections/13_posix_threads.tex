@@ -5,9 +5,8 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 
 \subsection{UNIX Process vs. UNIX Thread}
 
-\begin{center}
-    \includegraphics[width=0.75\columnwidth]{images/posix_process_threads.png}
-\end{center}
+%NOTE: remove if still not readable
+\includegraphics[width=\columnwidth]{images/posix_process_threads.png}
 
 
 \subsubsection{UNIX Process}
@@ -75,7 +74,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
         \2 Als Parameter / Return-Wert sind alle Pointer-Datentypen möglich \\
         \mylstbox[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], arg}]{void* threadRoutine(void* arg);}
     \1 Ein Thread wird mit der folgenden Funktion gestartet:
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], thread, attr, arg}, morekeywords={[2], pthread_t, pthread_attr_t}]{snippets/posix_start_thread.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0.5mm, linewidth=\linewidth, morekeywords={[3], thread, attr, arg}, morekeywords={[2], pthread_t, pthread_attr_t}]{snippets/posix_start_thread.c}
     \1 Ein Thread kann mit einer der folgenden drei Arten beendet werden
         \2 Thread ruft Funktion \mylstbox[aboveskip=1mm]{pthread_exit()} auf
         \2 Thread springt aus Thread Routine \mylstbox[aboveskip=1mm]{startRoutine} zurück
@@ -89,7 +88,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
     \1 Nach dem Starten des Threads bzw. am Ende des main-Programms kann eine Endlos-Schleife eingefügt werden
         \2 \textbf{Dies sollte nie gemacht werden}, da der Prozess so die gesamten CPU-Ressourcen braucht
     \1 Entsprechende Funktion aus pthreads API verwenden
-        \lstinputlisting[aboveskip=1mm, linewidth=\linewidth, morekeywords={[3], thread, attr}, morekeywords={[2], pthread_t, pthread_attr_t}]{snippets/posix_wait_for_thread_termination.c}
+        \lstinputlisting[aboveskip=1mm, belowskip=0mm, linewidth=\linewidth, morekeywords={[3], thread, attr}, morekeywords={[2], pthread_t, pthread_attr_t}]{snippets/posix_wait_for_thread_termination.c}
 \end{outline}
 
 
@@ -99,11 +98,11 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 %     \includegraphics[width=0.8\columnwidth]{images/posix_thread_fork_join.png}
 % \end{center}
 \begin{minipage}[t]{0.48\columnwidth}
-    \lstinputlisting[aboveskip=1mm, firstnumber=1, firstline=1, lastline=23, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=23, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
-    \lstinputlisting[aboveskip=1mm, firstnumber=24, firstline=24, lastline=48, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=24, firstline=24, lastline=48, morekeywords={[3], arg, ret, dasher, i}, morekeywords={[2], pthread_t}]{snippets/posix_join.c}
 \end{minipage}
 
 
@@ -297,10 +296,12 @@ Das Konzept von Mutex ist, dass eine Mutex Variable \textbf{nur einem Thread gle
 \textrightarrow\ Dies ist ein sicherer Weg, um sicherzustellen, dass, wenn \textbf{mehrere Threads} dieselbe Variable aktualisieren, 
 der \textbf{Endwert derselbe} ist, wie wenn nur \textbf{ein Thread} die \textbf{Aktualisierung durchführen} würde.
 
+\columnbreak
+
 
 \example{Mutex in C}
 
-\lstinputlisting[aboveskip=0mm, belowskip=0mm,
+\lstinputlisting[aboveskip=1mm, belowskip=0mm,
                  morekeywords={[3], val , valMtx, arg, t1, t2, rState}, morekeywords={[2], pthread_mutex_t, pthread_t}]
                 {snippets/posix_mutex.c}
 
@@ -421,7 +422,11 @@ Der korrekte Weg für den Informations-Austausch zwischen Threads sind \textbf{c
 Der zählende Thread, welcher den spezifizierten Wert der Variable \mylstbox{count} erreicht, signalisiert dem überwachenden Thread, dass die 
 condition eingetreten ist.
 
-\lstinputlisting[aboveskip=1mm, belowskip=0mm,
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, lastline=42,
+                 morekeywords={[3], count, countMutex, countThresholdCv, t, myId, threads}, morekeywords={[2], pthread_mutex_t, pthread_cond_t, pthread_t}]
+                {snippets/posix_condvar.c}
+\columnbreak
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstline=43, firstnumber=43,
                  morekeywords={[3], count, countMutex, countThresholdCv, t, myId, threads}, morekeywords={[2], pthread_mutex_t, pthread_cond_t, pthread_t}]
                 {snippets/posix_condvar.c}
                 

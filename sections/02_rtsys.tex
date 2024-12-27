@@ -1,8 +1,8 @@
 \section{Real-Time System (Echtzeitsystem)}
 
-\subsection{Definitionen}
+% \subsection{Definitionen}
 
-\subsubsection{Real-Time System (Echtzeitsystem)}
+% \subsubsection{Real-Time System (Echtzeitsystem)}
 
 \begin{itemize}
     \item Ein Echtzeitsystem ist ein System, das Informationen \textbf{innerhalb einer definierten Zeit (deadline) bearbeiten} muss. \\
@@ -35,22 +35,22 @@
 \end{minipage}
 
 
+% NOTE: kommt bei scheduling nochmal vor
+% \subsubsection{Zeitdefinitionen (Task)}
 
-\subsubsection{Zeitdefinitionen (Task)}
+% \begin{center}
+%     \includegraphics[width=0.7\columnwidth]{images/zeitdefinitionen_task.png}
+% \end{center}
 
-\begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/zeitdefinitionen_task.png}
-\end{center}
-
-\begin{outline}
-    \1 \textbf{turnaround time:} (response time, Antwortzeit) 
-        \2 Startet, wenn der Task bereit zur Ausführung ist und endet, wenn der Task fertig abgearbeitet ist
-        \2 Zeit zwischen dem Vorhandensein von Eingangswerten an das System (Stimulus) bis zum Erscheinen der gewünschten Ausgangswerte.
-    \1 \textbf{waiting time:} (Wartezeit)
-        \2 Zeit zwischen Anliegen der Eingangswert und Beginn der Abarbeitung des Tasks
-    \1 \textbf{service time:} (Bearbeitungszeit)
-        \2 Zeit für Abarbeitung des Tasks \textrightarrow\ Unterbrechungen bzw. (preemptions) möglich 
-\end{outline}
+% \begin{outline}
+%     \1 \textbf{turnaround time:} (response time, Antwortzeit) 
+%         \2 Startet, wenn der Task bereit zur Ausführung ist und endet, wenn der Task fertig abgearbeitet ist
+%         \2 Zeit zwischen dem Vorhandensein von Eingangswerten an das System (Stimulus) bis zum Erscheinen der gewünschten Ausgangswerte.
+%     \1 \textbf{waiting time:} (Wartezeit)
+%         \2 Zeit zwischen Anliegen der Eingangswert und Beginn der Abarbeitung des Tasks
+%     \1 \textbf{service time:} (Bearbeitungszeit)
+%         \2 Zeit für Abarbeitung des Tasks \textrightarrow\ Unterbrechungen bzw. (preemptions) möglich 
+% \end{outline}
 
 
 \subsection{Fehlverhalten eines Systems (failed system)}
@@ -115,47 +115,48 @@ Rennen gewonnen hat und wie gross die Bestzeit ist', d.h. der nächste Zustand i
 \textrightarrow\ Nicht mehr deterministisch und nicht mehr echtzeittauglich
 
 
-\subsection{Auslastung (utilization)}
+% NOTE: kommt bei Scheduling detailierter vor
+% \subsection{Auslastung (utilization)}
 
-Die (CPU-) Auslastung (utilization) ist der Prozentsatz der Zeit, zu der die XPU \textbf{nützliche (non-idle) Aufgaben} ausführt. 
-
-
-\subsubsection{Berechungen zur Auslastung (utilzation)}
-
-\textbf{Annahmen:}
-
-\begin{itemize}
-    \item System mit $n \geq 1$ periodischen Tasks $T_i$ und Periode $p_1$
-    \item Jeder Task $T_i$ het bekannte / geschätzte maximale (worst case) execution time $e_i$
-\end{itemize}
-
-\vspace{0.2cm}
-
-\begin{minipage}[t]{0.48\columnwidth}
-    \begin{center}
-        \myul{\textbf{Auslastungsfaktor eines Tasks}}
-        $$ u_i = \frac{e_i}{p_i} $$
-        \textrightarrow\ utilization factor
-    \end{center}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\columnwidth}
-    \begin{center}
-        \myul{\textbf{Gesamtauslastung des Systems}}
-        $$ U = \sum\limits_{i=1}^n u_i = \sum\limits_{i=1}^n \frac{e_i}{p_i} $$
-        \textrightarrow\ utilization
-    \end{center}
-\end{minipage}
-
-\vspace{0.2cm}
-\textrightarrow\ Bei 69 \% Auslastung ist das  \textbf{'theoretical limit'}
+% Die (CPU-) Auslastung (utilization) ist der Prozentsatz der Zeit, zu der die XPU \textbf{nützliche (non-idle) Aufgaben} ausführt. 
 
 
-\subsection{Real-time Scheduling}
+% \subsubsection{Berechungen zur Auslastung (utilzation)}
 
-\begin{outline}
-    \1 Alle kritischen Zeiteinschränkungen (deadlines, response time) sollen eingehalten werden
-    \1 Im Notfall muss der Scheduling Algorithmus entscheiden, um die kritischsten Tasks einhalten zu können.
-        \2 Unter Umständen müssen dabei Deadlines von weniger kritischen Tasks verletzt werden.
-\end{outline}
+% \textbf{Annahmen:}
+
+% \begin{itemize}
+%     \item System mit $n \geq 1$ periodischen Tasks $T_i$ und Periode $p_1$
+%     \item Jeder Task $T_i$ het bekannte / geschätzte maximale (worst case) execution time $e_i$
+% \end{itemize}
+
+% \vspace{0.2cm}
+
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \begin{center}
+%         \myul{\textbf{Auslastungsfaktor eines Tasks}}
+%         $$ u_i = \frac{e_i}{p_i} $$
+%         \textrightarrow\ utilization factor
+%     \end{center}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[t]{0.48\columnwidth}
+%     \begin{center}
+%         \myul{\textbf{Gesamtauslastung des Systems}}
+%         $$ U = \sum\limits_{i=1}^n u_i = \sum\limits_{i=1}^n \frac{e_i}{p_i} $$
+%         \textrightarrow\ utilization
+%     \end{center}
+% \end{minipage}
+
+% \vspace{0.2cm}
+% \textrightarrow\ Bei 69 \% Auslastung ist das  \textbf{'theoretical limit'}
+
+
+% \subsection{Real-time Scheduling}
+
+% \begin{outline}
+%     \1 Alle kritischen Zeiteinschränkungen (deadlines, response time) sollen eingehalten werden
+%     \1 Im Notfall muss der Scheduling Algorithmus entscheiden, um die kritischsten Tasks einhalten zu können.
+%         \2 Unter Umständen müssen dabei Deadlines von weniger kritischen Tasks verletzt werden.
+% \end{outline}
 

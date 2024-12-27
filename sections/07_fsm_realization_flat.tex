@@ -27,7 +27,7 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
 \subsubsection{State-Event-Diagram -- Up/Down-Counter}
 
 \begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/fsm_up-down-counter_diagramm_C.png}
+    \includegraphics[width=0.8\columnwidth]{images/fsm_up-down-counter_diagramm_C.png}
 \end{center}
 
 
@@ -50,6 +50,8 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
         \2 Überprüfung, welches Event aufgetreten ist meist in \mylstbox{do-while}-Schleife
 \end{outline}
 
+\columnbreak
+
 
 \subsubsection{Eigenschaften der Prozeduralen Realisierung in C}
 
@@ -69,25 +71,23 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
 
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Schnittstelle Counter} 
-    \lstinputlisting[aboveskip=1mm, morekeywords={[3], val, step}]{snippets/fsm_procedural_C/fsm_counter_C.h}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], val, step}]{snippets/fsm_procedural_C/fsm_counter_C.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\columnwidth}
     \para{Implementation Counter} 
-    \lstinputlisting[aboveskip=1mm, morekeywords={[3], val, step, countValue}]{snippets/fsm_procedural_C/fsm_counter_C.c}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], val, step, countValue}]{snippets/fsm_procedural_C/fsm_counter_C.c}
 \end{minipage}
 
 
-\columnbreak
-
 \para{Schnittstelle FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e}, morekeywords={[2], cnt_Event}]{snippets/fsm_procedural_C/fsm_counterCtrl_C.h} 
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e}, morekeywords={[2], cnt_Event}]{snippets/fsm_procedural_C/fsm_counterCtrl_C.h} 
 
 \para{Implementation FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], currentState, initValue, e}, morekeywords={[2], State, cnt_Event}]{snippets/fsm_procedural_C/fsm_counterCtrl_C.c}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], currentState, initValue, e}, morekeywords={[2], State, cnt_Event}]{snippets/fsm_procedural_C/fsm_counterCtrl_C.c}
 
 \para{Anstossen der FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], answer}]{snippets/fsm_procedural_C/fsm_main_counterTest_C.c}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], answer}]{snippets/fsm_procedural_C/fsm_main_counterTest_C.c}
 
 
 
@@ -98,7 +98,7 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
 \label{State-Event-Diagram -- Up/Down-Counter in CPP}
 
 \begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/fsm_up-down-counter_diagramm_CPP.png}
+    \includegraphics[width=0.8\columnwidth]{images/fsm_up-down-counter_diagramm_CPP.png}
 \end{center}
 
 
@@ -142,25 +142,26 @@ Jede hierarchische FSM kann in eine flache FSM umgewandelt werden.
 
 \begin{minipage}[t]{0.44\columnwidth}
     \para{Schnittstelle Counter} 
-    \lstinputlisting[aboveskip=1mm, morekeywords={[3], val, step, countValue}]{snippets/fsm_procedural_CPP/fsm_Counter_CPP.h}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], val, step, countValue}]{snippets/fsm_procedural_CPP/fsm_Counter_CPP.h}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.52\columnwidth}
     \para{Implementation Counter} 
-    \lstinputlisting[aboveskip=1mm, morekeywords={[3], val, step, countValue}]{snippets/fsm_procedural_CPP/fsm_Counter_CPP.cpp}
+    \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], val, step, countValue}]{snippets/fsm_procedural_CPP/fsm_Counter_CPP.cpp}
 \end{minipage}
 
 
 \para{Schnittstelle FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, myCounter, currentState}, morekeywords={[2], Event, State, Counter}]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.h} 
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState}, morekeywords={[2], Event, State, Counter}]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.h} 
 
 \para{Implementation FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, myCounter, currentState}, morekeywords={[2], Event, State, Counter}]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.cpp}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, lastline=28, morekeywords={[3], initValue, e, myCounter, currentState}, morekeywords={[2], Event, State, Counter}]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.cpp}
+\columnbreak
+\lstinputlisting[aboveskip=0mm, belowskip=0mm, firstline=29, firstline=29, morekeywords={[3], initValue, e, myCounter, currentState}, morekeywords={[2], Event, State, Counter}]{snippets/fsm_procedural_CPP/fsm_CounterCtrl_CPP.cpp}
+
 
 \para{Anstossen der FSM} 
-\lstinputlisting[aboveskip=1mm, firstline=1, lastline=11, morekeywords={[3], answer, myFSM}, morekeywords={[2], CounterCtrl}]{snippets/fsm_procedural_CPP/fsm_main_counterTest_CPP.cpp}
-\columnbreak
-\lstinputlisting[aboveskip=1mm, firstnumber=13, firstline=13, lastline=46, morekeywords={[3], answer}, morekeywords={[2], CounterCtrl}]{snippets/fsm_procedural_CPP/fsm_main_counterTest_CPP.cpp}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], answer, myFSM}, morekeywords={[2], CounterCtrl}]{snippets/fsm_procedural_CPP/fsm_main_counterTest_CPP.cpp}
 
 
 \subsection{Realisierung mit Tabelle}
@@ -177,6 +178,8 @@ State-Event-Diagramm}
 
 \includegraphics[width=\columnwidth]{images/fsm_tabelle.png}
 
+
+\columnbreak
 
 \subsubsection{Implementation der Realisierung mittels Tabelle in C++}
 
@@ -241,13 +244,13 @@ Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nic
 \textrightarrow\ Code-Beispiele siehe \ref{Realisieurng mit Steuerkonstrukt (objektorientiert in CPP)}
 
 
+\para{Schnittstelle FSM} 
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState, ev, pAction, nextState}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
+
 \columnbreak
 
-\para{Schnittstelle FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, myCounter, currentState, ev, pAction, nextState}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
-
 \para{Implementation FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, myCounter, currentState, i}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState, i}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
 
 
 \subsection{Erweiterung der Realisierung mittels Tabellen}
@@ -269,7 +272,9 @@ Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nic
         \2 In Tabelle steht statt Event die Adresse der checker-Funktion (analog zu action-Funktionen)
 \end{outline}
 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], e, pAction, pChecker, nextState, currentState}, morekeywords={[2], Event, State, Action, Transition, Checker}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_pChecker_CPP.h}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], e, pAction, pChecker, nextState, currentState}, morekeywords={[2], Event, State, Action, Transition, Checker}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_pChecker_CPP.h}
+
+\columnbreak
 
 
 \subsection{Realisieurng mit StatePattern}
@@ -280,7 +285,7 @@ Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nic
 Das Grundkonzept von StatePatterns ist \textbf{Polymorphismus} (Vererbung)
 
 \begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/fsm_state_pattern_struktur.png}
+    \includegraphics[width=0.8\columnwidth]{images/fsm_state_pattern_struktur.png}
 \end{center}
 
 \begin{outline}
@@ -314,16 +319,16 @@ StatePattern definiert nicht, wo die Transitions umgesetzt werden sollen. Es gib
 \label{State-Event-Diagram -- Up/Down-Counter - StatePattern}
 
 \begin{center}
-    \includegraphics[width=0.7\columnwidth]{images/fsm_up-down-counter_diagramm_state_pattern.png}
+    \includegraphics[width=0.75\columnwidth]{images/fsm_up-down-counter_diagramm_state_pattern.png}
 \end{center}
 
 
-\subsubsection{Klassendiagramm -- Up/Down-Counter}
-\label{Klassendiagramm -- Up/Down-Counter - StatePattern}
+% \subsubsection{Klassendiagramm -- Up/Down-Counter}
+% \label{Klassendiagramm -- Up/Down-Counter - StatePattern}
 
-\begin{center}
-    \includegraphics[width=0.95\columnwidth]{images/fsm_up-down-counter_klassendiagramm_state_pattern.png}
-\end{center}
+% \begin{center}
+%     \includegraphics[width=0.95\columnwidth]{images/fsm_up-down-counter_klassendiagramm_state_pattern.png}
+% \end{center}
 
 
 \subsubsection{Implementation der Realisierung mittels StatePattern}
@@ -359,23 +364,23 @@ Die Schnittstelle \mylstbox{counter.h} und die Implementation \mylstbox{counter.
 
 %TODO: check includes for every file...
 \para{Schnittstelle zur FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, entity, pState}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, entity, pState}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.h}
 
 \para{Implementation der FSM} 
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, entity, pState}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, entity, pState}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_CounterCtrl_state_pattern.cpp}
+
+
+\para{Schnittstelle abstrakte State-Basisklasse}   
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, entity, pState, pnewState, ptransAction, CounterState}, morekeywords={[2], Event, Counter, Action}]{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h}
+
+\para{Implementation abstrakte State-Basisklasse}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, entity, pState, initState, pnewState, ptransAction}, morekeywords={[2], Event, Counter, CounterState, Action}]{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp}
 
 \columnbreak
 
 
-\para{Schnittstelle abstrakte State-Basisklasse}   
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, entity, pState, pnewState, ptransAction, CounterState}, morekeywords={[2], Event, Counter, Action}]{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.h}
-
-\para{Implementation abstrakte State-Basisklasse}
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, entity, pState, initState, pnewState, ptransAction}, morekeywords={[2], Event, Counter, CounterState, Action}]{snippets/fsm_state_pattern_CPP/fsm_CounterState_state_pattern.cpp}
-
-
 \para{Schnittstelle ConcreteStateX-Klassen (CountUpState)}
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], initValue, e, entity, pState}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.h} 
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, entity, pState}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState.h} 
 
 \para{Implementation ConcreteStateX-Klassen (CountUpState -- no actions)}
 \lstinputlisting[%
@@ -383,22 +388,23 @@ firstnumber=1,
 firstline=1, 
 lastline=13, 
 aboveskip=1mm,
+belowskip=0mm,
 morekeywords={[3], instance, entity, e}, morekeywords={[2], Event, Counter, CounterState}]
 {snippets/fsm_state_pattern_CPP/fsm_ConcreteState.cpp} 
 
-\columnbreak
 
 \lstinputlisting[%
 firstnumber=15, 
 firstline=15, 
 lastline=30, 
 aboveskip=0mm,
+belowskip=0mm,
 morekeywords={[3], instance, entity, e}, morekeywords={[2], Event, Counter, CounterState}]
 {snippets/fsm_state_pattern_CPP/fsm_ConcreteState.cpp} 
 
 
 \para{Implementation ConcreteStateX-Klassen (CountUpState -- with actions)}
-\lstinputlisting[aboveskip=1mm, morekeywords={[3], instance, entity, e}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState_with_actions.cpp} 
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], instance, entity, e}, morekeywords={[2], Event, Counter, CounterState}]{snippets/fsm_state_pattern_CPP/fsm_ConcreteState_with_actions.cpp} 
 
 \para{Anstossen der FSM}
 Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nicht! \\
