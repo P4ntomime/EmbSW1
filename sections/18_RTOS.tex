@@ -70,11 +70,11 @@ Ein RTOS ist ein Betriebssystem, das \textbf{Echtzeitanforderungen} erfüllen ka
         \toprule
         \textbf{Kriterium}                                      & \textbf{FreeRTOS}                         & \textbf{Zephyr}                           \\
         \midrule
-        \rowcolor{gray!25} \textbf{Leichtgewichtigkeit}         & Sehr leichtgewichtig                      & Ressourceninvensiver                      \\
+        \rowcolor{gray!40} \textbf{Leichtgewichtigkeit}         & Sehr leichtgewichtig                      & Ressourceninvensiver                      \\
         \textbf{Feature-Set}                                    & Grundlegende RTOS-Funktionalitäten        & Umfangreicher (Treiber, Netzwerk, FS)     \\
-        \rowcolor{gray!25} \textbf{Hardware-Support}            & Sehr breit                                & Begrenzter, aber wachsender Support       \\
+        \rowcolor{gray!40} \textbf{Hardware-Support}            & Sehr breit                                & Begrenzter, aber wachsender Support       \\
         \textbf{Lernkurve}                                      & Einfach und schnell                       & Anspruchsvoller, aber leistungsfähiger    \\
-        \rowcolor{gray!25} \textbf{Einsatzgebiete}              & Kleinere, spezifische Projekte            & Skalierbare \& komplexere Anwendungen     \\
+        \rowcolor{gray!40} \textbf{Einsatzgebiete}              & Kleinere, spezifische Projekte            & Skalierbare \& komplexere Anwendungen     \\
         \textbf{Lizenz}                                         & MIT                                       & Apache 2.0                                \\ 
         \bottomrule
     \end{tabular}
@@ -92,7 +92,7 @@ Grundsätzlich gilt aber Folgendes:
     \1 \textbf{FreeRTOS} für Systeme mit begrenzten Ressourcen (\textbf{Flash $\bm{< 32 \, \kilo}$B, RAM $\bm{< 4 \, \kilo}$B} ideal) \\
         Bleibt performant für CPUs mit Taktfrequenz $\bm{< 100 \mega \hertz}$
         \2 Leichtgewichtiges RTOS für einfache / ressourcenbeschränkte Systeme
-    \1  \textbf{Zephyr} wenn zusätzliche Funktionalität für komplexere Anweundungen unverzichtbar \\
+    \1  \textbf{Zephyr} wenn zusätzliche Funktionalität für komplexere Anwendungen unverzichtbar \\
         Bedarf an leistungsfähiger MCU (\textbf{Flash $\bm{\geq 64 \, \kilo}$B, RAM $\bm{\geq 8 \, \kilo}$B})
         \2 Modernes, skalierbares, funktionsreiches RTOS für komplexere Anwendungen und Projekte mit Netzwerk und Sicherheitsanforderungen
 \end{outline}
@@ -105,9 +105,9 @@ Grundsätzlich gilt aber Folgendes:
         \toprule
         \textbf{System}                                                         & \textbf{FreeRTOS}         & \textbf{Zephyr}       \\
         \midrule
-        \rowcolor{gray!25} \textbf{Sensorsteuerung}                             & gut umsetzbar             & gut umsetzbar         \\
+        \rowcolor{gray!40} \textbf{Sensorsteuerung}                             & gut umsetzbar             & gut umsetzbar         \\
         \textbf{IoT-Gerät mit WLAN}                                             & gut umsetzbar             & gut umsetzbar         \\
-        \rowcolor{gray!25} \textbf{Komplexeres IoT-Gerät (Bluetooth + FS)}      & schwierig umzusetzen      & gut umsetzbar         \\
+        \rowcolor{gray!40} \textbf{Komplexeres IoT-Gerät (Bluetooth + FS)}      & schwierig umzusetzen      & gut umsetzbar         \\
         \textbf{Embedded Linux-Alternative (RTOS)}                              & nicht geeignet            & gut umsetzbar         \\
        \bottomrule
     \end{tabular}

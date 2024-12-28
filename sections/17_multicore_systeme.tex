@@ -6,7 +6,7 @@
 
 \begin{outline}
     \1 PCB-Design wird sehr anspruchsvoll (Leistungslängen, Reflexionen, etc.)
-    \1 Elektrinsche Verlustleistung steigt \textbf{linear} mit Clockfrequenz: $P = f_{\rm cl} \cdot C_L \cdot V_{\rm dd}^2$
+    \1 Elektrinsche Verlustleistung steigt \textbf{linear} mit Clockfrequenz: $P = f_{\rm cl} \cdot C_L \cdot V_{\rm DD}^2$
     \1 Lichtgeschwindigkeit ist Grenze (Licht legt in $1 \, \nano \second$ $30 \, \centi \meter$ zurück)
 \end{outline}
 
@@ -38,7 +38,7 @@
     \1 Design Issues
         \2 Jeder Thread erzeugt Overhead (Stack, context switch bei single-core Prozessor)
         \2 Nicht beliebig viele Threads möglich
-        \2 Bei zu vielen Threads (wenn zusammengehöriges auseinandergenommen wird), dann werden
+        \2 Bei zu vielen Threads (wenn zusammengehöriges auseinandergenommen wird), werden
             gewisse Daten unnötigerweise shared
 \end{outline}
 
@@ -90,7 +90,7 @@
 \subsubsection{Multicore Prozessor}
 
 \begin{outline}
-    \1 Speizieller Multiprozessor \textrightarrow\ alle Cores (Prozessoren) auf demselben Chip
+    \1 Spezieller Multiprozessor \textrightarrow\ alle Cores (Prozessoren) auf demselben Chip
     \1 MIMD (Multiple Instructions Multiple Data)
     \1 Komplexe Speicherorganisation
         \2 Caches, per core local memory, Shared Memory

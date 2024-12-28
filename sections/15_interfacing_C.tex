@@ -23,7 +23,7 @@
 \subsection{Language Linkage}
 
 \begin{itemize}
-    \item \textbf{Linker benötigt einen einduetigen Namen für jede Funktion}
+    \item \textbf{Linker benötigt einen eindeutigen Namen für jede Funktion}
     \item In Assembler muss ein eindeutiger Label entstehen, der mit BSR (Branch to subroutine) angesprungen wird
     \item \textbf{In C: einfach}, da Funktionsname projektweit eindeutig sein muss
     \item \textbf{In C++: komplizierter}, da Funktionen in einem Namespace liegen, zu einer Klasse gehören und auch noch überladen werden können
@@ -41,10 +41,10 @@
 \subsubsection{C++ Language Linkage}
 
 \begin{outline}
-    \1 C++ Linker hängt für Interne Darstellung \textbf{Name Mangling} \\
+    \1 C++ Linker verwendet für Interne Darstellung \textbf{Name Mangling} \\
         \textrightarrow\ \mylstbox{_<namespace>_<functionName>_<parameterTypesShortened>}
         \2 \mylstbox{foo(int)} wird zu \mylstbox{_foo_i}
-        \2 \mylstbox{myClass::foo(double, int)} wird zu \mylstbox{_MyClass_foo_d_i}
+        \2 \mylstbox{MyClass::foo(double, int)} wird zu \mylstbox{_MyClass_foo_d_i}
 \end{outline}
 
 
@@ -79,7 +79,7 @@ Beide Compiler können diese Header übersetzen.}
 
 \lstinputlisting[aboveskip=1mm, belowskip=1mm]{snippets/interfacing_linkage_header.h}
 
-\textrightarrow\ \lstinline|__cplusplus| is dann definiert, wenn mit einem C++ Compiler kompiliert wird!
+\textrightarrow\ \lstinline|__cplusplus| ist dann definiert, wenn mit einem C++ Compiler kompiliert wird!
 
 
 \subsection{C++ Code aus C aufrufen}
@@ -94,7 +94,7 @@ Es werden \textbf{C Wrapper-Funktionen} benötigt, um C++ Code aufrufen zu könn
 
 \begin{outline}
     \1 3 Personen an einem Tisch; 3 Stäbchen zum essen vorhanden
-    \1 Jede Person braucht 2 Stäbchen zum 
+    \1 Jede Person braucht 2 Stäbchen zum essen
         \2 Stäbchen sollen mittels Threading weitergereicht werden
     \1 Ein \textbf{Deadlock} entsteht, wenn alle je ein Stäbchen haben und auf den nächsten warten
 \end{outline}

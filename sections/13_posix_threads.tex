@@ -30,7 +30,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
     \1 lightweight 'process' (weniger overhead)
     \1 Unabhängiger 'stream of instructions', welcher simultan mit anderen 'streams of instructions' ablaufen kann %CHECK: german names...
     \1 Prozedur, welche unabhängig von ihrem (aufrufenden) main-Programm abläuft
-    \1 \textbf{Threadsexistieren in einem Prozess und nutzen dessen Ressourcen}
+    \1 \textbf{Threads existieren in einem Prozess und nutzen dessen Ressourcen}
         \2 Sobald ein Prozess ended, enden auch die darin existierenden Threads!
     \1 \textbf{Ein Thread benutzt den gleichen Adressraum wie andere Threads im gleichen Prozess}
         \2 Daten können einfach mit anderen Threads im gleichen Prozess geteilt werden
@@ -92,7 +92,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 \end{outline}
 
 
-\subsection{Beispiel: thread API}
+\subsection{Beispiel: pthreads API}
 
 % \begin{center}
 %     \includegraphics[width=0.8\columnwidth]{images/posix_thread_fork_join.png}
@@ -111,6 +111,8 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 Thread-safeness bezieht sich auf die Fähigkeit einer Anwendung, mehrere Threads gleichzeitig auszuführen,
 \textbf{ohne 'clubbering' und 'race conditions'} zu verursachen. Damit Thread-safeness gewährleistet werden kann, ist \textbf{Synchronisation}
 erforderlich.
+
+\vspace{0.1cm}
 
 \begin{description}
     \item[clubbering:] Speicher durcheinander bringen, wenn mehrere Threads den gleichen Speicher benötigen und 'falsch' darauf zugreifen
@@ -186,7 +188,7 @@ Synchronisation wird benötigt, um den \textbf{Zugriff auf gemeinsame Ressourcen
     \item Maximal ein Prozess in einem kritischen Abschnitt (CS)
     \item Über Abarbeitungsgeschwindigkeit, bzw. Anzahl Prozesse dürfen keine Annahmen getroffen werden
     \item Kein Prozess darf \textbf{ausserhalb} eines kritischen Abschnitts einen anderen blockieren
-    \item Jeder Prozess, der am Eingang eines kritischen Abshcnitts wartet, muss irgendwann den Abschnitt betreten dürfen 
+    \item Jeder Prozess, der am Eingang eines kritischen Abschnitts wartet, muss irgendwann den Abschnitt betreten dürfen 
         (\textbf{fairness condition}) \textrightarrow\ Verhinderung von 'starvation'
 \end{enumerate}
 
@@ -238,7 +240,7 @@ Die Lösungsstruktur 'Mutex' (gegenseitiger Ausschluss) stellt sicher, dass höc
 
 \vspace{0.2cm}
 
-Bei der Verwendung von Semaphoren treten folgende Probleme auf
+Bei der Verwendung von Semaphoren treten folgende Probleme auf:
 
 \vspace{0.1cm}
 
@@ -321,7 +323,6 @@ Dabei muss sich der \textbf{Aufrufer nicht mehr um die Synchronisation der Threa
 
 
 \subsection{'Stolperfallen' bei Synchronisation}
-% TODO: Besserer Name...
 
 \subsubsection{Starvation (Verhungern)}
 

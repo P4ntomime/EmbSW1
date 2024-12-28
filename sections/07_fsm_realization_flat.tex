@@ -181,11 +181,11 @@ State-Event-Diagramm}
         \toprule
         \textbf{Current State}                  & \textbf{Event}        & \textbf{Action}                   & \textbf{Next State}       \\
         \midrule
-        \rowcolor{gray!25} idleState            & evUp                  & showCounter()                     & countUpState              \\
+        \rowcolor{gray!40} idleState            & evUp                  & showCounter()                     & countUpState              \\
         idleState                               & evDown                & showCounter()                     & countDownState            \\
-        \rowcolor{gray!25} countUpState         & evCount               & count(1); showCounter()           & countUpState              \\
+        \rowcolor{gray!40} countUpState         & evCount               & count(1); showCounter()           & countUpState              \\
         countUpState                            & evStop                & -                                 & idleState                 \\
-        \rowcolor{gray!25} countDownState       & evCount               & count(-1); showCounter()          & countDownState            \\
+        \rowcolor{gray!40} countDownState       & evCount               & count(-1); showCounter()          & countDownState            \\
         countDownState                          & evStop                & -                                 & idleState                 \\
         \bottomrule
     \end{tabular}

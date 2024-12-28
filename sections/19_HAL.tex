@@ -99,7 +99,7 @@ So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
 
 \example{Ausschnitt aus einem BSL Header-File}
 
-In der Board Support Library wird die Verbindung der effektic auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
+In der Board Support Library wird die Verbindung der effektiv auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
 
 \lstinputlisting[aboveskip=1mm, belowskip=0mm,
                  morekeywords={[3], pin, led}, morekeywords={[2], csl_Pin, bsl_Led}]
@@ -121,7 +121,7 @@ So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
         Funktion vorhanden sind 
     \1 Damit die \textbf{Namen eindeutig} sind, sollen \textbf{Namespaces} \mylstbox{csl}, bzw. \mylstbox{bsl} definiert werden
     \1 Port / Pin Deklarationen werden als \mylstbox{class} im Namespace \mylstbox{csl} umgesetzt
-    \1 Im \lstinline|main.cpp| file braucht es \textbf{keine bslInit-Funktionen mehr}
+    \1 Im \lstinline|main.cpp| file braucht es \textbf{keine Init-Funktionen mehr}
         \2 Die Initialisierung übernimmt der \textbf{Konstruktor}
 \end{outline}
 
@@ -155,7 +155,7 @@ So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
 
 \example{Ausschnitt aus einem BSL Header-File}
 
-In der Board Support Library wird die Verbindung der effektic auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
+In der Board Support Library wird die Verbindung der effektiv auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
 
 \lstinputlisting[aboveskip=1mm, belowskip=0mm,
                  morekeywords={[3], pin, id}, morekeywords={[2], Id, Pin}]
