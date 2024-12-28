@@ -176,8 +176,20 @@ Siehe Abschnitt \ref{State-Event-Diagram -- Up/Down-Counter in CPP}
 Das State-Event-Diagramm wird in eine Tabelle 'übersetzt'. \textbf{Jede Zeile der Tabelle entspricht einer Transition (Pfeil) im 
 State-Event-Diagramm}
 
-\includegraphics[width=\columnwidth]{images/fsm_tabelle.png}
-
+\begin{center}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Current State}                  & \textbf{Event}        & \textbf{Action}                   & \textbf{Next State}       \\
+        \midrule
+        \rowcolor{gray!25} idleState            & evUp                  & showCounter()                     & countUpState              \\
+        idleState                               & evDown                & showCounter()                     & countDownState            \\
+        \rowcolor{gray!25} countUpState         & evCount               & count(1); showCounter()           & countUpState              \\
+        countUpState                            & evStop                & -                                 & idleState                 \\
+        \rowcolor{gray!25} countDownState       & evCount               & count(-1); showCounter()          & countDownState            \\
+        countDownState                          & evStop                & -                                 & idleState                 \\
+        \bottomrule
+    \end{tabular}
+\end{center}
 
 \columnbreak
 
@@ -245,12 +257,12 @@ Die Implementation des Testprogramms \mylstbox{counterTest.cpp} ändern sich nic
 
 
 \para{Schnittstelle FSM} 
-\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState, ev, pAction, nextState}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState, ev, pAction, nextState, fsm}, morekeywords={[2], Event, State, Action, Transition, Counter}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.h} 
 
 \columnbreak
 
 \para{Implementation FSM} 
-\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState, i}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
+\lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], initValue, e, myCounter, currentState, i, fsm, pAction}, morekeywords={[2], Event, State, Action, Transition}]{snippets/fsm_table_CPP/fsm_CounterCtrl_table_CPP.cpp}
 
 
 \subsection{Erweiterung der Realisierung mittels Tabellen}
@@ -294,7 +306,7 @@ Das Grundkonzept von StatePatterns ist \textbf{Polymorphismus} (Vererbung)
         \2 unterhält eine \textbf{Instanz} einer konkreten Unterklasse von \mylstbox{State}, die den aktuellen Zustand repräsentiert
     \1 \textbf{State}-Klasse
         \2 definiert die Schnittstelle zur FSM in Form einer \textbf{abstrakten Klasse}
-    \1 \textbf{ConreteStateX} Unterklassen
+    \1 \textbf{ConcreteStateX} Unterklassen
         \2 Jede Unterklasse (Singleton) implementiert genau \textbf{einen Zustand}
 \end{outline}
 
