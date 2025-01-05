@@ -109,9 +109,9 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 \para{Event austragen (detach)}
 
 \begin{outline}
-    \1 Ein client kann sein Interesse an einem Ereignis beim Server auch wieder austragen
+    \1 Ein client kann sein Interesse an einem Ereignis beim server auch wieder austragen
         \2 Abmeldung erfolgt über eine Funktion, welche ebenfalls der server anbietet
-        \2 Der Server löscht dann den entsprechenden Eintrag (\textbf{Funktionspointer} \mylstbox{f}) wieder aus der Tabelle
+        \2 Der server löscht dann den entsprechenden Eintrag (\textbf{Funktionspointer} \mylstbox{f}) wieder aus der Tabelle
         \lstinputlisting[aboveskip=1mm, belowskip=0mm, linewidth=\linewidth, morekeywords={[3], e, f}, firstnumber=1, firstline=5, lastline=7]{snippets/ebs_callback.c}
 \end{outline}
 
@@ -130,7 +130,7 @@ Wie kann nun erreicht werden, dass bei \textbf{jeder Änderung} der Daten (model
 
 \para{Mitteilung eines Events}
 
-Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mit der Funktion 
+Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem server mit der Funktion 
 \mylstbox[morekeywords={[3], e}]{void  foo_signalEvent(foo_Event e);} mitgeteilt werden.
 
 
@@ -148,12 +148,12 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mi
 \para{Server -- Implementation}
 \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstnumber=1, firstline=1, lastline=41,
                  morekeywords={[2], foo_Event, foo_cbFunction}, 
-                 morekeywords={[3], e, f, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
+                 morekeywords={[3], e, f, i, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
                 {snippets/ebs_callback/fooServer.c}
 \columnbreak
 \lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=42, firstline=42,
                  morekeywords={[2], foo_Event, foo_cbFunction}, 
-                 morekeywords={[3], e, f, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
+                 morekeywords={[3], e, f, i, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
                 {snippets/ebs_callback/fooServer.c}
 
 
@@ -188,14 +188,14 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem Server mi
     \1 \textbf{Observer-Subklassen} (View)
         \2 Enthalten jeweils eine private Referenz auf ein konkretes Subject
         \2 state entspricht z.B. einem counter-Wert, welcher jeweils updated wird
-    \1 \textbf{Subjekt Klasse} (server, Model)
+    \1 \textbf{Subjekt Klasse} (server, model)
         \2 liefert Administration für alle Subjects
         \2 Die Klasse muss \textbf{nicht} geändert werden
-        \2 Enthält privates array mit Pointern auf Observer \mylstbox[morekeywords={[3], observers, size}]{const Observer* observers[size]}
+        \2 Enthält privates Array mit Pointern auf Observer \mylstbox[morekeywords={[3], observers, size}]{const Observer* observers[size]}
         \2 \mylstbox[morekeywords={[3], o}]{attach(o)} und \mylstbox[morekeywords={[3], o}]{detach(o)} benutzen \mylstbox{const} Referenzen 
             auf Observer als Parameter
     \1 \textbf{Subjekt1 Subklasse}
-        \2 Konkretes Sujekt (Server, Model)
+        \2 Konkretes Subjekt (server, model)
 \end{outline}
 
 

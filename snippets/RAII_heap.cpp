@@ -16,5 +16,5 @@ void f()
   // mach etwas mit p
   // Beim Verlassen des Blocks raeumt Dtor von 
   // shared_ptr automatisch auf und loescht
-  //  Person
+  // Person
 }

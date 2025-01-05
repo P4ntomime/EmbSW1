@@ -29,7 +29,6 @@ class CounterCtrl
     Counter myCounter;            // holds the counter for calculation
     
     /* -------------------------------- CHANGES -------------------------------*/
-
     typedef void (CounterCtrl::*Action)(void);   // function ptr for action function
   
     // action functions (must match with  function pointer!)

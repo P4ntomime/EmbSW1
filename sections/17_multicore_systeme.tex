@@ -6,16 +6,13 @@
 
 \begin{outline}
     \1 PCB-Design wird sehr anspruchsvoll (Leistungslängen, Reflexionen, etc.)
-    \1 Elektrinsche Verlustleistung steigt \textbf{linear} mit Clockfrequenz: $P = f_{\rm cl} \cdot C_L \cdot V_{\rm dd}^2$
+    \1 Elektrinsche Verlustleistung steigt \textbf{linear} mit Clockfrequenz: $P = f_{\rm cl} \cdot C_L \cdot V_{\rm DD}^2$
     \1 Lichtgeschwindigkeit ist Grenze (Licht legt in $1 \, \nano \second$ $30 \, \centi \meter$ zurück)
 \end{outline}
 
 \vspace{0.1cm}
 
 \textrightarrow\ Erhöhung der Clockfrequenz hat eigentlich nur Nachteile
-
-\columnbreak
-
 
 \subsubsection{Instruction-level parallelism (ILP)}
 
@@ -38,7 +35,7 @@
     \1 Design Issues
         \2 Jeder Thread erzeugt Overhead (Stack, context switch bei single-core Prozessor)
         \2 Nicht beliebig viele Threads möglich
-        \2 Bei zu vielen Threads (wenn zusammengehöriges auseinandergenommen wird), dann werden
+        \2 Bei zu vielen Threads (wenn zusammengehöriges auseinandergenommen wird), werden
             gewisse Daten unnötigerweise shared
 \end{outline}
 
@@ -90,7 +87,7 @@
 \subsubsection{Multicore Prozessor}
 
 \begin{outline}
-    \1 Speizieller Multiprozessor \textrightarrow\ alle Cores (Prozessoren) auf demselben Chip
+    \1 Spezieller Multiprozessor \textrightarrow\ alle Cores (Prozessoren) auf demselben Chip
     \1 MIMD (Multiple Instructions Multiple Data)
     \1 Komplexe Speicherorganisation
         \2 Caches, per core local memory, Shared Memory
@@ -175,7 +172,7 @@ und \textbf{limitiert} somit den möglichen Speedup.
 \subsection{Memory Hierarchy}
 
 \begin{center}
-    \includegraphics[width=0.88\columnwidth]{images/multiprocessor_memory.png}
+    \includegraphics[width=0.88\columnwidth]{images/multiprocessor_memory.pdf}
 \end{center}
 
 
@@ -260,7 +257,7 @@ Dies ist immer dann der Fall, wenn das \textbf{Dirty Bit} (Signal, dass Cache-Da
 
 \subsection{Cache Coherence}
 
-Bei Multtcore-Systemen können \textbf{Kopie derselben Daten in mehreren Cashes} liegen. \\
+Bei Multicore-Systemen können \textbf{Kopie derselben Daten in mehreren Cashes} liegen. \\
 Cache Coherence beschreibt, wie ein Cache eines Cores \textbf{erfährt}, dass ein anderer Core diese \textbf{Daten geändert} hat. 
 Cache Coherence kann mit verschiedenen Protokollen oder auch mit Hardware-Unterstützung umgesetzt werden.
 
@@ -399,4 +396,3 @@ Empangsteil laufend Daten in den Buffer schreibt?
 
 Noch besser ist es, wenn der Empfang der Daten über DMA (Direct Memory Access) erfolgt. \\
 \textrightarrow\ DMA-Einheit braucht nur Ziel-Pointer und Byte Counter
-

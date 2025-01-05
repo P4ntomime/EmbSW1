@@ -42,7 +42,7 @@ RAII fordert sauber Speicher an und gibt diesen auch zuverlässig wieder frei. \
     \raggedright
     \para{Problem}
     
-    Es muss sichergestellt werden,, dass Mutex in jedem Fall wieder freigegeben wird
+    Es muss sichergestellt werden, dass Mutex in jedem Fall wieder freigegeben wird
 
     \vspace{0.1cm}
 
@@ -71,4 +71,19 @@ RAII fordert sauber Speicher an und gibt diesen auch zuverlässig wieder frei. \
 
 \textbf{Hinweis:} Die Klasse \mylstbox{ResourceLock} ist '0 Byte gross, da die Funktionen 'inline' implementiert sind und eine Referenz
 verwendet wurde
+
+
+\subsubsection{'Auslagerung' einer Mutex}
+
+Oft wird die Verwaltung (init/destroy) einer Mutex in eine Klasse \mylstbox{SharedResource} ausgelagert.
+Die Klasse, welche die Mutex genötigt, beinhaltet ein privates Attribut vom Typ \mylstbox[morekeywords={[2], SharedResource}]{SharedResource}.
+
+
+\para{Klasse SharedResource}
+
+\lstinputlisting[aboveskip=1mm, belowskip=1mm,
+                morekeywords={[3], mutex}, morekeywords={[2], pthread_mutex_t}]
+               {snippets/RAII_SharedResource.cpp}
+
+\textrightarrow\ \mylstbox{SharedResource} wird normalerweise zusammem mit \mylstbox{ResourceLock} verwendet!
 
