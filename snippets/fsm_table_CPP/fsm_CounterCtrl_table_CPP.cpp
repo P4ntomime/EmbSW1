@@ -51,5 +51,4 @@ void CounterCtrl::actionIdleDown(void)
 void CounterCtrl::actionDoNothing(void)
 {
 }
-
 // ...

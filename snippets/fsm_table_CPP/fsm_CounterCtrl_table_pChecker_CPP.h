@@ -15,5 +15,4 @@
       Action pAction;       // pointer to action function
       State nextState;      // next state
     };
-    
     // ...
