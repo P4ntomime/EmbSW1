@@ -17,7 +17,7 @@ Ein '\textbf{normales' Programm} ist immer \textbf{synchron}. (Programm gibt vor
     \item Programm fragt periodisch oder dauernd ab, ob irgendein Ereignis eingetreten ist
     \item Maximale Reaktionszeit wird durch Abfrageperiode und Anzahl Abfragen definiert (Looptime bei SPS)
     \item[+] Sehr einfach zu implementieren
-    \item[-] Leerabfragen (Abfragen, bei welchen nichts eingetreten ist) können durch periodisches Abfragen (mittels Timer) reduziert, 
+    \item[--] Leerabfragen (Abfragen, bei welchen nichts eingetreten ist) können durch periodisches Abfragen (mittels Timer) reduziert, 
         aber nicht vermieden werden
 \end{itemize}
 
@@ -48,12 +48,12 @@ Ereignis eingetreten ist. \textrightarrow\ Interrupts
         \2 Alle Interrupts verzweigen zu einer \textbf{gemeinsamen Adresse}. Dort wird die Ursache bestimmt und zu einer
             spezifischen Behandlungsroutine verzweigt.
         \2[+] Nur eine zentrale Routine für die Behandlung notwendig
-        \2[-] Information über die Ursache ist beim Eintreten bereits bekannt. Dann
+        \2[--] Information über die Ursache ist beim Eintreten bereits bekannt. Dann
                 verzweigt man in die zentrale Routine, d.h. diese Information ist dann verloren. In der Routine muss diese
                 Information wieder ermittelt werden.
 \end{outline}  
 
-\columnbreak
+% \columnbreak
 
 \begin{outline}
     \1 \textbf{Vectored Interrupt (spezifisch)}
@@ -139,7 +139,7 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem server mi
 
 \para{Test-Applikation -- Client} 
 \lstinputlisting[aboveskip=1mm, belowskip=0mm, lastline=23, morekeywords={[3], a, maxId, i}]{snippets/ebs_callback/testApp.c}
-\columnbreak
+% \columnbreak
 \lstinputlisting[aboveskip=1mm, belowskip=0mm, firstline=24, firstnumber=24, morekeywords={[3], a, maxId, i}]{snippets/ebs_callback/testApp.c}
 
 \para{Server -- Header-File}
@@ -150,7 +150,7 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem server mi
                  morekeywords={[2], foo_Event, foo_cbFunction}, 
                  morekeywords={[3], e, f, i, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
                 {snippets/ebs_callback/fooServer.c}
-\columnbreak
+% \columnbreak
 \lstinputlisting[aboveskip=0mm, belowskip=0mm, firstnumber=42, firstline=42,
                  morekeywords={[2], foo_Event, foo_cbFunction}, 
                  morekeywords={[3], e, f, i, id, ev1Client, ev2Client, ev3Client, client, evNum, arg}]
@@ -219,7 +219,7 @@ Sobald (\textbf{asynchron}) ein Event eingetreten ist, kann dieser dem server mi
 \para{Observer1 -- Konkreter Observer (View) -- Implementation}
 \lstinputlisting[aboveskip=1mm, belowskip=0mm, morekeywords={[3], sub, s}]{snippets/ebs_observer_pattern/Observer1.cpp}
 
-\columnbreak
+% \columnbreak
 
 
 \para{Subject -- Basisklasse (Server, Model) -- Header-file}

@@ -3,7 +3,7 @@
 
 \subsection{Multitasking}
 
-Mehrere (gleiche oder unterschiedliche) Tasks müssen erledigt werden. Dazu werden Ressourcen benötigt (z.B. \textbf{CPU}, Speicher, ...).
+Mehrere (gleiche oder unterschiedliche) Tasks müssen erledigt werden. Dazu werden Ressourcen benötigt (z.B. \textbf{CPU}, Speicher, \ldots).
 Wenn mehrere Tasks \textbf{dieselben Ressourcen} benötigen, nimmt der \textbf{Scheduler} die Zuteilung der Ressourcen an die einzelnen Tasks vor.
 
 \vspace{0.1cm}
@@ -53,9 +53,9 @@ Unter Umständen werden somit Deadlines von weniger kritischen Tasks verletzt.
 \end{minipage}
 
 
-\subsection{Scheduability}
+\subsection{Schedulability}
 
-Eine Menge von Tasks ist dann \textbf{scheduable}, wenn \textbf{alle Tasks zu allen Zeiten ihre deadlines einhalten} können. 
+Eine Menge von Tasks ist dann \textbf{schedulable}, wenn \textbf{alle Tasks zu allen Zeiten ihre deadlines einhalten} können. 
 \textrightarrow\ Das ist immer das Ziel!
 
 \subsubsection{Deadline -- Definition}
@@ -140,7 +140,7 @@ Es gibt zwei Arten von Preemptive Multitasking Algorithmen:
 
 \subsection{Rate Monotonic Scheduling (RMS)}
 
-RMS beschreibt Regel, bei deren Einhaltung eine Konfiguration \textbf{immer scheduable} ist.
+RMS beschreibt Regel, bei deren Einhaltung eine Konfiguration \textbf{immer schedulable} ist.
 
 
 \subsection{Rate Monotonic Scheduling Theorem}
@@ -216,7 +216,7 @@ Die Prioritäten müssen den Tasks zwingend folgendermassen zugewiesen werden:
 
 \subsection{RMA Bound (RMA = Rate Monotonic Approach)}
 
-Jede Konfiguration mit $n$ periodischen Tasks ist \textbf{immer} RM scheduable, wenn die Gesamtauslastung $U$ 
+Jede Konfiguration mit $n$ periodischen Tasks ist \textbf{immer} RM schedulable, wenn die Gesamtauslastung $U$ 
 \textbf{unterhalb oder gleich} der RMA Bound $U(n)$ liegt
 
 $$ \text{RMA-Bound} \qquad U(n) \leq n \cdot \big( 2^{\frac{1}{n}} - 1 \big)  $$

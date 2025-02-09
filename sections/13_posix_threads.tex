@@ -86,7 +86,7 @@ Für UNIX Systeme steht ein stardardisiertes threads programming interface in C 
 
 \begin{outline}
     \1 Nach dem Starten des Threads bzw. am Ende des main-Programms kann eine Endlos-Schleife eingefügt werden
-        \2 \textbf{Dies sollte nie gemacht werden}, da der Prozess so die gesamten CPU-Ressourcen braucht
+        \2 \textbf{Sollte nie gemacht werden}, da Prozess so die gesamten CPU-Ressourcen braucht
     \1 Entsprechende Funktion aus pthreads API verwenden
         \lstinputlisting[aboveskip=1mm, belowskip=0mm, linewidth=\linewidth, morekeywords={[3], thread, attr}, morekeywords={[2], pthread_t, pthread_attr_t}]{snippets/posix_wait_for_thread_termination.c}
 \end{outline}
@@ -298,7 +298,7 @@ Das Konzept von Mutex ist, dass eine Mutex Variable \textbf{nur einem Thread gle
 \textrightarrow\ Dies ist ein sicherer Weg, um sicherzustellen, dass, wenn \textbf{mehrere Threads} dieselbe Variable aktualisieren, 
 der \textbf{Endwert derselbe} ist, wie wenn nur \textbf{ein Thread} die \textbf{Aktualisierung durchführen} würde.
 
-\columnbreak
+% \columnbreak
 
 
 \example{Mutex in C}
@@ -426,7 +426,7 @@ condition eingetreten ist.
 \lstinputlisting[aboveskip=1mm, belowskip=0mm, lastline=42,
                  morekeywords={[3], count, countMutex, countThresholdCv, t, myId, threads}, morekeywords={[2], pthread_mutex_t, pthread_cond_t, pthread_t}]
                 {snippets/posix_condvar.c}
-\columnbreak
+% \columnbreak
 \lstinputlisting[aboveskip=0mm, belowskip=0mm, firstline=43, firstnumber=43,
                  morekeywords={[3], count, countMutex, countThresholdCv, t, myId, threads}, morekeywords={[2], pthread_mutex_t, pthread_cond_t, pthread_t}]
                 {snippets/posix_condvar.c}

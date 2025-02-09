@@ -120,7 +120,7 @@
 
 Amdahl's Law beschreibt den theoretisch mögichen Speedup $S$ eines parallellen Tasks, wenn dieser
 auf mehrere Cores (Prozessoren) aufgeteilt wird. \\
-\textbf{Hinweis:} Typischerweise bleibt ein Teil des Tasks sequenzell. Dieser kann nicht aufgeteilt werden
+\textbf{Hinweis:} Typischerweise bleibt ein Teil des Tasks sequenziell. Dieser kann nicht aufgeteilt werden
 und \textbf{limitiert} somit den möglichen Speedup.
 
 \vspace{0.1cm}
@@ -187,7 +187,7 @@ und \textbf{limitiert} somit den möglichen Speedup.
     \1 \textbf{Cache Miss:} Daten müssen aus Hauptspeicher geholt werden
  \end{outline}
 
- $$ \boxed{ \text{Mittlere Zuegriffszeit} = (\text{Hit Time}) \cdot (\text{Hit Rate}) + (\text{Miss Penalty}) \cdot (\text{Miss Rate}) } $$
+ $$ \boxed{ \text{Mittlere Zugriffszeit} = (\text{Hit Time}) \cdot (\text{Hit Rate}) + (\text{Miss Penalty}) \cdot (\text{Miss Rate}) } $$
 
 
  \begin{tabular}{l c l}
@@ -219,7 +219,7 @@ und \textbf{limitiert} somit den möglichen Speedup.
 
 \vspace{0.1cm}
 
-\textrightarrow\ Cache ist reine Wahrscheinlichkeit! \textrightarrow\ Hoffen, dass Daten dort sind...
+\textrightarrow\ Cache ist reine Wahrscheinlichkeit! \textrightarrow\ Hoffen, dass Daten dort sind\ldots
 
 
 \subsection{Cache Ersetzungsstrategien}
@@ -321,7 +321,7 @@ Jede 'cache line' hat einen der folgenden Zustände:
 \end{minipage}
 
 
-\subsubsection{volatile Variablen}
+\subsubsection{Volatile Variablen}
 
 \begin{outline}
     \1 \textbf{Alle Variablen, die ausserhalb des Programmkontextes des Prozessors/Threads geändert werden können müssen \lstinline|volatile| sein!}

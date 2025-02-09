@@ -32,7 +32,7 @@ Der HAL wird in zwei Layer unterteilt:
 
 \begin{description}
     \item[Board Support Library (BSL):] abstrahiert das PCB und \myul{muss} vom Hersteller des Boards zur Verfügung gestellt werden
-    \item[Chip Support Library (CSL):] abstrahiert den Chip, (den \micro C) und wird \myul{häufig} vom \micro C Hersteller zur Verfügung gestellt  
+    \item[Chip Support Library (CSL):] abstrahiert den Chip, (den \textmu C) und wird \myul{häufig} vom \textmu C Hersteller zur Verfügung gestellt  
 \end{description}
 
 
@@ -99,7 +99,7 @@ So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
 
 \example{Ausschnitt aus einem BSL Header-File}
 
-In der Board Support Library wird die Verbindung der effektiv auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
+In der Board Support Library wird die Verbindung der effektiv auf dem Board vorhandenen Komponenten mit dem \textmu C über die CSL abstrahiert.
 
 \lstinputlisting[aboveskip=1mm, belowskip=0mm,
                  morekeywords={[3], pin, led}, morekeywords={[2], csl_Pin, bsl_Led}]
@@ -141,7 +141,7 @@ So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
                  morekeywords={[2], DataRegs, CtrlRegs, Id}]
                 {snippets/HAL_CPP_CSL.h}
 
-\columnbreak
+% \columnbreak
 
 \para{Pin Definitionen in CSL Header-File}
 
@@ -154,7 +154,7 @@ So vieles wie möglich wird mittels \textbf{Inline-Funktionen} umgesetzt.
 
 \example{Ausschnitt aus einem BSL Header-File}
 
-In der Board Support Library wird die Verbindung der effektiv auf dem Board vorhandenen Komponenten mit dem \micro C über die CSL abstrahiert.
+In der Board Support Library wird die Verbindung der effektiv auf dem Board vorhandenen Komponenten mit dem \textmu C über die CSL abstrahiert.
 
 \lstinputlisting[aboveskip=1mm, belowskip=0mm,
                  morekeywords={[3], pin, id}, morekeywords={[2], Id, Pin}]
@@ -167,7 +167,7 @@ In der Board Support Library wird die Verbindung der effektiv auf dem Board vorh
 \begin{minipage}[t]{0.52\columnwidth}
     \para{Client Program in C}
 
-    \lstinputlisting[aboveskip=1mm, belowskip=0mm,
+    \lstinputlisting[xleftmargin=2.5ex, aboveskip=1mm, belowskip=0mm,
                      morekeywords={[3], statusIndicator, bsl_led1, statusSwitch, bsl_switch1}, morekeywords={[2], bsl_Led, bsl_Switch}]
                     {snippets/HAL_C_client_program.c}
 \end{minipage}

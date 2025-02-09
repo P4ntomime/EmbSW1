@@ -55,7 +55,7 @@ $$ \underrightarrow{\text{event [guard] / reaction}} $$
 
 \begin{itemize}
     \item Die FSM befindet sich in \textbf{genau einem} sub-state von $S$, wenn $S$ aktiv ist.\\
-        (\textrightarrow\ either in $A$ \textbf{OR} in $B$ \textbf{OR} ...)
+        (\textrightarrow\ either in $A$ \textbf{OR} in $B$ \textbf{OR} \ldots)
 \end{itemize}
 
 \vspace{0.2cm}
@@ -75,7 +75,7 @@ $$ \underrightarrow{\text{event [guard] / reaction}} $$
 \end{minipage}
 
 
-\columnbreak
+% \columnbreak
 
 \subsection{Default-State}
 
@@ -180,20 +180,20 @@ Folgende statecharts bilden genau das Gleiche ab
 
 \begin{itemize}
     \item Die FSM befindet sich in \textbf{allen} sub-states von einem super-state $S$, wenn $S$ aktiv ist.\\
-        (\textrightarrow\ in $A$ \textbf{AND} in $B$ \textbf{AND} ...)
+        (\textrightarrow\ in $A$ \textbf{AND} in $B$ \textbf{AND} \ldots)
 \end{itemize}
 
 \begin{center}
     \includegraphics[width=0.75\columnwidth]{images/statechart_concurrency.png}
 \end{center}
 
-\columnbreak
+% \columnbreak
 
 
 \subsection{Timers}
 
 \begin{itemize}
-    \item Wenn Evend $a$ nicht eintritt, während das System für $20 \, \milli \second$ im linken state ist, wird ein timeout passieren
+    \item Wenn Event $a$ nicht eintritt, während das System für $20 \, \milli \second$ im linken state ist, wird ein timeout passieren
     \item Eigentlich sind Timers nicht nötig, da die Wartezeit auch als Übergangsbedingung (Ereignis) zwischen zwei states formuliert werden könnte
 \end{itemize}
 
@@ -202,7 +202,7 @@ Folgende statecharts bilden genau das Gleiche ab
 \end{center}
 
 
-\subsection{Beispiel -- Armbanduhr als Statechart}
+\subsection{Beispiel -- Kaffeemaschine als Statechart}
 
 \begin{center}
     \includegraphics[width=\columnwidth]{images/statechart_example_coffeemachine.pdf}

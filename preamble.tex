@@ -63,6 +63,7 @@
 \usepackage{draftwatermark}         % watermark on pages after a certain limit
 \usepackage{fancyhdr}               % custom header and footer
 \usepackage[explicit]{titlesec}     % custom section titles
+\usepackage{titletoc}
 
 
 \usepackage{datetime2}              % custom date format for versioning
@@ -94,11 +95,14 @@
 \setlength{\columnseprule}{0.1pt}   % thickness of column separation line
 \setlength{\parindent}{0pt}         % no paragraph indentation
 
-\setcounter{tocdepth}{2}            % only display sections and subsections in toc
+\setcounter{tocdepth}{3}            % only display sections and subsections in toc
 % \setcounter{secnumdepth}{0}       % uncomment to disable section numbering
 
 \DeclareMathSizes{8}{8}{6}{5}       % set math font sizes for 8pt document
 
+
+\dottedcontents{subsection}[4em]{}{3em}{.5pc}
+\dottedcontents{subsubsection}[5.5em]{\slshape}{3.5em}{.25pc}
 
 % --------------------------------------- COLOR DEFINITIONS ---------------------------------------
 \definecolor{sectioncolor}{HTML}{1ef943}
@@ -600,9 +604,9 @@
                     \begin{minipage}[t]{0.1\columnwidth} % DigDes-like formatting
                         \raisebox{-.3\columnwidth}{\qrcode[level=L, 
                                 version=0,
-                                height=0.9\columnwidth]{\repo}}\\[1mm]
-                        \normalfont\footnotesize V \version{}
-                        \smallskip
+                                height=0.9\columnwidth]{\repo}}\hfill
+                        \normalfont\footnotesize\rotatebox[origin=tr]{90}{V \version{}}
+                        % \smallskip
                     \end{minipage}\hfill
                     \begin{minipage}[t]{0.89\columnwidth}
                         \raggedright%
@@ -611,14 +615,20 @@
                         \large Autoren:\ \author{}\\[1mm]
                         \myul{\url{\repo}}
                     \end{minipage}\par
-                    \section*{\contentsname}
                     \group_begin:
+                    \section*{\contentsname}
                     \setlength{\columnsep}{5mm}
-                    \begin{multicols}{2}
-                        \tableofcontents%
-                    \end{multicols}
-                    \group_end:
+                    \vspace{-.5\abovedisplayskip}
+                    \resizebox{\textwidth}{!}{
+                        \parbox{1.325\textwidth}{
+                            \begin{multicols}{3}
+                                \raggedright%
+                                \tableofcontents%
+                            \end{multicols}
+                        }
+                    }
                     \hrule
+                    \group_end:
                     \begin{multicols*}{2}
                     \raggedcolumns%
                 }
@@ -815,10 +825,10 @@
     captionpos=b,           % Caption at the bottom
 %   === Size and Margin Setup ===
     linewidth=\columnwidth, % Line width set to column width
-    xleftmargin=2.5ex,      % Left margin set to 2.5ex          % XXX: xleftmargin needs to be extended if line numbers reach 100
+    xleftmargin=3ex,      % Left margin set to 2.5ex          % XXX: xleftmargin needs to be extended if line numbers reach 100
 %   === Line Number Formatting ===
     numbers=left,   % Line numbers on the left
-    numbersep=4pt,  % Separation between line numbers and code
+    numbersep=3pt,  % Separation between line numbers and code
 %   === Encoding Setup ===
     extendedchars=true,     % Allow for extended characters
     inputencoding=cp1252,   % Windows-1252 encoding, as utf-8 is somewhat broken :(

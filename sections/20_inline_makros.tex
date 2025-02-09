@@ -26,7 +26,7 @@ Funktionsaufruf oft nicht.
 \vspace{0.1cm}
 
 \textrightarrow\ Makros sollten \textbf{nicht} eingesetzt werden! \\
-\textrightarrow\ Makros lösen das Overhead-Problem
+\textrightarrow\ Makros lösen zwar Overhead-Problem, sind aber unsicher.
 
 
 \example{Maximum zweier int-Zahlen mit Makros}
@@ -51,7 +51,7 @@ Funktionsaufruf oft nicht.
 \begin{outline}
     \1 Lösen Overhead-Problem \textrightarrow\ Code wird direkt eingefügt
     \1 \textbf{Typenprüfung} findet statt
-    \1 Inline-Funktionen \textbf{müssen in Header-Files definiert sein}, damit der Compiler auch Inlning macht
+    \1 Inline-Funktionen \textbf{müssen in Header-Files definiert sein}, damit der Compiler auch Inlining macht
         \2 Inlining wird nur gemacht, wenn dem Compiler auch eine \textbf{Optimierungsstufe} mitgegeben wird
             z.B. \lstinline|clang -c -03 foo.c|
     \1 Wenn Funktionen \mylstbox{static} deklariert werden, wird garantiert, dass Funktionen nicht auch noch im Objectfile als 
