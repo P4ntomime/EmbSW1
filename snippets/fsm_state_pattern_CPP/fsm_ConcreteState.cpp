@@ -8,8 +8,8 @@ using namespace std;
 
 CountUpState* CountUpState::getInstance()
 {
-  static CountUpState instance;
-  return &instance;
+  static CountUpState instance; // local definition guarantees execution order
+  return &instance;             // of initialization
 }
 
 CounterState* CountUpState::handle(Counter& entity, CounterCtrl::Event e)
